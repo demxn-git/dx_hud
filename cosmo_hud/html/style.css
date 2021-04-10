@@ -1,0 +1,153 @@
+body {
+  width: 100%;
+  overflow: hidden;
+  font-family: "Exo 2", sans-serif;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.IconContainer {
+  position: absolute;
+  bottom: 0vh;
+  left: 0.1vh;
+}
+
+.BaseCircle {
+  width: 4vh !important;
+  height: 4vh !important;
+  float: left;
+  margin: 0.3vh;
+}
+
+.BaseProgress {
+  left: 45%;
+  width: 20vh !important;
+  height: 30vh !important;
+}
+
+.ldBar {
+  position: relative;
+}
+
+.ldBar-label {
+  display: none;
+}
+
+.fa-heart,
+.fa-shield-alt,
+.fa-hamburger,
+.fa-skull {
+  color: white;
+  position: absolute;
+  font-size: 1.6vh;
+  left: 1.2vh;
+  bottom: 1.2vh;
+}
+
+.fa-lungs {
+  color: white;
+  position: absolute;
+  font-size: 1.6vh;
+  left: 1vh;
+  bottom: 1.3vh;
+}
+
+.fa-tint {
+  color: white;
+  position: absolute;
+  font-size: 1.6vh;
+  left: 1.5vh;
+  bottom: 1.2vh;
+}
+
+#HealthIndicator path.mainline {
+  stroke: rgb(0, 209, 105);
+  stroke-width: 10;
+}
+
+#HealthIndicator path.baseline {
+  stroke-width: 10;
+  stroke: rgb(0, 143, 71);
+  fill: rgb(0, 143, 71);
+}
+
+#ArmorIndicator path.mainline {
+  stroke: rgb(199, 0, 0);
+  stroke-width: 10;
+}
+
+#ArmorIndicator path.baseline {
+  stroke-width: 10;
+  stroke: rgb(124, 30, 30);
+  fill: rgb(124, 30, 30);
+}
+
+#HungerIndicator path.mainline {
+  stroke: rgb(255, 174, 0);
+  stroke-width: 10;
+}
+
+#HungerIndicator path.baseline {
+  stroke-width: 10;
+  stroke: rgb(156, 107, 0);
+  fill: rgb(156, 107, 0);
+}
+
+#ThirstIndicator path.mainline {
+  stroke: rgb(0, 143, 226);
+  stroke-width: 10;
+}
+
+#ThirstIndicator path.baseline {
+  stroke-width: 10;
+  stroke: rgb(0, 99, 156);
+  fill: rgb(0, 99, 156);
+}
+
+#OxygenIndicator path.mainline {
+  stroke: rgb(0, 143, 226);
+  stroke-width: 10;
+}
+
+#OxygenIndicator path.baseline {
+  stroke-width: 10;
+  stroke: rgb(0, 99, 156);
+  fill: rgb(0, 99, 156);
+}
+
+.flash {
+  -webkit-animation: flash 1s;
+}
+
+@keyframes flash {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#SpeedIndicator {
+  color: white;
+  position: absolute;
+  font-size: 5vh;
+  left: 24vh;
+  bottom: 0.8vh;
+  text-shadow: 0.2vh 0.2vh 0vh rgb(22, 22, 22);
+}
+
+#GearIndicator {
+  opacity: 0.5;
+  position: absolute;
+  font-size: 2vh;
+  left: 22vh;
+  bottom: 3.4vh;
+  text-shadow: 0.1vh 0.1vh 0vh rgb(22, 22, 22);
+}
