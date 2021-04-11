@@ -35,7 +35,7 @@ end)
 
 Citizen.CreateThread(function()
     while true do
-        Wait(50)
+        Wait(100)
         if isDriving and IsPedInAnyVehicle(PlayerPedId(), true) then
             local veh = GetVehiclePedIsUsing(PlayerPedId(), false)
             local speed = math.floor(GetEntitySpeed(veh) * SpeedMultiplier)
@@ -108,17 +108,15 @@ Citizen.CreateThread(function()
 
     SetMinimapClipType(1)
     SetMinimapComponentPosition('minimap', 'L', 'B', x, y, w, h)
-    SetMinimapComponentPosition('minimap_mask', 'L', 'B', x + 0.17, y + 0.09,
-                                0.072, 0.162)
-    SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.035, -0.03, 0.18,
-                                0.22)
+    SetMinimapComponentPosition('minimap_mask', 'L', 'B', x + 0.17, y + 0.09, 0.072, 0.162)
+    SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.035, -0.03, 0.18, 0.22)
 
     SetRadarBigmapEnabled(true, false)
     Wait(0)
     SetRadarBigmapEnabled(false, false)
 
     while true do
-        Wait(1000)
+        Wait(0)
         BeginScaleformMovieMethod(minimap, "SETUP_HEALTH_ARMOUR")
         ScaleformMovieMethodAddParamInt(3)
         EndScaleformMovieMethod()
@@ -131,11 +129,15 @@ local waitTimer = 2000
 CreateThread(function()
     while true do
         Wait(waitTimer)
-        if IsPedInAnyVehicle(PlayerPedId(-1), false) then
+        SetRadarZoom(1150)
+        if Config.AlwaysShowRadar == false then
+            if IsPedInAnyVehicle(PlayerPedId(-1), false) then
+                DisplayRadar(true)
+            else
+                DisplayRadar(false)
+            end
+        elseif Config.AlwaysShowRadar == true then
             DisplayRadar(true)
-            SetRadarZoom(1200)
-        else
-            DisplayRadar(false)
         end
     end
 end)
