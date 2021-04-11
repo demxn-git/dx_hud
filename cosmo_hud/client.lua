@@ -48,7 +48,6 @@ end)
 Citizen.CreateThread(function()
     while true do
         Wait(250)
-        SetPedArmour(GetPlayerPed(-1), 65)
         if speedoEnabled == true then
             if IsPedInAnyVehicle(PlayerPedId(), false) and
                 not IsPedInFlyingVehicle(PlayerPedId()) and
