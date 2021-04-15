@@ -77,6 +77,7 @@ Citizen.CreateThread(function()
         TriggerEvent('esx_status:getStatus', 'thirst',
                      function(status) thirst = status.val / 10000 end)
         SendNUIMessage({
+            action = "update_hud",
             hp = GetEntityHealth(PlayerPedId()) - 100,
             armor = GetPedArmour(PlayerPedId()),
             hunger = hunger,
