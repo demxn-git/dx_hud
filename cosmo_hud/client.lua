@@ -1,6 +1,5 @@
 local isDriving = false;
 local isUnderwater = false;
-local speedoEnabled = true;
 
 ESX = nil
 Citizen.CreateThread(function()
@@ -23,10 +22,8 @@ Citizen.CreateThread(function()
         elseif Config.ShowGear == false then
             SendNUIMessage({showGear = false})
         end
-        if Config.ShowSpeedo == true then
-            speedoEnabled = true
-        elseif Config.ShowSpeedo == false then
-            speedoEnabled = false
+        if Config.ShowStress == false then
+            SendNUIMessage({action = "disable_stress"})
         end
         loadedconfig = true
         Wait(100)
@@ -48,7 +45,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         Wait(250)
-        if speedoEnabled == true then
+        if Config.ShowSpeedo then
             if IsPedInAnyVehicle(PlayerPedId(), false) and
                 not IsPedInFlyingVehicle(PlayerPedId()) and
                 not IsPedInAnySub(PlayerPedId()) then
@@ -76,14 +73,21 @@ Citizen.CreateThread(function()
                      function(status) hunger = status.val / 10000 end)
         TriggerEvent('esx_status:getStatus', 'thirst',
                      function(status) thirst = status.val / 10000 end)
+        if Config.ShowStress == true then
+            TriggerEvent('esx_status:getStatus', 'stress',
+                         function(status) stress = status.val / 10000 end)
+        end
+
         SendNUIMessage({
             action = "update_hud",
             hp = GetEntityHealth(PlayerPedId()) - 100,
             armor = GetPedArmour(PlayerPedId()),
             hunger = hunger,
             thirst = thirst,
+            stress = stress,
             oxygen = GetPlayerUnderwaterTimeRemaining(PlayerId()) * 10
         })
+
         if IsPauseMenuActive() then
             SendNUIMessage({showUi = false})
         elseif not IsPauseMenuActive() then
@@ -109,8 +113,10 @@ Citizen.CreateThread(function()
 
     SetMinimapClipType(1)
     SetMinimapComponentPosition('minimap', 'L', 'B', x, y, w, h)
-    SetMinimapComponentPosition('minimap_mask', 'L', 'B', x + 0.17, y + 0.09, 0.072, 0.162)
-    SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.035, -0.03, 0.18, 0.22)
+    SetMinimapComponentPosition('minimap_mask', 'L', 'B', x + 0.17, y + 0.09,
+                                0.072, 0.162)
+    SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.035, -0.03, 0.18,
+                                0.22)
 
     SetRadarBigmapEnabled(true, false)
     Wait(0)

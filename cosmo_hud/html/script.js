@@ -35,6 +35,15 @@ $(document).ready(function () {
     easing: "easeInOut",
   });
 
+  StressIndicator = new ProgressBar.Circle("#StressIndicator", {
+    color: "rgb(255, 74, 104)",
+    trailColor: "rgb(102, 27, 40)",
+    strokeWidth: 10,
+    trailWidth: 10,
+    duration: 250,
+    easing: "easeInOut",
+  });
+
   OxygenIndicator = new ProgressBar.Circle("#OxygenIndicator", {
     color: "rgb(0, 140, 255)",
     trailColor: "rgb(0, 85, 155)",
@@ -53,7 +62,13 @@ window.addEventListener("message", function (event) {
     ArmorIndicator.animate(data.armor / 100);
     HungerIndicator.animate(data.hunger / 100);
     ThirstIndicator.animate(data.thirst / 100);
+    StressIndicator.animate(data.stress / 100);
     OxygenIndicator.animate(data.oxygen / 100);
+  }
+
+  // Hide 
+  if (data.action == "disable_stress") {
+    $("#StressIndicator").hide();
   }
 
   // Show oxygen if underwater
@@ -65,9 +80,15 @@ window.addEventListener("message", function (event) {
 
   // Hide armor if 0
   if (data.armor == 0) {
-    $("#ArmorIndicator").hide();
+    $("#ArmorIndicator").fadeOut();
   } else if (data.armor > 0) {
-    $("#ArmorIndicator").show();
+    $("#ArmorIndicator").fadeIn();
+  }
+
+  if (data.stress == 0) {
+    $("#StressIndicator").fadeOut();
+  } else if (data.stress > 0) {
+    $("#StressIndicator").fadeIn();
   }
 
   // Change color and icon if HP is 0 (dead)

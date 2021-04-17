@@ -36,6 +36,14 @@ body {
   bottom: 1.2vh;
 }
 
+.fa-brain {
+  color: white;
+  position: absolute;
+  font-size: 1.6vh;
+  left: 1.1vh;
+  bottom: 1.2vh;
+}
+
 .fa-lungs {
   color: white;
   position: absolute;
