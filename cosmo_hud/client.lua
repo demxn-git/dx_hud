@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
             local maxspeed = GetVehicleModelMaxSpeed(vehhash) * 3.6
             SendNUIMessage({
                 speed = speed,
-                maxspeed = maxspeed,              
+                maxspeed = maxspeed
             })
         end
     end
@@ -144,11 +144,14 @@ CreateThread(function()
         if Config.ShowStress == false then
             SendNUIMessage({action = "disable_stress"})
         end
+        
         if Config.ShowFuel == true then
-            local veh = GetVehiclePedIsUsing(PlayerPedId(), false)
-            local fuellevel = GetVehicleFuelLevel(veh)
-            SendNUIMessage({action = "update_fuel", fuel = fuellevel, showFuel = true})
-        elseif Config.ShowFuel == false then
+            if isDriving and IsPedInAnyVehicle(PlayerPedId(), true) then
+                local veh = GetVehiclePedIsUsing(PlayerPedId(), false)
+                local fuellevel = GetVehicleFuelLevel(veh)
+                SendNUIMessage({action = "update_fuel", fuel = fuellevel, showFuel = true})
+            end           
+            elseif Config.ShowFuel == false then
             SendNUIMessage({showFuel = false})
         end
     end
