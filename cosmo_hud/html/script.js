@@ -66,7 +66,7 @@ $(document).ready(function () {
     color: "rgba(222, 222, 222, 1)",
     trailColor: "rgba(184, 184, 184, 0.082)",
     strokeWidth: 8,
-    duration: 100,
+    duration: 2000,
     trailWidth: 8,
     easing: "easeInOut",
   });
@@ -186,11 +186,14 @@ window.addEventListener("message", function (event) {
   }
   if (data.action == "update_fuel") {
     let finalfuel = data.fuel / 100 * 1.5385
-    console.log(data.fuel)
-    FuelIndicator.set(finalfuel);
-    if (data.fuel < 0.15) {
+    if (finalfuel > 0.9) {
+      FuelIndicator.animate(1.0);
+    } else if (finalfuel < 0.9) {
+      FuelIndicator.animate(finalfuel);
+    }
+    if (finalfuel < 0.2) {
       FuelIndicator.path.setAttribute("stroke", "red");
-    } else if (data.fuel > 0.15) {
+    } else if (finalfuel > 0.2) {
       FuelIndicator.path.setAttribute("stroke", "white");
     }
   }
