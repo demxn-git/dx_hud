@@ -52,6 +52,34 @@ $(document).ready(function () {
     duration: 250,
     easing: "easeInOut",
   });
+
+  Speedometer = new ProgressBar.Circle("#SpeedCircle", {
+    color: "rgba(222, 222, 222, 1)",
+    trailColor: "rgba(184, 184, 184, 0.082)",
+    strokeWidth: 6,
+    duration: 100,
+    trailWidth: 6,
+    easing: "easeInOut",
+  });
+
+  FuelIndicator = new ProgressBar.Circle("#FuelCircle", {
+    color: "rgba(222, 222, 222, 1)",
+    trailColor: "rgba(184, 184, 184, 0.082)",
+    strokeWidth: 8,
+    duration: 100,
+    trailWidth: 8,
+    easing: "easeInOut",
+  });
+
+  VoiceIndicator = new ProgressBar.Circle("#VoiceIndicator", {
+    color: "#4a4a4a",
+    trailColor: "#4a4a4a",
+    strokeWidth: 12,
+    trailWidth: 12,
+    duration: 250,
+    easing: "easeInOut",
+  });
+  VoiceIndicator.animate(0.66);
 });
 
 window.addEventListener("message", function (event) {
@@ -66,7 +94,42 @@ window.addEventListener("message", function (event) {
     OxygenIndicator.animate(data.oxygen / 100);
   }
 
-  // Hide 
+  // Get current voice level and animate path
+  if (data.action == "voice_level") {
+    switch (data.voicelevel) {
+      case 1:
+        data.voicelevel = 33;
+        break;
+      case 2:
+        data.voicelevel = 66;
+        break;
+      case 3:
+        data.voicelevel = 100;
+        break;
+      default:
+        data.voicelevel = 33;
+        break;
+    }
+    VoiceIndicator.animate(data.voicelevel / 100);
+  }
+
+  // Light up path if talking
+  if (data.talking == 1) {
+    VoiceIndicator.path.setAttribute("stroke", "white");
+  } else if (data.talking == false) {
+    VoiceIndicator.path.setAttribute("stroke", "darkgrey");
+  }
+
+  // Headset icon if using radio
+  if (data.radio == true) {
+    $("#VoiceIcon").removeClass("fa-microphone");
+    $("#VoiceIcon").addClass("fa-headset");
+  } else if (data.radio == false) {
+    $("#VoiceIcon").removeClass("fa-headset");
+    $("#VoiceIcon").addClass("fa-microphone");
+  }
+
+  // Hide stress if disabled
   if (data.action == "disable_stress") {
     $("#StressIndicator").hide();
   }
@@ -111,22 +174,23 @@ window.addEventListener("message", function (event) {
   if (data.hunger < 25) {
     $("#HungerIcon").toggleClass("flash");
   }
-
   if (data.speed > 0) {
     $("#SpeedIndicator").text(data.speed);
+    let multiplier = data.maxspeed * 0.1;
+    let SpeedoLimit = data.maxspeed + multiplier;
+    Speedometer.animate(data.speed / SpeedoLimit);
+    Speedometer.path.setAttribute("stroke", "white");
   } else if (data.speed == 0) {
     $("#SpeedIndicator").text("0");
+    Speedometer.path.setAttribute("stroke", "none");
   }
-  if ((data.gear == 0) & (data.speed > 0)) {
-    $("#GearIndicator").text("R");
-    $("#GearIndicator").css("color", "red");
-  } else if (data.gear > 0) {
-    $("#GearIndicator").text(data.gear);
-    $("#GearIndicator").css("color", "white");
-  }
-  if ((data.gear == 0) & (data.speed == 0)) {
-    $("#GearIndicator").text("N");
-    $("#GearIndicator").css("color", "white");
+  if (data.action == "update_fuel") {
+    FuelIndicator.animate(data.fuel / 100);
+    if (data.fuel < 15) {
+      FuelIndicator.path.setAttribute("stroke", "red");
+    } else if (data.fuel > 15) {
+      FuelIndicator.path.setAttribute("stroke", "white");
+    }
   }
 
   if (data.showSpeedo == true) {
@@ -135,15 +199,15 @@ window.addEventListener("message", function (event) {
     $("#VehicleContainer").fadeOut();
   }
 
-  if (data.showGear == true) {
-    $("#GearIndicator").css("display", "block");
-  } else if (data.showGear == false) {
-    $("#GearIndicator").css("display", "none");
+  if (data.showFuel == true) {
+    $("#FuelCircle").show();
+  } else if (data.showFuel == false) {
+    $("#FuelCircle, #Fuel").hide();
   }
 
   if (data.showUi == true) {
-    $(".container").css("display", "block");
+    $(".container").show();
   } else if (data.showUi == false) {
-    $(".container").css("display", "none");
+    $(".container").hide();
   }
 });

@@ -5,27 +5,11 @@ ESX = nil
 Citizen.CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Wait(100)
-    end
-end)
-
-loadedconfig = false
-Citizen.CreateThread(function()
-    while loadedconfig == false do
         if Config.UnitOfSpeed == "kmh" then
             SpeedMultiplier = 3.6
         elseif Config.UnitOfSpeed == "mph" then
             SpeedMultiplier = 2.236936
         end
-        if Config.ShowGear == true then
-            SendNUIMessage({showGear = true})
-        elseif Config.ShowGear == false then
-            SendNUIMessage({showGear = false})
-        end
-        if Config.ShowStress == false then
-            SendNUIMessage({action = "disable_stress"})
-        end
-        loadedconfig = true
         Wait(100)
     end
 end)
@@ -33,18 +17,24 @@ end)
 Citizen.CreateThread(function()
     while true do
         Wait(100)
+
         if isDriving and IsPedInAnyVehicle(PlayerPedId(), true) then
             local veh = GetVehiclePedIsUsing(PlayerPedId(), false)
             local speed = math.floor(GetEntitySpeed(veh) * SpeedMultiplier)
-            local gear = GetVehicleCurrentGear(veh)
-            SendNUIMessage({speed = speed, gear = gear})
+            local vehhash = GetEntityModel(veh)
+            local maxspeed = GetVehicleModelMaxSpeed(vehhash) * 3.6
+            SendNUIMessage({
+                speed = speed,
+                maxspeed = maxspeed,
+                fuel = fuellevel
+            })
         end
     end
 end)
 
 Citizen.CreateThread(function()
     while true do
-        Wait(250)
+        Wait(1000)
         if Config.ShowSpeedo then
             if IsPedInAnyVehicle(PlayerPedId(), false) and
                 not IsPedInFlyingVehicle(PlayerPedId()) and
@@ -61,7 +51,9 @@ end)
 
 Citizen.CreateThread(function()
     while true do
-        Wait(250)
+        Wait(500)
+
+        local isTalking = NetworkIsPlayerTalking(PlayerId())
         if IsPedSwimmingUnderWater(PlayerPedId()) then
             isUnderwater = true
             SendNUIMessage({showOxygen = true})
@@ -78,6 +70,11 @@ Citizen.CreateThread(function()
                          function(status) stress = status.val / 10000 end)
         end
 
+        if Config.UseRadio then
+            local radioStatus = exports["rp-radio"]:IsRadioOn()
+            SendNUIMessage({radio = radioStatus})
+        end
+
         SendNUIMessage({
             action = "update_hud",
             hp = GetEntityHealth(PlayerPedId()) - 100,
@@ -85,15 +82,14 @@ Citizen.CreateThread(function()
             hunger = hunger,
             thirst = thirst,
             stress = stress,
-            oxygen = GetPlayerUnderwaterTimeRemaining(PlayerId()) * 10
+            oxygen = GetPlayerUnderwaterTimeRemaining(PlayerId()) * 10,
+            talking = isTalking
         })
-
         if IsPauseMenuActive() then
             SendNUIMessage({showUi = false})
         elseif not IsPauseMenuActive() then
             SendNUIMessage({showUi = true})
         end
-
     end
 end)
 
@@ -132,10 +128,9 @@ Citizen.CreateThread(function()
     end
 end)
 
-local waitTimer = 2000
 CreateThread(function()
     while true do
-        Wait(waitTimer)
+        Wait(2000)
         SetRadarZoom(1150)
         if Config.AlwaysShowRadar == false then
             if IsPedInAnyVehicle(PlayerPedId(-1), false) then
@@ -146,5 +141,21 @@ CreateThread(function()
         elseif Config.AlwaysShowRadar == true then
             DisplayRadar(true)
         end
+        if Config.ShowStress == false then
+            SendNUIMessage({action = "disable_stress"})
+        end
+        if Config.ShowFuel == true then
+            local fuellevel = exports["frfuel"]:getCurrentFuelLevel()
+            SendNUIMessage({action = "update_fuel", fuel = fuellevel, showFuel = true})
+        elseif Config.ShowFuel == false then
+            SendNUIMessage({showFuel = false})
+        end
     end
 end)
+
+function Voicelevel(val)
+    SendNUIMessage({action = "voice_level", voicelevel = val})
+end
+
+exports('Voicelevel', Voicelevel)
+

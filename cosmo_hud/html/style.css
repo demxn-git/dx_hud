@@ -36,7 +36,7 @@ body {
   bottom: 1.2vh;
 }
 
-.fa-brain {
+.fa-brain, .fa-headset  {
   color: white;
   position: absolute;
   font-size: 1.6vh;
@@ -60,22 +60,57 @@ body {
   bottom: 1.2vh;
 }
 
-#SpeedIndicator {
+.fa-microphone {
   color: white;
   position: absolute;
+  font-size: 1.6vh;
+  left: 1.4vh;
+  bottom: 1.25vh;
+  }
+
+
+
+
+#SpeedCircle {
+  width: 5vh !important;
+  height: 5vh !important;
+  position: absolute;
   font-size: 5vh;
-  left: 24vh;
-  bottom: 0.8vh;
-  text-shadow: 0.2vh 0.2vh 0vh rgb(22, 22, 22);
+  left: 22.8vh;
+  bottom: 5.6vh;
+  background: rgba(27, 27, 27, 0.336);
+  transform: rotate(-180deg);
 }
 
-#GearIndicator {
-  opacity: 0.5;
-  position: absolute;
+#SpeedIndicator {
+  color: white;
+  position: inherit;
+  z-index: 1000;
+  left: 1vh;
+  top: 0.1vh;
+  width: 3vh;
   font-size: 2vh;
-  left: 22vh;
-  bottom: 3.4vh;
-  text-shadow: 0.1vh 0.1vh 0vh rgb(22, 22, 22);
+  text-align: center;
+  text-shadow: 0.2vh 0.2vh 0vh rgb(22, 22, 22);
+  transform: rotate(-180deg);
+}
+#FuelCircle {
+  width: 3vh !important;
+  height: 3vh !important;
+  position: absolute;
+  left: 20.4vh;
+  bottom: 4.2vh;
+  background: rgba(27, 27, 27, 0.336);
+  transform: rotate(-180deg);
+}
+
+.fa-gas-pump {
+  color: white;
+  font-size: 1vh;
+  position: inherit;
+  left: 1vh;
+  bottom: 1vh;
+  transform: rotate(-180deg);
 }
 
 .flash {
