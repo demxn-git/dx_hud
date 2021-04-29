@@ -13,6 +13,9 @@ Do not change the name or it will not work.
 ## Requirements
 
 esx_status
+esx_basicneeds
+mumble-voip
+rp-radio (optional)
 
 ## Thanks to
 https://forum.cfx.re/u/Antoine for the colored map.
