@@ -185,10 +185,12 @@ window.addEventListener("message", function (event) {
     Speedometer.path.setAttribute("stroke", "none");
   }
   if (data.action == "update_fuel") {
-    FuelIndicator.animate(data.fuel / 100);
-    if (data.fuel < 15) {
+    let finalfuel = data.fuel / 100 * 1.5385
+    console.log(data.fuel)
+    FuelIndicator.set(finalfuel);
+    if (data.fuel < 0.15) {
       FuelIndicator.path.setAttribute("stroke", "red");
-    } else if (data.fuel > 15) {
+    } else if (data.fuel > 0.15) {
       FuelIndicator.path.setAttribute("stroke", "white");
     }
   }
