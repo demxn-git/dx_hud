@@ -134,6 +134,11 @@ window.addEventListener("message", function (event) {
     $("#StressIndicator").hide();
   }
 
+  // Hide voice if disabled
+  if (data.action == "disable_voice") {
+    $("#VoiceIndicator").hide();
+  }
+
   // Show oxygen if underwater
   if (data.showOxygen == true) {
     $("#OxygenIndicator").show();
@@ -174,6 +179,7 @@ window.addEventListener("message", function (event) {
   if (data.hunger < 25) {
     $("#HungerIcon").toggleClass("flash");
   }
+
   if (data.speed > 0) {
     $("#SpeedIndicator").text(data.speed);
     let multiplier = data.maxspeed * 0.1;
@@ -184,8 +190,9 @@ window.addEventListener("message", function (event) {
     $("#SpeedIndicator").text("0");
     Speedometer.path.setAttribute("stroke", "none");
   }
+
   if (data.action == "update_fuel") {
-    let finalfuel = data.fuel / 100 * 1.5385
+    let finalfuel = (data.fuel / 100) * 1.5385;
     if (finalfuel > 0.9) {
       FuelIndicator.animate(1.0);
     } else if (finalfuel < 0.9) {
@@ -207,12 +214,16 @@ window.addEventListener("message", function (event) {
   if (data.showFuel == true) {
     $("#FuelCircle").show();
   } else if (data.showFuel == false) {
-    $("#FuelCircle, #Fuel").hide();
+    $("#FuelCircle").hide();
   }
 
   if (data.showUi == true) {
     $(".container").show();
   } else if (data.showUi == false) {
     $(".container").hide();
+  }
+
+  if (data.action == "toggle_hud") {
+    $("body").fadeToggle()
   }
 });

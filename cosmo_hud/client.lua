@@ -23,10 +23,7 @@ Citizen.CreateThread(function()
             local speed = math.floor(GetEntitySpeed(veh) * SpeedMultiplier)
             local vehhash = GetEntityModel(veh)
             local maxspeed = GetVehicleModelMaxSpeed(vehhash) * 3.6
-            SendNUIMessage({
-                speed = speed,
-                maxspeed = maxspeed
-            })
+            SendNUIMessage({speed = speed, maxspeed = maxspeed})
         end
     end
 end)
@@ -99,8 +96,8 @@ local w = 0.16
 local h = 0.25
 
 Citizen.CreateThread(function()
-    local minimap = RequestScaleformMovie("minimap")
 
+    local minimap = RequestScaleformMovie("minimap")
     RequestStreamedTextureDict("circlemap", false)
     while not HasStreamedTextureDictLoaded("circlemap") do Wait(100) end
     AddReplaceTexture("platform:/textures/graphics", "radarmasksm", "circlemap",
@@ -112,7 +109,7 @@ Citizen.CreateThread(function()
                                 0.072, 0.162)
     SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.035, -0.03, 0.18,
                                 0.22)
-
+    Wait(5000)
     SetRadarBigmapEnabled(true, false)
     Wait(0)
     SetRadarBigmapEnabled(false, false)
@@ -130,7 +127,6 @@ end)
 CreateThread(function()
     while true do
         Wait(2000)
-        
         SetRadarZoom(1150)
         if Config.AlwaysShowRadar == false then
             if IsPedInAnyVehicle(PlayerPedId(-1), false) then
@@ -144,14 +140,22 @@ CreateThread(function()
         if Config.ShowStress == false then
             SendNUIMessage({action = "disable_stress"})
         end
-        
+
+        if Config.ShowVoice == false then
+            SendNUIMessage({action = "disable_voice"})
+        end
+
         if Config.ShowFuel == true then
             if isDriving and IsPedInAnyVehicle(PlayerPedId(), true) then
                 local veh = GetVehiclePedIsUsing(PlayerPedId(), false)
                 local fuellevel = GetVehicleFuelLevel(veh)
-                SendNUIMessage({action = "update_fuel", fuel = fuellevel, showFuel = true})
-            end           
-            elseif Config.ShowFuel == false then
+                SendNUIMessage({
+                    action = "update_fuel",
+                    fuel = fuellevel,
+                    showFuel = true
+                })
+            end
+        elseif Config.ShowFuel == false then
             SendNUIMessage({showFuel = false})
         end
     end
@@ -163,3 +167,5 @@ end
 
 exports('Voicelevel', Voicelevel)
 
+RegisterCommand("togglehud",
+                function()  SendNUIMessage({action = "toggle_hud"}) end, false)
