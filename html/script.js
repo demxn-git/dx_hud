@@ -115,6 +115,12 @@ window.addEventListener("message", function (event) {
     VoiceIndicator.animate(data.voicelevel / 100);
   }
 
+  if (data.showUi == true) {
+    $(".container").fadeIn();
+  } else if (data.showUi == false) {
+    $(".container").fadeOut();
+  }
+
   if (data.armour == 0) {
     $("#ArmourIndicator").fadeOut();
   } else if (data.armour > 0) {
@@ -139,10 +145,29 @@ window.addEventListener("message", function (event) {
     $("#FuelIndicator").fadeOut();
   }
 
-  if (data.showUi == true) {
-    $(".container").fadeIn();
-  } else if (data.showUi == false) {
-    $(".container").fadeOut();
+  if (data.thirst < 25) {
+    $("#ThirstIcon").toggleClass("flash");
+  }
+  if (data.hunger < 25) {
+    $("#HungerIcon").toggleClass("flash");
+  }
+  if (data.oxygen < 50) {
+    $("#OxygenIcon").toggleClass("flash");
+  }
+  if (data.stress > 75) {
+    $("#StressIcon").toggleClass("flash");
+  }
+
+  if (data.fuel < 0.2) {
+    FuelIndicator.path.setAttribute("stroke", "red");
+  } else if (data.fuel > 0.2) {
+    FuelIndicator.path.setAttribute("stroke", "white");
+  }
+
+  if (data.talking == true) {
+    VoiceIndicator.path.setAttribute("stroke", "yellow");
+  } else if (data.talking == false) {
+    VoiceIndicator.path.setAttribute("stroke", "darkgrey");
   }
 
   if (data.connection == false) {
@@ -159,18 +184,12 @@ window.addEventListener("message", function (event) {
     }
   }
 
-  if (data.talking == true) {
-    VoiceIndicator.path.setAttribute("stroke", "yellow");
-  } else if (data.talking == false) {
-    VoiceIndicator.path.setAttribute("stroke", "darkgrey");
-  }
-
   if (data.speed > 0) {
     if (data.speed >= data.maxspeed) {
       SpeedIndicator.animate(1);
     } else {
       SpeedIndicator.animate(data.speed / data.maxspeed);
-      console.log(data.speed / data.maxspeed)
+      console.log(data.speed / data.maxspeed);
     }
     $("#SpeedIcon").removeClass("fa-tachometer-alt");
     $("#SpeedIcon").text(data.speed);
@@ -189,24 +208,5 @@ window.addEventListener("message", function (event) {
     HealthIndicator.trail.setAttribute("stroke", "rgb(39,39,39)");
     $("#HealthIcon").removeClass("fa-skull");
     $("#HealthIcon").addClass("fa-heart");
-  }
-
-  if (data.thirst < 25) {
-    $("#ThirstIcon").toggleClass("flash");
-  }
-  if (data.hunger < 25) {
-    $("#HungerIcon").toggleClass("flash");
-  }
-  if (data.oxygen < 50) {
-    $("#OxygenIcon").toggleClass("flash");
-  }
-  if (data.stress > 75) {
-    $("#StressIcon").toggleClass("flash");
-  }
-
-  if (data.fuel < 0.2) {
-    FuelIndicator.path.setAttribute("stroke", "red");
-  } else if (data.fuel > 0.2) {
-    FuelIndicator.path.setAttribute("stroke", "white");
   }
 });
