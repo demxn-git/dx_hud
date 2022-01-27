@@ -146,9 +146,9 @@ window.addEventListener("message", function (event) {
   }
 
   if (data.showStress == true) {
-    $("#StressIndicator").show();
+    $("#StressIndicator").fadeIn();
   } else if (data.showStress == false) {
-    $("#StressIndicator").hide();
+    $("#StressIndicator").fadeOut();
   }
 
   if (data.thirst < 25) {

@@ -40,7 +40,7 @@ CreateThread(function()
                 showStress = dx.showStress,
                 showSpeed = isDriving,
                 showOxygen = IsPedSwimmingUnderWater(ped),
-                showFuel = isDriving,
+                showFuel = dx.showFuel,
                 fuel = fuelLevel or 0,
                 radio = plyState.radioChannel ~= 0 and 1 or 0,
                 talking = isTalking,
