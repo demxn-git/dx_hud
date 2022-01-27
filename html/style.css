@@ -1,7 +1,6 @@
 body {
   width: 100%;
   overflow: hidden;
-  font-family: "Exo 2", sans-serif;
 }
 
 .container {
@@ -11,8 +10,9 @@ body {
 
 .IconContainer {
   position: absolute;
-  bottom: 0vh;
-  left: 0.1vh;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .BaseCircle {
@@ -28,93 +28,30 @@ body {
 .fa-heart,
 .fa-shield-alt,
 .fa-hamburger,
-.fa-skull {
+.fa-skull,
+.fa-brain, 
+.fa-headset,
+.fa-lungs,
+.fa-tint,
+.fa-microphone,
+.fa-times,
+.fa-gas-pump,
+#SpeedIcon {
   color: white;
   position: absolute;
   font-size: 1.6vh;
-  left: 1.2vh;
-  bottom: 1.2vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.fa-brain, .fa-headset  {
-  color: white;
-  position: absolute;
-  font-size: 1.6vh;
-  left: 1.1vh;
-  bottom: 1.2vh;
-}
-
-.fa-lungs {
-  color: white;
-  position: absolute;
-  font-size: 1.6vh;
-  left: 1vh;
-  bottom: 1.3vh;
-}
-
-.fa-tint {
-  color: white;
-  position: absolute;
-  font-size: 1.6vh;
-  left: 1.5vh;
-  bottom: 1.2vh;
-}
-
-.fa-microphone {
-  color: white;
-  position: absolute;
-  font-size: 1.6vh;
-  left: 1.4vh;
-  bottom: 1.25vh;
-  }
-
-
-
-
-#SpeedCircle {
-  width: 5vh !important;
-  height: 5vh !important;
-  position: absolute;
-  font-size: 5vh;
-  left: 22.8vh;
-  bottom: 5.6vh;
-  background: rgba(27, 27, 27, 0.336);
-  transform: rotate(-180deg);
-}
-
-#SpeedIndicator {
-  color: white;
-  position: inherit;
-  z-index: 1000;
-  left: 1vh;
-  top: 0.1vh;
-  width: 3vh;
-  font-size: 2vh;
-  text-align: center;
-  text-shadow: 0.2vh 0.2vh 0vh rgb(22, 22, 22);
-  transform: rotate(-180deg);
-}
-#FuelCircle {
-  width: 3vh !important;
-  height: 3vh !important;
-  position: absolute;
-  left: 20.4vh;
-  bottom: 4.2vh;
-  background: rgba(27, 27, 27, 0.336);
-  transform: rotate(-180deg);
-}
-
-.fa-gas-pump {
-  color: white;
-  font-size: 1vh;
-  position: inherit;
-  left: 1vh;
-  bottom: 1vh;
-  transform: rotate(-180deg);
+#SpeedIcon:not(.fa-tachometer-alt) {
+  font-family: sans-serif;
 }
 
 .flash {
   -webkit-animation: flash 1s;
+  animation: flash 1s;
 }
 
 @keyframes flash {
@@ -128,3 +65,4 @@ body {
     opacity: 1;
   }
 }
+

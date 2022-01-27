@@ -1,25 +1,37 @@
-# Cosmo HUD
+# DxHUD
 
-Simple status HUD for FiveM and ESX inspired by NoPixel 3.0.
+This started as a fork of Cosmo HUD but ended up being a complete rewrite.
+Simple status HUD for FiveM and ESX Legacy inspired by NoPixel 3.0.
 
 ## Installation
 
-Put 'cosmo_hud' into your 'resources' folder.
+Put 'dxhud' into your 'resources' folder.
 
 Edit config.lua to your liking.
 
-Do not change the name or it will not work.
-
 ## Requirements
 
+es_extended (Legacy)
+
 esx_status
+
 esx_basicneeds
-mumble-voip
-rp-radio (optional)
+
+pma-voice
+
+ls-radio for pma-voice https://github.com/KoolAiddTV/ls-radio
 
 ## Thanks to
-https://forum.cfx.re/u/Antoine for the colored map.
-https://loading.io/progress/ for the loading-Bar library.
+https://github.com/nojdh/ for Cosmo HUD
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+
+Everyone is permitted to copy and distribute verbatim or modified
+copies of this license document, and changing it is allowed as long
+as the name is changed.
+
+DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+0. You just DO WHAT THE FUCK YOU WANT TO.
