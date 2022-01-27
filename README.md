@@ -1,6 +1,6 @@
 # DxHUD
 
-This started as a fork of Cosmo HUD but ended up being a complete rewrite.
+This started as a fork of Cosmo HUD but ended up being a complete rewrite.  
 DxHUD is an HUD for FiveM and ESX Legacy.
 
 ## Requirements
