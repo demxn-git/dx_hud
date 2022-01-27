@@ -80,7 +80,7 @@ $(document).ready(function () {
     easing: "easeInOut",
   });
 
-  VoiceIndicator.animate(0.33);
+  VoiceIndicator.animate(0.66);
 });
 
 window.addEventListener("message", function (event) {
