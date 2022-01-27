@@ -3,35 +3,61 @@
 This started as a fork of Cosmo HUD but ended up being a complete rewrite.
 Simple status HUD for FiveM and ESX Legacy inspired by NoPixel 3.0.
 
-## Installation
-
-Put 'dxhud' into your 'resources' folder.
-
-Edit config.lua to your liking.
-
 ## Requirements
 
-es_extended (Legacy)
+- es_extended (Legacy)
+- esx_status
+- esx_basicneeds
+- pma-voice
+- ls-radio [for pma-voice](https://github.com/KoolAiddTV/ls-radio) (Optional: this is triggering a custom icon while connected to a radio channel)
 
-esx_status
+## Download & Installation
 
-esx_basicneeds
 
-pma-voice
+### Using Git
 
-ls-radio for pma-voice https://github.com/KoolAiddTV/ls-radio
+```
+cd resources
+git clone https://github.com/0xDEMXN/dxhud.git
+```
+
+### Manually
+
+- Go to the [releases page](https://github.com/0xDEMXN/dxhud/releases "Releases page") and download the latest release
+- Place it inside the `resources` directory
+
+### Installation
+
+- Edit `config.lua` to fit your needs
+- Add the resource to your `server.cfg` after dependencies to make sure it's started correctly at server startup:
+
+```
+ensure dxhud
+```
 
 ## Thanks to
-https://github.com/nojdh/ for Cosmo HUD
+[nojdh](https://github.com/nojdh/) for Cosmo HUD
 
-## License
-DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+<table><tr><td><h3 align='center'>Legal Notices</h2></tr></td>
+<tr><td>
+Ox Inventory for ESX Legacy  
 
-Everyone is permitted to copy and distribute verbatim or modified
-copies of this license document, and changing it is allowed as long
-as the name is changed.
+Copyright © 2022  [Demxn](https://github.com/0xDEMXN)
 
-DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
-0. You just DO WHAT THE FUCK YOU WANT TO.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.  
+
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.  
+
+
+You should have received a copy of the GNU General Public License
+along with this program.  
+If not, see <https://www.gnu.org/licenses/>
+</td></tr></table>
