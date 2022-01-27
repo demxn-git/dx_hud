@@ -116,9 +116,9 @@ window.addEventListener("message", function (event) {
   }
 
   if (data.showUi == true) {
-    $(".container").fadeIn();
+    $(".container").show();
   } else if (data.showUi == false) {
-    $(".container").fadeOut();
+    $(".container").hide();
   }
 
   if (data.armour == 0) {
