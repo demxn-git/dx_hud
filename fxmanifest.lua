@@ -19,3 +19,10 @@ files {
 }
 
 ui_page 'html/ui.html'
+
+dependencies {
+    'es_extended',
+    'esx_status',
+    'esx_basicneeds',
+    'pma-voice'
+}

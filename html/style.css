@@ -1,26 +1,27 @@
 body {
   width: 100%;
-  overflow: hidden;
-}
-
-.container {
-  width: 100%;
   height: 100%;
+  overflow: hidden;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.IconContainer {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+.Container {
+  margin-top: auto;
+  margin-bottom: 1rem;
 }
 
-.BaseCircle {
+.Icons {
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+}
+
+.Icon {
   position: relative;
-  width: 4vh !important;
-  height: 4vh !important;
-  float: left;
-  margin: 0.3vh;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background: rgb(49, 49, 49);
 }
@@ -65,4 +66,3 @@ body {
     opacity: 1;
   }
 }
-

@@ -8,7 +8,7 @@ $(document).ready(function () {
     easing: "easeInOut",
   });
 
-  ArmorIndicator = new ProgressBar.Circle("#ArmorIndicator", {
+  ArmourIndicator = new ProgressBar.Circle("#ArmourIndicator", {
     color: "rgb(0, 140, 255)",
     trailColor: "rgb(35,35,35)",
     strokeWidth: 10,
@@ -88,7 +88,7 @@ window.addEventListener("message", function (event) {
 
   if (data.action == "update_hud") {
     HealthIndicator.animate(data.hp / 100);
-    ArmorIndicator.animate(data.armor / 100);
+    ArmourIndicator.animate(data.armour / 100);
     HungerIndicator.animate(data.hunger / 100);
     ThirstIndicator.animate(data.thirst / 100);
     StressIndicator.animate(data.stress / 100);
@@ -115,10 +115,10 @@ window.addEventListener("message", function (event) {
     VoiceIndicator.animate(data.voicelevel / 100);
   }
 
-  if (data.armor == 0) {
-    $("#ArmorIndicator").fadeOut();
-  } else if (data.armor > 0) {
-    $("#ArmorIndicator").fadeIn();
+  if (data.armour == 0) {
+    $("#ArmourIndicator").fadeOut();
+  } else if (data.armour > 0) {
+    $("#ArmourIndicator").fadeIn();
   }
 
   if (data.showOxygen == true) {
@@ -191,15 +191,12 @@ window.addEventListener("message", function (event) {
   if (data.thirst < 25) {
     $("#ThirstIcon").toggleClass("flash");
   }
-
   if (data.hunger < 25) {
     $("#HungerIcon").toggleClass("flash");
   }
-
   if (data.oxygen < 50) {
     $("#OxygenIcon").toggleClass("flash");
   }
-
   if (data.stress > 75) {
     $("#StressIcon").toggleClass("flash");
   }

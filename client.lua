@@ -34,7 +34,7 @@ CreateThread(function()
             SendNUIMessage({
                 action = "update_hud",
                 hp = GetEntityHealth(ped) - 100,
-                armor = GetPedArmour(ped),
+                armour = GetPedArmour(ped),
                 hunger = hunger,
                 thirst = thirst,
                 stress = stress,
