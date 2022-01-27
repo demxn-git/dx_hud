@@ -16,7 +16,7 @@ CreateThread(function()
             TriggerEvent('esx_status:getStatus', 'stress', function(status) stress = status.val / 10000 end)
 
             SendNUIMessage({showUi = not IsPauseMenuActive()})
-            DisplayRadar(isDriving)
+            DisplayRadar(dx.persistentRadar or isDriving)
             SetRadarZoom(1150)
             
             if isDriving then
