@@ -1,7 +1,7 @@
 dx = { 
   refreshRate = 500, 
-  -- in milliseconds
-  -- higer: better performances, worse looking
+  -- in milliseconds, make sure you know what you're doing
+  -- higher: better performances, worse looking
   -- lower: better looking, worse performances
 
   persistentRadar = false,

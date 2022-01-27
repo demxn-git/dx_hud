@@ -49,7 +49,7 @@ CreateThread(function()
             })
         end
 
-        Wait(500)
+        Wait(dx.refreshRate)
     end
 end)
 
