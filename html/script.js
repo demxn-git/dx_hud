@@ -96,7 +96,6 @@ window.addEventListener("message", function (event) {
     FuelIndicator.animate(data.fuel / 100);
   }
 
-  // Get current voice level and animate path
   if (data.action == "voice_level") {
     switch (data.voicelevel) {
       case 1:
@@ -112,13 +111,44 @@ window.addEventListener("message", function (event) {
         data.voicelevel = 33;
         break;
     }
+
     VoiceIndicator.animate(data.voicelevel / 100);
+  }
+
+  if (data.armor == 0) {
+    $("#ArmorIndicator").fadeOut();
+  } else if (data.armor > 0) {
+    $("#ArmorIndicator").fadeIn();
+  }
+
+  if (data.showOxygen == true) {
+    $("#OxygenIndicator").fadeIn();
+  } else if (data.showOxygen == false) {
+    $("#OxygenIndicator").fadeOut();
+  }
+
+  if (data.showSpeed == true) {
+    $("#SpeedIndicator").fadeIn();
+  } else if (data.showSpeed == false) {
+    $("#SpeedIndicator").fadeOut();
+  }
+
+  if (data.showFuel == true) {
+    $("#FuelIndicator").fadeIn();
+  } else if (data.showFuel == false) {
+    $("#FuelIndicator").fadeOut();
+  }
+
+  if (data.showUi == true) {
+    $(".container").fadeIn();
+  } else if (data.showUi == false) {
+    $(".container").fadeOut();
   }
 
   if (data.connection == false) {
     $("#VoiceIcon").removeClass("fa-microphone");
     $("#VoiceIcon").addClass("fa-times");
-  } else if(data.connection == true) {
+  } else if (data.connection == true) {
     $("#VoiceIcon").removeClass("fa-times");
     if (data.radio == true) {
       $("#VoiceIcon").removeClass("fa-microphone");
@@ -129,7 +159,7 @@ window.addEventListener("message", function (event) {
     }
   }
 
-  if (data.talking == 1) {
+  if (data.talking == true) {
     VoiceIndicator.path.setAttribute("stroke", "yellow");
   } else if (data.talking == false) {
     VoiceIndicator.path.setAttribute("stroke", "darkgrey");
@@ -147,33 +177,6 @@ window.addEventListener("message", function (event) {
     $("#SpeedIcon").text("");
   }
 
-  if (data.action == "disable_stress") {
-    $("#StressIndicator").hide();
-  }
-
-  if (data.action == "disable_voice") {
-    $("#VoiceIndicator").hide();
-  }
-
-  if (data.showOxygen == true) {
-    $("#OxygenIndicator").fadeIn();
-  } else if (data.showOxygen == false) {
-    $("#OxygenIndicator").fadeOut();
-  }
-
-  if (data.showSpeedo == true) {
-    $("#SpeedIndicator").fadeIn();
-  } else if (data.showSpeedo == false) {
-    $("#SpeedIndicator").fadeOut();
-  }
-
-  // Hide armor if 0
-  if (data.armor == 0) {
-    $("#ArmorIndicator").fadeOut();
-  } else if (data.armor > 0) {
-    $("#ArmorIndicator").fadeIn();
-  }
-
   if (data.hp < 0) {
     HealthIndicator.animate(0);
     HealthIndicator.trail.setAttribute("stroke", "red");
@@ -184,7 +187,6 @@ window.addEventListener("message", function (event) {
     $("#HealthIcon").removeClass("fa-skull");
     $("#HealthIcon").addClass("fa-heart");
   }
-
 
   if (data.thirst < 25) {
     $("#ThirstIcon").toggleClass("flash");
@@ -206,17 +208,5 @@ window.addEventListener("message", function (event) {
     FuelIndicator.path.setAttribute("stroke", "red");
   } else if (data.fuel > 0.2) {
     FuelIndicator.path.setAttribute("stroke", "white");
-  }
-
-  if (data.showFuel == true) {
-    $("#FuelCircle").show();
-  } else if (data.showFuel == false) {
-    $("#FuelCircle").hide();
-  }
-
-  if (data.showUi == true) {
-    $(".container").show();
-  } else if (data.showUi == false) {
-    $(".container").hide();
   }
 });

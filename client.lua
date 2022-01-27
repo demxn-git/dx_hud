@@ -39,7 +39,7 @@ CreateThread(function()
                 thirst = thirst,
                 stress = stress,
                 oxygen = underwaterTime >= 0 and underwaterTime or 0,
-                showSpeedo = isDriving,
+                showSpeed = isDriving,
                 showOxygen = IsPedSwimmingUnderWater(ped),
                 showFuel = isDriving,
                 fuel = fuelLevel or 0,
