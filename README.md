@@ -38,6 +38,7 @@ ensure dxhud
 ## Thanks to
 [nojdh](https://github.com/nojdh/) for Cosmo HUD
 
+<br>
 <table><tr><td><h3 align='center'>Legal Notices</h2></tr></td>
 <tr><td>
 Ox Inventory for ESX Legacy  
