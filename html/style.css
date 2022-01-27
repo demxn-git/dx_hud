@@ -26,21 +26,10 @@ body {
   background: rgb(49, 49, 49);
 }
 
-.fa-heart,
-.fa-shield-alt,
-.fa-hamburger,
-.fa-skull,
-.fa-brain, 
-.fa-headset,
-.fa-lungs,
-.fa-tint,
-.fa-microphone,
-.fa-times,
-.fa-gas-pump,
-#SpeedIcon {
+.Icon i {
   color: white;
   position: absolute;
-  font-size: 1.6vh;
+  font-size: 1rem;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -48,6 +37,7 @@ body {
 
 #SpeedIcon:not(.fa-tachometer-alt) {
   font-family: sans-serif;
+  font-size: .8rem;
 }
 
 .flash {

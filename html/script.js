@@ -166,15 +166,18 @@ window.addEventListener("message", function (event) {
   }
 
   if (data.speed > 0) {
-    let multiplier = data.maxspeed * 0.1;
-    let SpeedLimit = data.maxspeed + multiplier;
-    SpeedIndicator.animate(data.speed / SpeedLimit);
+    if (data.speed >= data.maxspeed) {
+      SpeedIndicator.animate(1);
+    } else {
+      SpeedIndicator.animate(data.speed / data.maxspeed);
+      console.log(data.speed / data.maxspeed)
+    }
     $("#SpeedIcon").removeClass("fa-tachometer-alt");
     $("#SpeedIcon").text(data.speed);
   } else if (data.speed == 0) {
     SpeedIndicator.animate(0);
     $("#SpeedIcon").addClass("fa-tachometer-alt");
-    $("#SpeedIcon").text("");
+    $("#SpeedIcon").empty();
   }
 
   if (data.hp < 0) {

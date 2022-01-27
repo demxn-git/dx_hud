@@ -21,13 +21,11 @@ CreateThread(function()
             
             if isDriving then
                 local veh = GetVehiclePedIsUsing(ped, false)
-                local vehhash = GetEntityModel(veh)
-                local maxspeed = GetVehicleModelMaxSpeed(vehhash) * speedMultiplier
                 fuelLevel = GetVehicleFuelLevel(veh)
 
                 SendNUIMessage({ 
                     speed = math.floor(GetEntitySpeed(veh) * speedMultiplier),
-                    maxspeed = maxspeed,
+                    maxspeed = GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier,
                 })
             end
 
