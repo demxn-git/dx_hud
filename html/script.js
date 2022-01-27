@@ -145,6 +145,12 @@ window.addEventListener("message", function (event) {
     $("#FuelIndicator").fadeOut();
   }
 
+  if (data.showStress == true) {
+    $("#StressIndicator").show();
+  } else if (data.showStress == false) {
+    $("#StressIndicator").hide();
+  }
+
   if (data.thirst < 25) {
     $("#ThirstIcon").toggleClass("flash");
   }
