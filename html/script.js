@@ -195,7 +195,6 @@ window.addEventListener("message", function (event) {
       SpeedIndicator.animate(1);
     } else {
       SpeedIndicator.animate(data.speed / data.maxspeed);
-      console.log(data.speed / data.maxspeed);
     }
     $("#SpeedIcon").removeClass("fa-tachometer-alt");
     $("#SpeedIcon").text(data.speed);
