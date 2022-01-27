@@ -41,7 +41,7 @@ ensure dxhud
 <br>
 <table><tr><td><h3 align='center'>Legal Notices</h2></tr></td>
 <tr><td>
-Ox Inventory for ESX Legacy  
+DxHUD for ESX Legacy  
 
 Copyright © 2022  [Demxn](https://github.com/0xDEMXN)
 
