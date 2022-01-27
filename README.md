@@ -1,7 +1,7 @@
 # DxHUD
 
 This started as a fork of Cosmo HUD but ended up being a complete rewrite.
-Simple status HUD for FiveM and ESX Legacy inspired by NoPixel 3.0.
+DxHUD is an HUD for FiveM and ESX Legacy.
 
 ## Requirements
 
