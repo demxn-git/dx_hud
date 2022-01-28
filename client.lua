@@ -1,23 +1,21 @@
+local playerId = PlayerId()
+
 CreateThread(function()
     while true do
         if ESX.PlayerLoaded then
             local ped = PlayerPedId()
-            local playerId = PlayerId()
 
             local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) * 10
-            local voiceConnected = MumbleIsConnected()
-            local voiceTalking = NetworkIsPlayerTalking(playerId)
             local isDriving = IsPedInAnyVehicle(ped, true)
-            local speed, maxspeed, fuel = 0, 0, 0
-            
-            if isDriving then
-                local veh = GetVehiclePedIsUsing(ped, false)
-                local speedMultiplier = dx.metricSystem and 3.6 or 2.236936
+            local speedMultiplier = isDriving and dx.metricSystem and 3.6 or 2.236936
 
-                speed = math.floor(GetEntitySpeed(veh) * speedMultiplier)
-                maxspeed = GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
-                if dx.showFuel then fuel = GetVehicleFuelLevel(veh) end
-            end
+            local veh = isDriving and GetVehiclePedIsUsing(ped, false)
+            local speed = isDriving and math.floor(GetEntitySpeed(veh) * speedMultiplier)
+            local maxspeed = isDriving and GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
+            local fuel = dx.showFuel and isDriving and GetVehicleFuelLevel(veh)
+
+            local voiceConnected = dx.showVoice and MumbleIsConnected()
+            local voiceTalking = dx.showVoice and NetworkIsPlayerTalking(playerId)
 
             SendNUIMessage({ 
                 action = "general",
@@ -26,6 +24,7 @@ CreateThread(function()
                 oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime >= 0 and underwaterTime or 100,
                 showSpeedo = isDriving,
                 showFuel = dx.showFuel and isDriving,
+                showVoice = dx.showVoice,
                 speed = speed,
                 maxspeed = maxspeed,
                 fuel = fuel,
@@ -48,16 +47,21 @@ CreateThread(function()
     while true do
         if ESX.PlayerLoaded then
             local ped = PlayerPedId()
-            local playerId = PlayerId()
 
-            local hunger, thirst, stress
+            local hunger, thirst, stress = false, false, false
+            local statusReady = false
+
             TriggerEvent('esx_status:getStatus', 'hunger', function(status) hunger = status.val / 10000 end)
             TriggerEvent('esx_status:getStatus', 'thirst', function(status) thirst = status.val / 10000 end)
             if dx.showStress then
             TriggerEvent('esx_status:getStatus', 'stress', function(status) stress = status.val / 10000 end)
             end
+
+            repeat 
+                statusReady = dx.showStress and hunger and thirst and stress or hunger and stress
+                Wait(100) 
+            until statusReady
             
-            Wait(100)
             SendNUIMessage({
                 action = "status",
                 hunger = hunger,

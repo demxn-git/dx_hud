@@ -178,7 +178,7 @@ window.addEventListener("message", function (event) {
     ThirstIndicator.animate(data.thirst / 100);
     StressIndicator.animate(data.stress / 100);
 
-    if (data.showStress == true) {
+    if (data.stress) {
       $("#StressIndicator").fadeIn();
       if (data.stress > 75) {
         $("#StressIcon").toggleClass("flash");
