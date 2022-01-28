@@ -93,6 +93,12 @@ window.addEventListener("message", function (event) {
     ThirstIndicator.animate(data.thirst / 100);
     StressIndicator.animate(data.stress / 100);
     OxygenIndicator.animate(data.oxygen / 100);
+  }
+
+  if (data.action == "update_carhud") {
+    let actualSpeed = data.speed / (data.maxspeed * 1.3);
+    if (actualSpeed > 1) actualSpeed = 1;
+    SpeedIndicator.animate(actualSpeed);
     FuelIndicator.animate(data.fuel / 100);
   }
 
@@ -127,15 +133,15 @@ window.addEventListener("message", function (event) {
     $("#ArmourIndicator").fadeIn();
   }
 
-  if (data.showOxygen == true) {
+  if (data.oxygen < 10) {
     $("#OxygenIndicator").fadeIn();
-  } else if (data.showOxygen == false) {
+  } else if (data.oxygen == 10) {
     $("#OxygenIndicator").fadeOut();
   }
 
-  if (data.showSpeed == true) {
+  if (data.showSpeedo == true) {
     $("#SpeedIndicator").fadeIn();
-  } else if (data.showSpeed == false) {
+  } else if (data.showSpeedo == false) {
     $("#SpeedIndicator").fadeOut();
   }
 
@@ -177,41 +183,33 @@ window.addEventListener("message", function (event) {
   }
 
   if (data.connection == false) {
-    $("#VoiceIcon").removeClass("fa-microphone");
+    $("#VoiceIcon").removeClass();
     $("#VoiceIcon").addClass("fa-times");
   } else if (data.connection == true) {
-    $("#VoiceIcon").removeClass("fa-times");
+    $("#VoiceIcon").removeClass();
     if (data.radio == true) {
-      $("#VoiceIcon").removeClass("fa-microphone");
       $("#VoiceIcon").addClass("fa-headset");
     } else if (data.radio == false) {
-      $("#VoiceIcon").removeClass("fa-headset");
       $("#VoiceIcon").addClass("fa-microphone");
     }
   }
 
   if (data.speed > 0) {
-    if (data.speed >= data.maxspeed) {
-      SpeedIndicator.animate(1);
-    } else {
-      SpeedIndicator.animate(data.speed / data.maxspeed);
-    }
     $("#SpeedIcon").removeClass("fa-tachometer-alt");
     $("#SpeedIcon").text(data.speed);
   } else if (data.speed == 0) {
-    SpeedIndicator.animate(0);
     $("#SpeedIcon").addClass("fa-tachometer-alt");
     $("#SpeedIcon").empty();
   }
 
-  if (data.hp < 0) {
-    HealthIndicator.animate(0);
-    HealthIndicator.trail.setAttribute("stroke", "red");
-    $("#HealthIcon").removeClass("fa-heart");
-    $("#HealthIcon").addClass("fa-skull");
-  } else if (data.hp > 0) {
-    HealthIndicator.trail.setAttribute("stroke", "rgb(39,39,39)");
-    $("#HealthIcon").removeClass("fa-skull");
-    $("#HealthIcon").addClass("fa-heart");
-  }
+  // if (data.hp < 0) {
+  //   HealthIndicator.animate(0);
+  //   HealthIndicator.trail.setAttribute("stroke", "red");
+  //   $("#HealthIcon").removeClass("fa-heart");
+  //   $("#HealthIcon").addClass("fa-skull");
+  // } else if (data.hp > 0) {
+  //   HealthIndicator.trail.setAttribute("stroke", "rgb(39,39,39)");
+  //   $("#HealthIcon").removeClass("fa-skull");
+  //   $("#HealthIcon").addClass("fa-heart");
+  // }
 });
