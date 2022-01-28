@@ -16,6 +16,9 @@ dx = {
   -- true: speed will be kmh
   -- false: speed will be mph
 
-  showFuel = false
+  showFuel = false,
   -- setting this to true requires you to add a fuel managment resource
+
+  showVoice = false
+  -- enabling this requires pma-voice
 }

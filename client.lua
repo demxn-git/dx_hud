@@ -62,7 +62,6 @@ CreateThread(function()
                 action = "status",
                 hunger = hunger,
                 thirst = thirst,
-                showStress = dx.showStress,
                 stress = dx.showStress and stress,
             })
         end

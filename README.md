@@ -8,8 +8,10 @@ DxHUD is an HUD for FiveM and ESX Legacy.
 - es_extended (Legacy)
 - esx_status
 - esx_basicneeds
+
+## Optionals
+
 - pma-voice
-- ls-radio [for pma-voice](https://github.com/KoolAiddTV/ls-radio) (Optional: this is triggering a custom icon while connected to a radio channel)
 
 ## Download & Installation
 
