@@ -4,6 +4,7 @@ CreateThread(function()
             local ped = PlayerPedId()
             local playerId = PlayerId()
             local plyState = LocalPlayer.state
+
             local isConnected = MumbleIsConnected()
             local isTalking = NetworkIsPlayerTalking(playerId)
             local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) * 10
@@ -46,6 +47,8 @@ CreateThread(function()
                 talking = isTalking,
                 connection = isConnected,
             })
+        else
+            SendNUIMessage({showUi = false})
         end
 
         Wait(dx.refreshRate)
@@ -80,6 +83,12 @@ AddEventHandler('pma-voice:setTalkingMode', function(mode)
     SendNUIMessage({action = "voice_level", voicelevel = mode})
 end)
 
-RegisterNetEvent('esx:onPlayerLogout', function()
-    SendNUIMessage({showUi = false})
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+ 	ESX.PlayerLoaded = true
+end)
+
+RegisterNetEvent('esx:onPlayerLogout')
+AddEventHandler('esx:onPlayerLogout', function()
+	ESX.PlayerLoaded = false
 end)
