@@ -3,13 +3,10 @@ CreateThread(function()
         if ESX.PlayerLoaded then
             local ped = PlayerPedId()
             local playerId = PlayerId()
-            local plyState = LocalPlayer.state
 
             local hunger, thirst, stress
 
             local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) * 10
-            local isConnected = MumbleIsConnected()
-            local isTalking = NetworkIsPlayerTalking(playerId)
 
             TriggerEvent('esx_status:getStatus', 'hunger', function(status) hunger = status.val / 10000 end)
             TriggerEvent('esx_status:getStatus', 'thirst', function(status) thirst = status.val / 10000 end)
@@ -19,19 +16,16 @@ CreateThread(function()
 
             SendNUIMessage({showUi = not IsPauseMenuActive()})
             SetRadarZoom(1150)
-            print(GetEntityHealth(ped)) -- debug
+
             SendNUIMessage({
-                action = "update_hud",
+                action = "hud_update",
                 hp = GetEntityHealth(ped) - 100,
                 armour = GetPedArmour(ped),
                 hunger = hunger,
                 thirst = thirst,
                 showStress = dx.showStress,
-                stress = dx.showStress and stress or dx.showStress,
-                oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime >= 0 and underwaterTime or 0,
-                radio = plyState.radioChannel ~= 0 and 1 or 0,
-                connection = isConnected,
-                talking = isTalking,
+                stress = dx.showStress and stress,
+                oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime >= 0 and underwaterTime or 100,
             })
         else
             SendNUIMessage({showUi = false})
@@ -45,29 +39,37 @@ CreateThread(function()
     while true do
         if ESX.PlayerLoaded then
             local ped = PlayerPedId()
+            local playerId = PlayerId()
 
+            local voiceConnected = MumbleIsConnected()
+            local voiceTalking = NetworkIsPlayerTalking(playerId)
             local isDriving = IsPedInAnyVehicle(ped, true)
-            local speedMultiplier = dx.metricSystem and 3.6 or 2.236936
-            local veh, fuelLevel
+            local speed, maxspeed, fuel = 0, 0, 0
 
             DisplayRadar(dx.persistentRadar or isDriving)
             
             if isDriving then
                 local veh = GetVehiclePedIsUsing(ped, false)
-                fuelLevel = GetVehicleFuelLevel(veh)
+                local speedMultiplier = dx.metricSystem and 3.6 or 2.236936
 
-                SendNUIMessage({ 
-                    action = "update_carhud",
-                    showFuel = dx.showFuel and isDriving,
-                    fuel = fuelLevel or 0,
-                    showSpeedo = isDriving,
-                    speed = math.floor(GetEntitySpeed(veh) * speedMultiplier),
-                    maxspeed = GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier,
-                })
+                speed = math.floor(GetEntitySpeed(veh) * speedMultiplier)
+                maxspeed = GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
+                if dx.showFuel then fuel = GetVehicleFuelLevel(veh) end
             end
+
+            SendNUIMessage({ 
+                action = "faster_hud_update",
+                showSpeedo = isDriving,
+                showFuel = dx.showFuel and isDriving,
+                speed = speed,
+                maxspeed = maxspeed,
+                fuel = fuel,
+                voiceConnected = voiceConnected,
+                voiceTalking = voiceTalking,
+            })
         end
 
-        Wait(dx.carRefreshRate)
+        Wait(dx.fasterRefreshRate)
     end
 end)
 
@@ -96,7 +98,7 @@ CreateThread(function()
 end)
 
 AddEventHandler('pma-voice:setTalkingMode', function(mode)
-    SendNUIMessage({action = "voice_level", voicelevel = mode})
+    SendNUIMessage({action = "voice_range", voiceRange = mode})
 end)
 
 RegisterNetEvent('esx:playerLoaded')

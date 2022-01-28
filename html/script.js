@@ -72,8 +72,8 @@ $(document).ready(function () {
   });
 
   VoiceIndicator = new ProgressBar.Circle("#VoiceIndicator", {
-    color: "#4a4a4a",
-    trailColor: "rgb(35,35,35)",
+    color: "red",
+    trailColor: "red",
     strokeWidth: 12,
     trailWidth: 12,
     duration: 250,
