@@ -1,6 +1,6 @@
 dx = { 
   refreshRate = 1000,
-  carRefreshRate = 100, 
+  fasterRefreshRate = 100,
   -- in milliseconds, make sure you know what you're doing
   -- higher: better performances, worse looking
   -- lower: better looking, worse performances
