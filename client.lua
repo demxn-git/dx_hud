@@ -1,4 +1,5 @@
 CreateThread(function()
+    local refreshRate = dx.refreshRate
     while true do
         if ESX.PlayerLoaded then
             local ped = PlayerPedId()
@@ -10,7 +11,6 @@ CreateThread(function()
             local isDriving = IsPedInAnyVehicle(ped, true)
             local speedMultiplier = dx.metricSystem and 3.6 or 2.236936
             local hunger, thirst, stress, veh, fuelLevel
-            local refreshRate = dx.refreshRate
 
             TriggerEvent('esx_status:getStatus', 'hunger', function(status) hunger = status.val / 10000 end)
             TriggerEvent('esx_status:getStatus', 'thirst', function(status) thirst = status.val / 10000 end)
