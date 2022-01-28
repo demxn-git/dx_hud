@@ -4,49 +4,11 @@ CreateThread(function()
             local ped = PlayerPedId()
             local playerId = PlayerId()
 
-            local hunger, thirst, stress
-
             local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) * 10
-
-            TriggerEvent('esx_status:getStatus', 'hunger', function(status) hunger = status.val / 10000 end)
-            TriggerEvent('esx_status:getStatus', 'thirst', function(status) thirst = status.val / 10000 end)
-            if dx.showStress then
-            TriggerEvent('esx_status:getStatus', 'stress', function(status) stress = status.val / 10000 end)
-            end
-
-            SendNUIMessage({showUi = not IsPauseMenuActive()})
-            SetRadarZoom(1150)
-
-            SendNUIMessage({
-                action = "hud_update",
-                hp = GetEntityHealth(ped) - 100,
-                armour = GetPedArmour(ped),
-                hunger = hunger,
-                thirst = thirst,
-                showStress = dx.showStress,
-                stress = dx.showStress and stress,
-                oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime >= 0 and underwaterTime or 100,
-            })
-        else
-            SendNUIMessage({showUi = false})
-        end
-
-        Wait(dx.refreshRate)
-    end
-end)
-
-CreateThread(function()
-    while true do
-        if ESX.PlayerLoaded then
-            local ped = PlayerPedId()
-            local playerId = PlayerId()
-
             local voiceConnected = MumbleIsConnected()
             local voiceTalking = NetworkIsPlayerTalking(playerId)
             local isDriving = IsPedInAnyVehicle(ped, true)
             local speed, maxspeed, fuel = 0, 0, 0
-
-            DisplayRadar(dx.persistentRadar or isDriving)
             
             if isDriving then
                 local veh = GetVehiclePedIsUsing(ped, false)
@@ -58,7 +20,10 @@ CreateThread(function()
             end
 
             SendNUIMessage({ 
-                action = "faster_hud_update",
+                action = "general",
+                hp = GetEntityHealth(ped) - 100,
+                armour = GetPedArmour(ped),
+                oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime >= 0 and underwaterTime or 100,
                 showSpeedo = isDriving,
                 showFuel = dx.showFuel and isDriving,
                 speed = speed,
@@ -67,9 +32,42 @@ CreateThread(function()
                 voiceConnected = voiceConnected,
                 voiceTalking = voiceTalking,
             })
+
+            DisplayRadar(dx.persistentRadar or isDriving)
+            SetRadarZoom(1150)
+            SendNUIMessage({showUi = not IsPauseMenuActive()})
+        else
+            SendNUIMessage({showUi = false})
         end
 
-        Wait(dx.fasterRefreshRate)
+        Wait(dx.generalRefreshRate)
+    end
+end)
+
+CreateThread(function()
+    while true do
+        if ESX.PlayerLoaded then
+            local ped = PlayerPedId()
+            local playerId = PlayerId()
+
+            local hunger, thirst, stress
+            TriggerEvent('esx_status:getStatus', 'hunger', function(status) hunger = status.val / 10000 end)
+            TriggerEvent('esx_status:getStatus', 'thirst', function(status) thirst = status.val / 10000 end)
+            if dx.showStress then
+            TriggerEvent('esx_status:getStatus', 'stress', function(status) stress = status.val / 10000 end)
+            end
+            
+            Wait(100)
+            SendNUIMessage({
+                action = "status",
+                hunger = hunger,
+                thirst = thirst,
+                showStress = dx.showStress,
+                stress = dx.showStress and stress,
+            })
+        end
+
+        Wait(dx.statusRefreshRate)
     end
 end)
 
@@ -89,6 +87,8 @@ CreateThread(function()
     SetRadarBigmapEnabled(false, false)
 
     local minimap = RequestScaleformMovie("minimap")
+    repeat Wait(100) until HasScaleformMovieLoaded(minimap)
+
     while true do
         Wait(0)
         BeginScaleformMovieMethod(minimap, "SETUP_HEALTH_ARMOUR")

@@ -86,12 +86,9 @@ $(document).ready(function () {
 window.addEventListener("message", function (event) {
   let data = event.data;
 
-  if (data.action == "hud_update") {
+  if (data.action == "general") {
     HealthIndicator.animate(data.hp / 100);
     ArmourIndicator.animate(data.armour / 100);
-    HungerIndicator.animate(data.hunger / 100);
-    ThirstIndicator.animate(data.thirst / 100);
-    StressIndicator.animate(data.stress / 100);
     OxygenIndicator.animate(data.oxygen / 100);
 
     if (data.hp < 0) {
@@ -117,26 +114,6 @@ window.addEventListener("message", function (event) {
       $("#OxygenIndicator").fadeOut();
     }
 
-    if (data.showStress == true) {
-      $("#StressIndicator").fadeIn();
-    } else if (data.showStress == false) {
-      $("#StressIndicator").fadeOut();
-    }
-
-    if (data.thirst < 25) {
-      $("#ThirstIcon").toggleClass("flash");
-    }
-
-    if (data.hunger < 25) {
-      $("#HungerIcon").toggleClass("flash");
-    }
-
-    if (data.stress > 75) {
-      $("#StressIcon").toggleClass("flash");
-    }
-  }
-
-  if (data.action == "faster_hud_update") {
     if (data.voiceConnected == false) {
       VoiceIndicator.path.setAttribute("stroke", "red");
       VoiceIndicator.trail.setAttribute("stroke", "red");
@@ -181,6 +158,30 @@ window.addEventListener("message", function (event) {
     } else if (data.showFuel == false) {
       $("#FuelIndicator").fadeOut();
       FuelIndicator.animate(0);
+    }
+  }
+
+  if (data.action == "status") {
+    HungerIndicator.animate(data.hunger / 100);
+    ThirstIndicator.animate(data.thirst / 100);
+    StressIndicator.animate(data.stress / 100);
+
+    if (data.showStress == true) {
+      $("#StressIndicator").fadeIn();
+    } else if (data.showStress == false) {
+      $("#StressIndicator").fadeOut();
+    }
+
+    if (data.thirst < 25) {
+      $("#ThirstIcon").toggleClass("flash");
+    }
+
+    if (data.hunger < 25) {
+      $("#HungerIcon").toggleClass("flash");
+    }
+
+    if (data.stress > 75) {
+      $("#StressIcon").toggleClass("flash");
     }
   }
 
