@@ -10,6 +10,7 @@ CreateThread(function()
             local isDriving = IsPedInAnyVehicle(ped, true)
             local speedMultiplier = dx.metricSystem and 3.6 or 2.236936
             local hunger, thirst, stress, veh, fuelLevel
+            local refreshRate = dx.refreshRate
 
             TriggerEvent('esx_status:getStatus', 'hunger', function(status) hunger = status.val / 10000 end)
             TriggerEvent('esx_status:getStatus', 'thirst', function(status) thirst = status.val / 10000 end)
@@ -27,6 +28,9 @@ CreateThread(function()
                     speed = math.floor(GetEntitySpeed(veh) * speedMultiplier),
                     maxspeed = GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier,
                 })
+                refreshRate = dx.carRefreshRate
+            else
+                refreshRate = dx.refreshRate
             end
 
             SendNUIMessage({
@@ -48,7 +52,7 @@ CreateThread(function()
             })
         end
 
-        Wait(dx.refreshRate)
+        Wait(refreshRate)
     end
 end)
 
