@@ -61,7 +61,7 @@ CreateThread(function()
                 statusReady = dx.showStress and hunger and thirst and stress or hunger and stress
                 Wait(100) 
             until statusReady
-            
+
             SendNUIMessage({
                 action = "status",
                 hunger = hunger,
@@ -81,9 +81,9 @@ CreateThread(function()
 	AddReplaceTexture("platform:/textures/graphics", "radarmasksm", "circlemap", "radarmasksm")
 
 	SetMinimapClipType(1)
-    SetMinimapComponentPosition('minimap', 'L', 'B', -0.015, 0.02, 0.190, 0.265)
-    SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.065, 0.080, 0.120, 0.220)
-    SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.010, 0.017, 0.180, 0.255)
+    SetMinimapComponentPosition('minimap', 'L', 'B', -0.017, 0.021, 0.207, 0.32)
+    SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
+    SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
 
     SetRadarBigmapEnabled(true, false)
     Wait(0)
