@@ -176,9 +176,9 @@ window.addEventListener("message", function (event) {
   if (data.action == "status") {
     HungerIndicator.animate(data.hunger / 100);
     ThirstIndicator.animate(data.thirst / 100);
-    StressIndicator.animate(data.stress / 100);
-
+    
     if (data.stress) {
+      StressIndicator.animate(data.stress / 100);
       $("#StressIndicator").fadeIn();
       if (data.stress > 75) {
         $("#StressIcon").toggleClass("flash");

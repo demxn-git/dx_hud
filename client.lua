@@ -58,7 +58,7 @@ CreateThread(function()
             end
 
             repeat 
-                statusReady = dx.showStress and hunger and thirst and stress or hunger and stress
+                statusReady = dx.showStress and hunger and thirst and stress or hunger and thirst
                 Wait(100) 
             until statusReady
 
