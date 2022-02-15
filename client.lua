@@ -21,7 +21,7 @@ CreateThread(function()
                 action = "general",
                 hp = GetEntityHealth(ped) - 100,
                 armour = GetPedArmour(ped),
-                oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime >= 0 and underwaterTime or 100,
+                oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime or 100,
                 showSpeedo = isDriving,
                 showFuel = dx.showFuel and isDriving,
                 showVoice = dx.showVoice,
