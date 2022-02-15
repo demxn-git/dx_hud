@@ -85,8 +85,9 @@ CreateThread(function()
     SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
     SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
 
+    Wait(1000)
     SetRadarBigmapEnabled(true, false)
-    Wait(0)
+    Wait(1000)
     SetRadarBigmapEnabled(false, false)
 
     local minimap = RequestScaleformMovie("minimap")
