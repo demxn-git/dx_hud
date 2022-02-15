@@ -20,12 +20,12 @@ DxHUD is an HUD for FiveM and ESX Legacy.
 
 ```
 cd resources
-git clone https://github.com/0xDEMXN/dxhud.git
+git clone https://github.com/0xDEMXN/dx_hud.git
 ```
 
 ### Manually
 
-- Go to the [releases page](https://github.com/0xDEMXN/dxhud/releases "Releases page") and download the latest release
+- Go to the [releases page](https://github.com/0xDEMXN/dx_hud/releases "Releases page") and download the latest release
 - Place it inside the `resources` directory
 
 ### Installation
@@ -34,7 +34,7 @@ git clone https://github.com/0xDEMXN/dxhud.git
 - Add the resource to your `server.cfg` after dependencies to make sure it's started correctly at server startup:
 
 ```
-ensure dxhud
+ensure dx_hud
 ```
 
 ## Screenshot(s)
