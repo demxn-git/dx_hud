@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 author '0xDEMXN'
-version '1.0.4'
+version '1.0.5'
 
 shared_scripts {
     '@es_extended/imports.lua'

@@ -6,30 +6,28 @@ CreateThread(function()
             local ped = PlayerPedId()
 
             local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) * 10
+
             local isDriving = IsPedInAnyVehicle(ped, true)
-            local speedMultiplier = isDriving and dx.metricSystem and 3.6 or 2.236936
-
             local veh = isDriving and GetVehiclePedIsUsing(ped, false)
-            local speed = isDriving and math.floor(GetEntitySpeed(veh) * speedMultiplier)
-            local maxspeed = isDriving and GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
-            local fuel = dx.showFuel and isDriving and GetVehicleFuelLevel(veh)
-
-            local voiceConnected = dx.showVoice and MumbleIsConnected()
-            local voiceTalking = dx.showVoice and NetworkIsPlayerTalking(playerId)
+            local speedMultiplier = isDriving and dx.metricSystem and 3.6 or 2.236936
 
             SendNUIMessage({ 
                 action = "general",
-                hp = GetEntityHealth(ped) - 100,
+                -- ped
+                hp = GetEntityHealth(ped) - 100, -- refer to README.md for a better health management
                 armour = GetPedArmour(ped),
                 oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime or 100,
-                showSpeedo = isDriving,
-                showFuel = dx.showFuel and isDriving,
+                -- vehicles
+                speedometer = isDriving and 
+                { 
+                    speed = math.floor(GetEntitySpeed(veh) * speedMultiplier), 
+                    maxspeed = GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
+                },
+                fuel = dx.showFuel and isDriving and GetVehicleFuelLevel(veh),
+                -- voice
                 showVoice = dx.showVoice,
-                speed = speed,
-                maxspeed = maxspeed,
-                fuel = fuel,
-                voiceConnected = voiceConnected,
-                voiceTalking = voiceTalking,
+                voiceConnected = dx.showVoice and MumbleIsConnected(),
+                voiceTalking = dx.showVoice and NetworkIsPlayerTalking(playerId),
             })
 
             DisplayRadar(dx.persistentRadar or isDriving)
@@ -64,6 +62,7 @@ CreateThread(function()
 
             SendNUIMessage({
                 action = "status",
+                -- status
                 hunger = hunger,
                 thirst = thirst,
                 stress = dx.showStress and stress,

@@ -13,6 +13,17 @@ DxHUD is an HUD for FiveM and ESX Legacy.
 
 - pma-voice
 
+## Useful Snippets
+
+You may want to set every ped maximum health to the same amount.  
+Insert the snippet below in a loop that runs every tick and you're done.
+```lua
+if GetEntityMaxHealth(ESX.PlayerData.ped) ~= 200 then
+  SetEntityMaxHealth(ESX.PlayerData.ped, 200)
+  SetEntityHealth(ESX.PlayerData.ped, 200)
+end
+```
+
 ## Download & Installation
 
 

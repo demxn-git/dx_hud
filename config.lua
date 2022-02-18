@@ -9,12 +9,12 @@ dx = {
   -- true: radar is always on
   -- false: radar is only shown while driving
 
-  showStress = false,
-  -- setting this to true requires you to add a stress status
-
   metricSystem = true,
   -- true: speed will be kmh
   -- false: speed will be mph
+
+  showStress = false,
+  -- setting this to true requires you to add a stress status
 
   showFuel = false,
   -- setting this to true requires you to add a fuel managment resource
