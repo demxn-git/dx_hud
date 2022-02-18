@@ -74,32 +74,34 @@ CreateThread(function()
     end
 end)
 
-CreateThread(function()
-	RequestStreamedTextureDict("circlemap", false)
-	repeat Wait(100) until HasStreamedTextureDictLoaded("circlemap")
+if dx.circleMap then
+    CreateThread(function()
+        RequestStreamedTextureDict("circlemap", false)
+        repeat Wait(100) until HasStreamedTextureDictLoaded("circlemap")
 
-	AddReplaceTexture("platform:/textures/graphics", "radarmasksm", "circlemap", "radarmasksm")
+        AddReplaceTexture("platform:/textures/graphics", "radarmasksm", "circlemap", "radarmasksm")
 
-	SetMinimapClipType(1)
-    SetMinimapComponentPosition('minimap', 'L', 'B', -0.017, 0.021, 0.207, 0.32)
-    SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
-    SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
+        SetMinimapClipType(1)
+        SetMinimapComponentPosition('minimap', 'L', 'B', -0.017, 0.021, 0.207, 0.32)
+        SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
+        SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
 
-    Wait(1000)
-    SetRadarBigmapEnabled(true, false)
-    Wait(1000)
-    SetRadarBigmapEnabled(false, false)
+        Wait(1000)
+        SetRadarBigmapEnabled(true, false)
+        Wait(1000)
+        SetRadarBigmapEnabled(false, false)
 
-    local minimap = RequestScaleformMovie("minimap")
-    repeat Wait(100) until HasScaleformMovieLoaded(minimap)
+        local minimap = RequestScaleformMovie("minimap")
+        repeat Wait(100) until HasScaleformMovieLoaded(minimap)
 
-    while true do
-        Wait(0)
-        BeginScaleformMovieMethod(minimap, "SETUP_HEALTH_ARMOUR")
-        ScaleformMovieMethodAddParamInt(3)
-        EndScaleformMovieMethod()
-    end
-end)
+        while true do
+            Wait(0)
+            BeginScaleformMovieMethod(minimap, "SETUP_HEALTH_ARMOUR")
+            ScaleformMovieMethodAddParamInt(3)
+            EndScaleformMovieMethod()
+        end
+    end)
+end
 
 AddEventHandler('pma-voice:setTalkingMode', function(mode)
     SendNUIMessage({action = "voice_range", voiceRange = mode})

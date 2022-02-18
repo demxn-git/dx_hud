@@ -19,6 +19,10 @@ dx = {
   showFuel = false,
   -- setting this to true requires you to add a fuel managment resource
 
-  showVoice = false
+  showVoice = false,
   -- enabling this requires pma-voice
+
+  circleMap = true
+  -- enable or disable circle map
+  -- toggling this requires you to restart the server (or clients to restart fivem)
 }
