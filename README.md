@@ -57,7 +57,7 @@ ensure dx_hud
 
 ## Screenshot(s)
 
-![dx_hud screenshot](https://cdn.discordapp.com/attachments/830737052352905217/943243358984351804/unknown.png)
+![dx_hud screenshot](https://user-images.githubusercontent.com/15928886/154711951-584adcec-5369-477b-8a4a-f3c006182881.png)
 
 ## Thanks to
 [nojdh](https://github.com/nojdh/) for Cosmo HUD
