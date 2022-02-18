@@ -18,9 +18,9 @@ CreateThread(function()
                 armour = GetPedArmour(ped),
                 oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime or 100,
                 -- vehicles
-                speedometer = isDriving and 
-                { 
-                    speed = math.floor(GetEntitySpeed(veh) * speedMultiplier), 
+                speedometer = isDriving and
+                {
+                    speed = math.floor(GetEntitySpeed(veh) * speedMultiplier),
                     maxspeed = GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
                 },
                 fuel = dx.showFuel and isDriving and GetVehicleFuelLevel(veh),
@@ -44,8 +44,6 @@ end)
 CreateThread(function()
     while true do
         if ESX.PlayerLoaded then
-            local ped = PlayerPedId()
-
             local hunger, thirst, stress = false, false, false
             local statusReady = false
 
@@ -55,9 +53,9 @@ CreateThread(function()
             TriggerEvent('esx_status:getStatus', 'stress', function(status) stress = status.val / 10000 end)
             end
 
-            repeat 
+            repeat
                 statusReady = dx.showStress and hunger and thirst and stress or hunger and thirst
-                Wait(100) 
+                Wait(100)
             until statusReady
 
             SendNUIMessage({
@@ -107,7 +105,7 @@ AddEventHandler('pma-voice:setTalkingMode', function(mode)
 end)
 
 RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
+AddEventHandler('esx:playerLoaded', function()
  	ESX.PlayerLoaded = true
 end)
 

@@ -1,4 +1,4 @@
-dx = { 
+dx = {
   generalRefreshRate = 200,
   statusRefreshRate = 2000,
   -- in milliseconds, make sure you know what you're doing
