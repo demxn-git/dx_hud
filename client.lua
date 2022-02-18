@@ -1,8 +1,8 @@
 local playerId = PlayerId()
 
-CreateThread(function()
-    while true do
-        if ESX.PlayerLoaded then
+local GeneralLoop = function()
+    CreateThread(function()
+        while ESX.PlayerLoaded do
             local ped = PlayerPedId()
 
             local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) * 10
@@ -33,17 +33,16 @@ CreateThread(function()
             DisplayRadar(dx.persistentRadar or isDriving)
             SetRadarZoom(1150)
             SendNUIMessage({showUi = not IsPauseMenuActive()})
-        else
-            SendNUIMessage({showUi = false})
+
+            Wait(dx.generalRefreshRate)
         end
+        SendNUIMessage({showUi = false})
+    end)
+end
 
-        Wait(dx.generalRefreshRate)
-    end
-end)
-
-CreateThread(function()
-    while true do
-        if ESX.PlayerLoaded then
+local StatusLoop = function()
+    CreateThread(function()
+        while ESX.PlayerLoaded do
             local hunger, thirst, stress = false, false, false
             local statusReady = false
 
@@ -65,11 +64,11 @@ CreateThread(function()
                 thirst = thirst,
                 stress = dx.showStress and stress,
             })
-        end
 
-        Wait(dx.statusRefreshRate)
-    end
-end)
+            Wait(dx.statusRefreshRate)
+        end
+    end)
+end
 
 if dx.circleMap then
     CreateThread(function()
@@ -83,9 +82,9 @@ if dx.circleMap then
         SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
         SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
 
-        Wait(1000)
+        Wait(500)
         SetRadarBigmapEnabled(true, false)
-        Wait(1000)
+        Wait(500)
         SetRadarBigmapEnabled(false, false)
 
         local minimap = RequestScaleformMovie("minimap")
@@ -107,6 +106,9 @@ end)
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function()
  	ESX.PlayerLoaded = true
+    GeneralLoop()
+    StatusLoop()
+    SendNUIMessage({playerId = GetPlayerServerId(playerId)})
 end)
 
 RegisterNetEvent('esx:onPlayerLogout')

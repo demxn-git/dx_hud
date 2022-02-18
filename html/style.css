@@ -40,6 +40,26 @@ body {
   font-size: .8rem;
 }
 
+#ID {
+  color: #fff;
+  font-size: 1.5rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  height: 2.5rem;
+  margin: 0 .5rem;
+  text-shadow: 1px 1px 10px #000;
+  text-align: center;
+  line-height: 2.5rem;
+}
+
+.Logo {
+  position: absolute;
+  top: 1.5rem;
+  right: 4rem;
+  max-width: 130px;
+  opacity: .7;
+}
+
 .flash {
   -webkit-animation: flash 1s;
   animation: flash 1s;

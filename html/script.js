@@ -224,9 +224,15 @@ window.addEventListener("message", function (event) {
     VoiceIndicator.animate(data.voiceRange / 100);
   }
 
+  if (data.playerId) {
+    document.getElementById("ID").textContent = data.playerId;
+  }
+
   if (data.showUi == true) {
-    document.querySelector(".container").style.display = "block";
+    document.querySelector(".Container").style.display = "block";
+    document.querySelector(".Logo").style.display = "block";
   } else if (data.showUi == false) {
-    document.querySelector(".container").style.display = "none";
+    document.querySelector(".Container").style.display = "none";
+    document.querySelector(".Logo").style.display = "none";
   }
 });

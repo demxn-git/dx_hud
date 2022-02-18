@@ -1,7 +1,10 @@
 fx_version 'cerulean'
 game 'gta5'
 author '0xDEMXN'
-version '1.0.5'
+version '1.0.6'
+
+lua54 'yes'
+use_fxv2_oal 'yes'
 
 shared_scripts {
     '@es_extended/imports.lua'
@@ -16,7 +19,7 @@ files {
     'html/ui.html',
     'html/script.js',
     'html/style.css',
-    'html/loading-bar.js',
+    'html/logo.png',
 }
 
 ui_page 'html/ui.html'

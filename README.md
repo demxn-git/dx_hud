@@ -1,7 +1,7 @@
-# DxHUD
+# dx_hud
 
 This started as a fork of Cosmo HUD but ended up being a complete rewrite.  
-DxHUD is an HUD for FiveM and ESX Legacy.
+dx_hud is an HUD for FiveM and ESX Legacy.
 
 ## Requirements
 
@@ -15,13 +15,20 @@ DxHUD is an HUD for FiveM and ESX Legacy.
 
 ## Useful Snippets
 
-You may want to set every ped maximum health to the same amount.  
-Insert the snippet below in a loop that runs every tick and you're done.
+### I won't provide any support for the snippets below, it's up to you to understand if you need it or not or if you have any conflicts aswell.
+
+If you want to equal health among peds, run this client-side every tick.
 ```lua
-if GetEntityMaxHealth(ESX.PlayerData.ped) ~= 200 then
-  SetEntityMaxHealth(ESX.PlayerData.ped, 200)
-  SetEntityHealth(ESX.PlayerData.ped, 200)
+if GetEntityMaxHealth(PlayerPedId()) ~= 200 then
+  SetEntityMaxHealth(PlayerPedId(), 200)
+  SetEntityHealth(PlayerPedId(), 200)
 end
+```
+
+If you want to disable health regen, run this client-side every tick.
+```lua
+  SetPlayerHealthRechargeMultiplier(PlayerId(), 0.0) 
+  SetPlayerHealthRechargeLimit(PlayerId(), 0.0)
 ```
 
 ## Download & Installation
@@ -58,7 +65,7 @@ ensure dx_hud
 <br>
 <table><tr><td><h3 align='center'>Legal Notices</h2></tr></td>
 <tr><td>
-DxHUD for ESX Legacy  
+dx_hud for ESX Legacy  
 
 Copyright © 2022  [Demxn](https://github.com/0xDEMXN)
 
