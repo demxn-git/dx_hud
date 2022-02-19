@@ -122,6 +122,9 @@ end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if (resourceName == GetCurrentResourceName()) then
-        if ESX.PlayerLoaded then InitHUD() end
+        if ESX.PlayerLoaded then
+            Citizen.Wait(50)
+            InitHUD()
+        end
     end
 end)
