@@ -115,3 +115,13 @@ RegisterNetEvent('esx:onPlayerLogout')
 AddEventHandler('esx:onPlayerLogout', function()
 	ESX.PlayerLoaded = false
 end)
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if (resourceName == GetCurrentResourceName()) then
+        if ESX.PlayerLoaded then
+            GeneralLoop()
+            StatusLoop()
+            SendNUIMessage({playerId = GetPlayerServerId(playerId)})
+        end
+    end
+end)
