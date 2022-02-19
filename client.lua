@@ -70,6 +70,12 @@ local StatusLoop = function()
     end)
 end
 
+local InitHUD = function ()
+    GeneralLoop()
+    StatusLoop()
+    SendNUIMessage({playerId = GetPlayerServerId(playerId)})
+end
+
 if dx.circleMap then
     CreateThread(function()
         RequestStreamedTextureDict("circlemap", false)
@@ -106,9 +112,7 @@ end)
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function()
  	ESX.PlayerLoaded = true
-    GeneralLoop()
-    StatusLoop()
-    SendNUIMessage({playerId = GetPlayerServerId(playerId)})
+    InitHUD()
 end)
 
 RegisterNetEvent('esx:onPlayerLogout')
@@ -118,10 +122,6 @@ end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if (resourceName == GetCurrentResourceName()) then
-        if ESX.PlayerLoaded then
-            GeneralLoop()
-            StatusLoop()
-            SendNUIMessage({playerId = GetPlayerServerId(playerId)})
-        end
+        if ESX.PlayerLoaded then InitHUD() end
     end
 end)
