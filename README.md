@@ -13,24 +13,6 @@ dx_hud is an HUD for FiveM and ESX Legacy.
 
 - pma-voice
 
-## Useful Snippets
-
-### I won't provide any support for the snippets below, it's up to you to understand if you need it or not or if you have any conflicts aswell.
-
-If you want to equal health among peds, run this client-side every tick.
-```lua
-if GetEntityMaxHealth(PlayerPedId()) ~= 200 then
-  SetEntityMaxHealth(PlayerPedId(), 200)
-  SetEntityHealth(PlayerPedId(), 200)
-end
-```
-
-If you want to disable health regen, run this client-side every tick.
-```lua
-  SetPlayerHealthRechargeMultiplier(PlayerId(), 0.0) 
-  SetPlayerHealthRechargeLimit(PlayerId(), 0.0)
-```
-
 ## Download & Installation
 
 

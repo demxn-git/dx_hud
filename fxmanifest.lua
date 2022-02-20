@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 author '0xDEMXN'
-version '1.0.6'
+version '1.0.8'
 
 lua54 'yes'
 use_fxv2_oal 'yes'
