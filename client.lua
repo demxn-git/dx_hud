@@ -3,20 +3,17 @@ local playerId = PlayerId()
 local GeneralLoop = function()
     CreateThread(function()
         while ESX.PlayerLoaded do
-            local ped = PlayerPedId()
-
             local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) * 10
-
-            local isDriving = IsPedInAnyVehicle(ped, true)
-            local veh = isDriving and GetVehiclePedIsUsing(ped, false)
+            local isDriving = IsPedInAnyVehicle(ESX.PlayerData.ped, true)
+            local veh = isDriving and GetVehiclePedIsUsing(ESX.PlayerData.ped, false)
             local speedMultiplier = isDriving and dx.metricSystem and 3.6 or 2.236936
 
             SendNUIMessage({ 
                 action = "general",
                 -- ped
-                hp = GetEntityHealth(ped) - 100, -- refer to README.md for a better health management
-                armour = GetPedArmour(ped),
-                oxygen = IsPedSwimmingUnderWater(ped) and underwaterTime or 100,
+                hp = (GetEntityHealth(ESX.PlayerData.ped) - 100) * 100 / (GetEntityMaxHealth(ESX.PlayerData.ped) - 100),
+                armour = GetPedArmour(ESX.PlayerData.ped),
+                oxygen = IsPedSwimmingUnderWater(ESX.PlayerData.ped) and underwaterTime or 100,
                 -- vehicles
                 speedometer = isDriving and
                 {
@@ -42,20 +39,15 @@ end
 
 local StatusLoop = function()
     CreateThread(function()
+        local hunger, thirst, stress
+
         while ESX.PlayerLoaded do
-            local hunger, thirst, stress = false, false, false
-            local statusReady = false
 
             TriggerEvent('esx_status:getStatus', 'hunger', function(status) hunger = status.val / 10000 end)
             TriggerEvent('esx_status:getStatus', 'thirst', function(status) thirst = status.val / 10000 end)
             if dx.showStress then
             TriggerEvent('esx_status:getStatus', 'stress', function(status) stress = status.val / 10000 end)
             end
-
-            repeat
-                statusReady = dx.showStress and hunger and thirst and stress or hunger and thirst
-                Wait(100)
-            until statusReady
 
             SendNUIMessage({
                 action = "status",
