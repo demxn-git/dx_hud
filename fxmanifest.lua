@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 author '0xDEMXN'
-version '1.0.8'
+version '1.0.9'
 
 lua54 'yes'
 use_fxv2_oal 'yes'
@@ -16,13 +16,13 @@ client_scripts {
 }
 
 files {
-    'html/ui.html',
-    'html/script.js',
-    'html/style.css',
-    'html/logo.png',
+    'html/index.html',
+    'html/js/script.js',
+    'html/css/style.css',
+    'html/images/logo.png',
 }
 
-ui_page 'html/ui.html'
+ui_page 'html/index.html'
 
 dependencies {
     'es_extended',

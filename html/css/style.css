@@ -10,6 +10,7 @@ body {
 .Container {
   margin-top: auto;
   margin-bottom: 1.5rem;
+  display: none;
 }
 
 .Icons {
@@ -24,6 +25,7 @@ body {
   height: 2.5rem;
   border-radius: 50%;
   background: rgb(49, 49, 49);
+  display: none;
 }
 
 .Icon i {
