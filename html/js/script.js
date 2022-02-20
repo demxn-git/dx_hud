@@ -95,7 +95,7 @@ window.addEventListener('message', function (event) {
 
   if (data.action == 'base') {
     data.speed > 1 && (speed = 1);
-    data.oxygen < 0.1 && (data.oxygen = 0.1);
+    data.oxygen < 0.01 && (data.oxygen = 0.01);
 
     Health.style.display = 'block';
     Speed.style.display = data.speed !== false ? 'block' : 'none';
@@ -119,7 +119,7 @@ window.addEventListener('message', function (event) {
     data.speed < 0.1 && SpeedIcon.classList.add('fa-tachometer-alt');
     data.speed < 0.1 && (SpeedIcon.textContent = '');
 
-    data.oxygen < 0.25 && OxygenIcon.classList.toggle('flash');
+    data.oxygen < 0.1 && OxygenIcon.classList.toggle('flash');
 
     HealthIndicator.trail.setAttribute(
       'stroke',

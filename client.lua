@@ -23,7 +23,7 @@ local GeneralLoop = function()
         action = 'base',
         hp = health > 0 and health or 0,
         armour = GetPedArmour(ESX.PlayerData.ped) / 100,
-        oxygen = underwaterTime >= 1 and IsPedSwimmingUnderWater(ESX.PlayerData.ped) and 0.99 or underwaterTime,
+        oxygen = underwaterTime,
         speed = isDriving and GetEntitySpeed(veh) * speedMultiplier / maxSpeed * 1.3,
         fuel = dx.fuel and isDriving and GetVehicleFuelLevel(veh) / 100,
         voice = {
@@ -72,14 +72,16 @@ local InitHUD = function ()
     visible = true,
     playerId = GetPlayerServerId(playerId)
   })
-  while IsPedSwimmingUnderWater(ESX.PlayerData.ped) do Wait(5000) end
+  repeat Citizen.Wait(100) until not IsPedSwimmingUnderWater(ESX.PlayerData.ped)
+  Citizen.Wait(2000)
   maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId)
+  print(maxUnderwaterTime)
 end
 
 if dx.circleMap then
   CreateThread(function()
     RequestStreamedTextureDict('circlemap', false)
-    repeat Wait(100) until HasStreamedTextureDictLoaded('circlemap')
+    repeat Citizen.Wait(100) until HasStreamedTextureDictLoaded('circlemap')
 
     AddReplaceTexture('platform:/textures/graphics', 'radarmasksm', 'circlemap', 'radarmasksm')
 
@@ -88,16 +90,16 @@ if dx.circleMap then
     SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
     SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
 
-    Wait(500)
+    Citizen.Wait(500)
     SetRadarBigmapEnabled(true, false)
-    Wait(500)
+    Citizen.Wait(500)
     SetRadarBigmapEnabled(false, false)
 
     local minimap = RequestScaleformMovie('minimap')
-    repeat Wait(100) until HasScaleformMovieLoaded(minimap)
+    repeat Citizen.Wait(100) until HasScaleformMovieLoaded(minimap)
 
     while true do
-      Wait(0)
+      Citizen.Wait(0)
       BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
       ScaleformMovieMethodAddParamInt(3)
       EndScaleformMovieMethod()
@@ -123,7 +125,7 @@ end)
 AddEventHandler('onResourceStart', function(resourceName)
   if (resourceName == GetCurrentResourceName()) then
     if ESX.PlayerLoaded then
-      Citizen.Wait(50)
+      Citizen.Wait(500)
       InitHUD()
     end
   end
