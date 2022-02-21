@@ -94,69 +94,61 @@ window.addEventListener('message', function (event) {
   }
 
   if (data.action == 'base') {
-    data.vehicle.limit > 1 && (data.vehicle.limit = 1);
-    data.oxygen < 0.01 && (data.oxygen = 0.01);
+    let health = (data.health.current - 100) / (data.health.max - 100);
+    let oxygen = data.oxygen.current / data.oxygen.max;
+    let vehicle, isDriving;
+    vehicle = isDriving = data.vehicle;
+
+    let speed, maxSpeed, percSpeed, fuel;
+
+    isDriving && (speed = vehicle.speed.current * vehicle.unitsMultiplier);
+    isDriving && (maxSpeed = vehicle.speed.max * vehicle.unitsMultiplier);
+    isDriving && (percSpeed = (speed / maxSpeed) * 0.7);
+    isDriving && (fuel = vehicle.fuel / 100);
+
+    health < 0 && (health = 0);
+    percSpeed > 1 && (percSpeed = 1);
+    oxygen < 0.01 && (oxygen = 0.01);
 
     Health.style.display = 'block';
-    Speed.style.display = data.vehicle.limit !== false ? 'block' : 'none';
-    Fuel.style.display = data.fuel !== false ? 'block' : 'none';
+    Speed.style.display = isDriving !== false ? 'block' : 'none';
+    Fuel.style.display = isDriving !== false ? 'block' : 'none';
     Armour.style.display = data.armour ? 'block' : 'none';
-    Oxygen.style.display = data.oxygen < 1 ? 'block' : 'none';
+    Oxygen.style.display = oxygen < 1 ? 'block' : 'none';
     data.voice.toggled && (Voice.style.display = 'block');
 
-    data.hp && HealthIcon.classList.remove('fa-skull');
-    data.hp && HealthIcon.classList.add('fa-heart');
-    !data.hp && HealthIcon.classList.remove('fa-heart');
-    !data.hp && HealthIcon.classList.add('fa-skull');
+    health && HealthIcon.classList.remove('fa-skull');
+    health && HealthIcon.classList.add('fa-heart');
+    !health && HealthIcon.classList.remove('fa-heart');
+    !health && HealthIcon.classList.add('fa-skull');
 
     data.voice.connected && VoiceIcon.classList.remove('fa-times');
     data.voice.connected && VoiceIcon.classList.add('fa-microphone');
     !data.voice.connected && VoiceIcon.classList.remove('fa-microphone');
     !data.voice.connected && VoiceIcon.classList.add('fa-times');
 
-    data.vehicle.limit >= 0.1 &&
-      SpeedIcon.classList.remove('fa-tachometer-alt');
-    data.vehicle.limit >= 0.1 &&
-      (SpeedIcon.textContent = Math.floor(data.vehicle.speed));
-    data.vehicle.limit < 0.1 && SpeedIcon.classList.add('fa-tachometer-alt');
-    data.vehicle.limit < 0.1 && (SpeedIcon.textContent = '');
+    percSpeed >= 0.1 && SpeedIcon.classList.remove('fa-tachometer-alt');
+    percSpeed >= 0.1 && (SpeedIcon.textContent = Math.floor(speed));
+    percSpeed < 0.1 && SpeedIcon.classList.add('fa-tachometer-alt');
+    percSpeed < 0.1 && (SpeedIcon.textContent = '');
 
-    data.oxygen < 0.1 && OxygenIcon.classList.toggle('flash');
+    oxygen < 0.1 && OxygenIcon.classList.toggle('flash');
 
-    HealthIndicator.trail.setAttribute(
-      'stroke',
-      data.hp ? 'rgb(35, 35, 35)' : 'rgb(255, 0, 0)',
-    );
-    HealthIndicator.path.setAttribute(
-      'stroke',
-      data.hp ? 'rgb(0, 255, 100)' : 'rgb(255, 0, 0)',
-    );
-    OxygenIndicator.path.setAttribute(
-      'stroke',
-      data.oxygen < 0.25 ? 'rgb(255, 0, 0)' : 'rgb(0, 140, 255)',
-    );
+    HealthIndicator.trail.setAttribute('stroke', health ? 'rgb(35, 35, 35)' : 'rgb(255, 0, 0)');
+    HealthIndicator.path.setAttribute('stroke', health ? 'rgb(0, 255, 100)' : 'rgb(255, 0, 0)');
+    OxygenIndicator.path.setAttribute('stroke', oxygen < 0.25 ? 'rgb(255, 0, 0)' : 'rgb(0, 140, 255)');
     VoiceIndicator.path.setAttribute(
       'stroke',
-      data.voice.connected
-        ? data.voice.talking
-          ? 'rgb(255, 255, 0)'
-          : 'rgb(169, 169, 169)'
-        : 'rgb(255, 0, 0)',
+      data.voice.connected ? (data.voice.talking ? 'rgb(255, 255, 0)' : 'rgb(169, 169, 169)') : 'rgb(255, 0, 0)',
     );
-    VoiceIndicator.trail.setAttribute(
-      'stroke',
-      data.voice.connected ? 'rgb(35, 35, 35)' : 'rgb(255, 0, 0)',
-    );
-    FuelIndicator.path.setAttribute(
-      'stroke',
-      data.fuel > 0.2 ? 'rgb(255, 255, 255)' : 'rgb(255, 0, 0)',
-    );
+    VoiceIndicator.trail.setAttribute('stroke', data.voice.connected ? 'rgb(35, 35, 35)' : 'rgb(255, 0, 0)');
+    FuelIndicator.path.setAttribute('stroke', fuel > 0.2 ? 'rgb(255, 255, 255)' : 'rgb(255, 0, 0)');
 
-    HealthIndicator.animate(data.hp);
-    ArmourIndicator.animate(data.armour);
-    SpeedIndicator.animate(data.vehicle.limit || 0);
-    OxygenIndicator.animate(data.oxygen || 1);
-    FuelIndicator.animate(data.fuel || 0);
+    HealthIndicator.animate(health);
+    ArmourIndicator.animate(data.armour / 100);
+    SpeedIndicator.animate(percSpeed || 0);
+    OxygenIndicator.animate(oxygen || 1);
+    FuelIndicator.animate(fuel || 0);
   }
 
   if (data.action == 'status') {

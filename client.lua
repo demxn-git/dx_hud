@@ -4,31 +4,32 @@ local maxUnderwaterTime = 10.0
 local GeneralLoop = function()
   CreateThread(function()
     while ESX.PlayerLoaded do
-      SendNUIMessage({
-        action = 'general',
-        visible = not IsPauseMenuActive()
-      })
-
-      local health = (GetEntityHealth(ESX.PlayerData.ped) - 100) / (GetEntityMaxHealth(ESX.PlayerData.ped) - 100)
-      local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) / maxUnderwaterTime
       local isDriving = IsPedInAnyVehicle(ESX.PlayerData.ped, true)
-      local veh = isDriving and GetVehiclePedIsUsing(ESX.PlayerData.ped, false)
-      local speedMultiplier = isDriving and dx.metricSystem and 3.6 or 2.236936
-      local maxSpeed = isDriving and GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
+      local currentVehicle = isDriving and GetVehiclePedIsUsing(ESX.PlayerData.ped, false)
 
       SetRadarZoom(1150)
       DisplayRadar(dx.persistentRadar or isDriving)
+      SendNUIMessage({ action = 'general', visible = not IsPauseMenuActive() })
 
       SendNUIMessage({
         action = 'base',
-        hp = health > 0 and health or 0,
-        armour = GetPedArmour(ESX.PlayerData.ped) / 100,
-        oxygen = underwaterTime,
-        vehicle = isDriving and {
-          speed = GetEntitySpeed(veh) * speedMultiplier,
-          limit = GetEntitySpeed(veh) * speedMultiplier / maxSpeed / 1.3,
+        health = {
+          current = GetEntityHealth(ESX.PlayerData.ped),
+          max = GetEntityMaxHealth(ESX.PlayerData.ped)
         },
-        fuel = dx.fuel and isDriving and GetVehicleFuelLevel(veh) / 100,
+        armour = GetPedArmour(ESX.PlayerData.ped),
+        oxygen = {
+          current = GetPlayerUnderwaterTimeRemaining(playerId),
+          max = maxUnderwaterTime
+        },
+        vehicle = isDriving and {
+          speed = {
+            current = GetEntitySpeed(currentVehicle),
+            max = GetVehicleModelMaxSpeed(GetEntityModel(currentVehicle))
+          },
+          unitsMultiplier = dx.metricSystem and 3.6 or 2.236936,
+          fuel = dx.fuel and GetVehicleFuelLevel(currentVehicle),
+        },
         voice = {
           toggled = dx.voice,
           connected = dx.voice and MumbleIsConnected(),
@@ -38,10 +39,7 @@ local GeneralLoop = function()
 
       Wait(dx.generalRefreshRate)
     end
-    SendNUIMessage({
-      action = 'general',
-      visible = false
-    })
+    SendNUIMessage({ action = 'general', visible = false })
   end)
 end
 
@@ -70,11 +68,7 @@ end
 local InitHUD = function ()
   GeneralLoop()
   StatusLoop()
-  SendNUIMessage({
-    action = 'general',
-    visible = true,
-    playerId = GetPlayerServerId(playerId)
-  })
+  SendNUIMessage({ action = 'general', visible = true, playerId = GetPlayerServerId(playerId) })
   repeat Citizen.Wait(100) until not IsPedSwimmingUnderWater(ESX.PlayerData.ped)
   Citizen.Wait(2000)
   maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId)
