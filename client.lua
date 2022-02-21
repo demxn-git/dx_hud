@@ -75,7 +75,6 @@ local InitHUD = function ()
   repeat Citizen.Wait(100) until not IsPedSwimmingUnderWater(ESX.PlayerData.ped)
   Citizen.Wait(2000)
   maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId)
-  print(maxUnderwaterTime)
 end
 
 if dx.circleMap then
