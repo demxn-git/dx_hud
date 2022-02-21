@@ -12,14 +12,14 @@ shared_scripts {
 
 client_scripts {
     'config.lua',
-    'client.lua',
+    'init.lua',
+    'events.lua',
+    'modules/*',
 }
 
 files {
     'html/index.html',
-    'html/js/script.js',
-    'html/css/style.css',
-    'html/images/logo.png',
+    'html/**/*',
 }
 
 ui_page 'html/index.html'
