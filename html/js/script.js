@@ -94,7 +94,7 @@ window.addEventListener('message', function (event) {
   }
 
   if (data.action == 'base') {
-    data.speed > 1 && (speed = 1);
+    data.speed > 1 && (data.speed = 1);
     data.oxygen < 0.01 && (data.oxygen = 0.01);
 
     Health.style.display = 'block';
