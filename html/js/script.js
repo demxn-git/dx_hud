@@ -94,11 +94,11 @@ window.addEventListener('message', function (event) {
   }
 
   if (data.action == 'base') {
-    data.speed > 1 && (data.speed = 1);
+    data.vehicle.limit > 1 && (data.vehicle.limit = 1);
     data.oxygen < 0.01 && (data.oxygen = 0.01);
 
     Health.style.display = 'block';
-    Speed.style.display = data.speed !== false ? 'block' : 'none';
+    Speed.style.display = data.vehicle.limit !== false ? 'block' : 'none';
     Fuel.style.display = data.fuel !== false ? 'block' : 'none';
     Armour.style.display = data.armour ? 'block' : 'none';
     Oxygen.style.display = data.oxygen < 1 ? 'block' : 'none';
@@ -114,10 +114,12 @@ window.addEventListener('message', function (event) {
     !data.voice.connected && VoiceIcon.classList.remove('fa-microphone');
     !data.voice.connected && VoiceIcon.classList.add('fa-times');
 
-    data.speed >= 0.1 && SpeedIcon.classList.remove('fa-tachometer-alt');
-    data.speed >= 0.1 && (SpeedIcon.textContent = Math.floor(data.speed * 100));
-    data.speed < 0.1 && SpeedIcon.classList.add('fa-tachometer-alt');
-    data.speed < 0.1 && (SpeedIcon.textContent = '');
+    data.vehicle.limit >= 0.1 &&
+      SpeedIcon.classList.remove('fa-tachometer-alt');
+    data.vehicle.limit >= 0.1 &&
+      (SpeedIcon.textContent = Math.floor(data.vehicle.speed));
+    data.vehicle.limit < 0.1 && SpeedIcon.classList.add('fa-tachometer-alt');
+    data.vehicle.limit < 0.1 && (SpeedIcon.textContent = '');
 
     data.oxygen < 0.1 && OxygenIcon.classList.toggle('flash');
 
@@ -152,7 +154,7 @@ window.addEventListener('message', function (event) {
 
     HealthIndicator.animate(data.hp);
     ArmourIndicator.animate(data.armour);
-    SpeedIndicator.animate(data.speed || 0);
+    SpeedIndicator.animate(data.vehicle.limit || 0);
     OxygenIndicator.animate(data.oxygen || 1);
     FuelIndicator.animate(data.fuel || 0);
   }

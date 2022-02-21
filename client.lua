@@ -15,7 +15,7 @@ local GeneralLoop = function()
       local veh = isDriving and GetVehiclePedIsUsing(ESX.PlayerData.ped, false)
       local speedMultiplier = isDriving and dx.metricSystem and 3.6 or 2.236936
       local maxSpeed = isDriving and GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
-      
+
       SetRadarZoom(1150)
       DisplayRadar(dx.persistentRadar or isDriving)
 
@@ -24,7 +24,10 @@ local GeneralLoop = function()
         hp = health > 0 and health or 0,
         armour = GetPedArmour(ESX.PlayerData.ped) / 100,
         oxygen = underwaterTime,
-        speed = isDriving and GetEntitySpeed(veh) * speedMultiplier / maxSpeed * 1.3,
+        vehicle = isDriving and {
+          speed = GetEntitySpeed(veh) * speedMultiplier,
+          limit = GetEntitySpeed(veh) * speedMultiplier / maxSpeed / 1.3,
+        },
         fuel = dx.fuel and isDriving and GetVehicleFuelLevel(veh) / 100,
         voice = {
           toggled = dx.voice,
