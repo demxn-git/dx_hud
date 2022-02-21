@@ -19,7 +19,7 @@ local GeneralLoop = function()
         },
         armour = GetPedArmour(ESX.PlayerData.ped),
         oxygen = {
-          current = GetPlayerUnderwaterTimeRemaining(playerId),
+          current = IsPedSwimmingUnderWater(ESX.PlayerData.ped) and GetPlayerUnderwaterTimeRemaining(playerId),
           max = maxUnderwaterTime
         },
         vehicle = isDriving and {

@@ -95,26 +95,26 @@ window.addEventListener('message', function (event) {
 
   if (data.action == 'base') {
     let health = (data.health.current - 100) / (data.health.max - 100);
-    let oxygen = data.oxygen.current / data.oxygen.max;
+    let oxygen = data.oxygen.current && data.oxygen.current / data.oxygen.max;
+
     let vehicle, isDriving;
     vehicle = isDriving = data.vehicle;
 
     let speed, maxSpeed, percSpeed, fuel;
-
     isDriving && (speed = vehicle.speed.current * vehicle.unitsMultiplier);
     isDriving && (maxSpeed = vehicle.speed.max * vehicle.unitsMultiplier);
     isDriving && (percSpeed = (speed / maxSpeed) * 0.7);
-    isDriving && (fuel = vehicle.fuel / 100);
+    isDriving && (fuel = vehicle.fuel && vehicle.fuel / 100);
 
     health < 0 && (health = 0);
     percSpeed > 1 && (percSpeed = 1);
-    oxygen < 0.01 && (oxygen = 0.01);
+    oxygen < 0 && (oxygen = 0);
 
     Health.style.display = 'block';
-    Speed.style.display = isDriving !== false ? 'block' : 'none';
-    Fuel.style.display = isDriving !== false ? 'block' : 'none';
+    Speed.style.display = isDriving ? 'block' : 'none';
+    Fuel.style.display = isDriving && fuel !== false ? 'block' : 'none';
     Armour.style.display = data.armour ? 'block' : 'none';
-    Oxygen.style.display = oxygen < 1 ? 'block' : 'none';
+    Oxygen.style.display = oxygen !== false ? 'block' : 'none';
     data.voice.toggled && (Voice.style.display = 'block');
 
     health && HealthIcon.classList.remove('fa-skull');
@@ -136,7 +136,7 @@ window.addEventListener('message', function (event) {
 
     HealthIndicator.trail.setAttribute('stroke', health ? 'rgb(35, 35, 35)' : 'rgb(255, 0, 0)');
     HealthIndicator.path.setAttribute('stroke', health ? 'rgb(0, 255, 100)' : 'rgb(255, 0, 0)');
-    OxygenIndicator.path.setAttribute('stroke', oxygen < 0.25 ? 'rgb(255, 0, 0)' : 'rgb(0, 140, 255)');
+    OxygenIndicator.path.setAttribute('stroke', oxygen < 0.1 ? 'rgb(255, 0, 0)' : 'rgb(0, 140, 255)');
     VoiceIndicator.path.setAttribute(
       'stroke',
       data.voice.connected ? (data.voice.talking ? 'rgb(255, 255, 0)' : 'rgb(169, 169, 169)') : 'rgb(255, 0, 0)',
@@ -147,8 +147,8 @@ window.addEventListener('message', function (event) {
     HealthIndicator.animate(health);
     ArmourIndicator.animate(data.armour / 100);
     SpeedIndicator.animate(percSpeed || 0);
-    OxygenIndicator.animate(oxygen || 1);
-    FuelIndicator.animate(fuel || 0);
+    OxygenIndicator.animate((oxygen === false && 1) || oxygen);
+    FuelIndicator.animate((fuel === false && 1) || fuel);
   }
 
   if (data.action == 'status') {
