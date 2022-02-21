@@ -13,13 +13,13 @@ dx = {
   -- true: speed will be kmh
   -- false: speed will be mph
 
-  stress = true,
+  stress = false,
   -- setting this to true requires you to add a stress status
 
-  fuel = true,
+  fuel = false,
   -- setting this to true requires you to add a fuel managment resource
 
-  voice = true,
+  voice = false,
   -- enabling this requires pma-voice
 
   circleMap = true
