@@ -9,15 +9,15 @@ local GeneralLoop = function()
         visible = not IsPauseMenuActive()
       })
 
-      SetRadarZoom(1150)
-      DisplayRadar(dx.persistentRadar or isDriving)
-
       local health = (GetEntityHealth(ESX.PlayerData.ped) - 100) / (GetEntityMaxHealth(ESX.PlayerData.ped) - 100)
       local underwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) / maxUnderwaterTime
       local isDriving = IsPedInAnyVehicle(ESX.PlayerData.ped, true)
       local veh = isDriving and GetVehiclePedIsUsing(ESX.PlayerData.ped, false)
       local speedMultiplier = isDriving and dx.metricSystem and 3.6 or 2.236936
       local maxSpeed = isDriving and GetVehicleModelMaxSpeed(GetEntityModel(veh)) * speedMultiplier
+      
+      SetRadarZoom(1150)
+      DisplayRadar(dx.persistentRadar or isDriving)
 
       SendNUIMessage({
         action = 'base',
