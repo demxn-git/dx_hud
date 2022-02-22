@@ -1,0 +1,13 @@
+{
+  "persistentRadar": false,
+  "metricSystem": true,
+  "stress": false,
+  "fuel": false,
+  "voice": false,
+  "circleMap": true,
+  "refreshRates": {
+    "base": 200,
+    "status": 3000,
+    "checks": 1000
+  }
+}

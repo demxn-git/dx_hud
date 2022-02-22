@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 author '0xDEMXN'
-version '1.1.1'
+version '1.2.0'
 
 lua54 'yes'
 use_fxv2_oal 'yes'
@@ -11,21 +11,21 @@ shared_scripts {
 }
 
 client_scripts {
-    'config.lua',
-    'init.lua',
-    'events.lua',
-    'modules/*',
+  'modules/init.lua',
+  'modules/**/*',
+  'client.lua',
 }
 
 files {
-    'html/index.html',
-    'html/**/*',
+  'nui/**/index.html',
+  'nui/**/*',
+  'config.json'
 }
 
-ui_page 'html/index.html'
+ui_page 'nui/index.html'
 
 dependencies {
-    'es_extended',
-    'esx_status',
-    'esx_basicneeds'
+  'es_extended',
+  'esx_status',
+  'esx_basicneeds'
 }
