@@ -66,9 +66,8 @@ CreateThread(function()
         lastArmour = curArmour
       end
 
-      if cfg.stamina and not IsPedInAnyVehicle(ped, false)  then  
-        local pId = PlayerId()
-        local curStamina = GetPlayerSprintStaminaRemaining(pId)
+      if cfg.stamina and offVehicle then  
+        local curStamina = GetPlayerSprintStaminaRemaining(playerId)
         if curStamina ~= lastStamina then
           SendMessage('setStamina', curStamina)
           lastStamina = curStamina
