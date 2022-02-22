@@ -20,6 +20,7 @@ const HealthIcon = document.getElementById('HealthIcon');
 const SpeedIcon = document.getElementById('SpeedIcon');
 const VoiceIcon = document.getElementById('VoiceIcon');
 const OxygenIcon = document.getElementById('OxygenIcon');
+const FuelIcon = document.getElementById('FuelIcon');
 const HungerIcon = document.getElementById('HungerIcon');
 const ThirstIcon = document.getElementById('ThirstIcon');
 const StressIcon = document.getElementById('StressIcon');
@@ -85,7 +86,6 @@ window.addEventListener('message', function (event) {
   if (action == 'setVehicle') {
     if (data) {
       Speed.style.display = 'block';
-      Fuel.style.display = 'block';
 
       let speed = data.speed.current * data.unitsMultiplier;
       let maxSpeed = data.speed.max * data.unitsMultiplier;
@@ -93,13 +93,14 @@ window.addEventListener('message', function (event) {
       let fuel = data.fuel && data.fuel / 100;
 
       percSpeed > 1 && (percSpeed = 1);
-
       percSpeed >= 0.01 && SpeedIcon.classList.remove('fa-tachometer-alt');
       percSpeed >= 0.01 && (SpeedIcon.textContent = Math.floor(speed));
       percSpeed < 0.01 && SpeedIcon.classList.add('fa-tachometer-alt');
       percSpeed < 0.01 && (SpeedIcon.textContent = '');
 
-      Circle.FuelIndicator.path.setAttribute('stroke', fuel > 0.2 ? 'rgb(255, 255, 255)' : 'rgb(255, 0, 0)');
+      Fuel.style.display = fuel !== false ? 'block' : 'none';
+      fuel <= 0.15 && FuelIcon.classList.toggle('flash');
+      Circle.FuelIndicator.path.setAttribute('stroke', fuel > 0.15 ? 'rgb(255, 255, 255)' : 'rgb(255, 0, 0)');
 
       Circle.SpeedIndicator.animate(percSpeed);
       Circle.FuelIndicator.animate(fuel);
