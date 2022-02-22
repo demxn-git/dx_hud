@@ -11,6 +11,13 @@ export default {
     trailWidth: 12,
     duration: 600,
   }),
+  StaminaIndicator: new ProgressBar.Circle('#StaminaIndicator', {
+    color: 'rgb(255, 255, 204)',
+    trailColor: 'rgb(35, 35, 35)',
+    strokeWidth: 12,
+    trailWidth: 12,
+    duration: 600,
+  }),
   HungerIndicator: new ProgressBar.Circle('#HungerIndicator', {
     color: 'rgb(255, 164, 59)',
     trailColor: 'rgb(35, 35, 35)',

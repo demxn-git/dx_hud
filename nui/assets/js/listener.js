@@ -10,6 +10,7 @@ const Speed = document.getElementById('SpeedIndicator');
 const Fuel = document.getElementById('FuelIndicator');
 const Voice = document.getElementById('VoiceIndicator');
 const Armour = document.getElementById('ArmourIndicator');
+const Stamina = document.getElementById('StaminaIndicator');
 const Oxygen = document.getElementById('OxygenIndicator');
 const Health = document.getElementById('HealthIndicator');
 const Hunger = document.getElementById('HungerIndicator');
@@ -63,6 +64,13 @@ window.addEventListener('message', function (event) {
     Armour.style.display = 'block';
     Circle.ArmourIndicator.animate(data / 100, function () {
       Armour.style.display = data == 0 && 'none';
+    });
+  }
+
+  if (action == 'setStamina') {
+    Stamina.style.display = 'block';
+    Circle.StaminaIndicator.animate(data / 100, function () {
+      Stamina.style.display = data == 0 && 'none';
     });
   }
 

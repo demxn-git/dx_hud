@@ -43,6 +43,7 @@ end)
 
 local lastHealth
 local lastArmour
+local lastStamina
 local onSurface
 local offVehicle
 local voiceDisc
@@ -63,6 +64,15 @@ CreateThread(function()
       if curArmour ~= lastArmour then
         SendMessage('setArmour', curArmour)
         lastArmour = curArmour
+      end
+
+      if cfg.stamina and not IsPedInAnyVehicle(ped, false)  then  
+        local pId = PlayerId()
+        local curStamina = GetPlayerSprintStaminaRemaining(pId)
+        if curStamina ~= lastStamina then
+          SendMessage('setStamina', curStamina)
+          lastStamina = curStamina
+        end
       end
 
       while not maxUnderwaterTime and IsPedSwimmingUnderWater(ped) do
@@ -119,7 +129,6 @@ CreateThread(function()
           isSilent = false
         end
       end
-
     end
     Citizen.Wait(cfg.refreshRates.base)
   end
