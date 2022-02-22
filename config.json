@@ -1,10 +1,10 @@
 {
   "persistentRadar": false,
-  "metricSystem": false,
-  "stamina": true,
+  "metricSystem": true,
+  "stamina": false,
   "stress": false,
-  "fuel": true,
-  "voice": true,
+  "fuel": false,
+  "voice": false,
   "circleMap": true,
   "refreshRates": {
     "base": 200,
