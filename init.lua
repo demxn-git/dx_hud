@@ -2,8 +2,8 @@ playerId = PlayerId()
 
 InitHUD = function()
   if IsPedSwimming(ESX.PlayerData.ped) then
-    local timer = 5000
     ESX.ShowNotification('Calculating your lung capacity...')
+    local timer = 5000
     while not maxUnderwaterTime do
       Citizen.Wait(1000)
       timer -= 1000
@@ -22,6 +22,8 @@ InitHUD = function()
 
   while ESX.PlayerLoaded do
     SendNUIMessage({ action = 'general', visible = not IsPauseMenuActive() })
+    SetRadarZoom(1150)
+    DisplayRadar(dx.persistentRadar or IsPedInAnyVehicle(ESX.PlayerData.ped, true))
     Citizen.Wait(1000)
   end
 end

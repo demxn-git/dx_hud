@@ -1,11 +1,7 @@
 BaseLoop = function()
   CreateThread(function()
     while ESX.PlayerLoaded do
-      local isDriving = IsPedInAnyVehicle(ESX.PlayerData.ped, true)
-      local currentVehicle = isDriving and GetVehiclePedIsUsing(ESX.PlayerData.ped, false)
-
-      SetRadarZoom(1150)
-      DisplayRadar(dx.persistentRadar or isDriving)
+      local currentVehicle = GetVehiclePedIsUsing(ESX.PlayerData.ped, false)
 
       SendNUIMessage({
         action = 'base',
@@ -18,7 +14,7 @@ BaseLoop = function()
           current = IsPedSwimmingUnderWater(ESX.PlayerData.ped) and GetPlayerUnderwaterTimeRemaining(playerId),
           max = maxUnderwaterTime
         },
-        vehicle = isDriving and {
+        vehicle = IsPedInAnyVehicle(ESX.PlayerData.ped, true) and {
           speed = {
             current = GetEntitySpeed(currentVehicle),
             max = GetVehicleModelMaxSpeed(GetEntityModel(currentVehicle))
