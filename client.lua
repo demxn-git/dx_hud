@@ -145,7 +145,7 @@ CreateThread(function()
           end)
         end
         Citizen.Wait(100)
-      until cfg.stress and hunger and thirst and stress or hunger and thrist
+      until cfg.stress and hunger and thirst and stress or hunger and thirst
 
       SendMessage('status', {
         hunger = hunger,
