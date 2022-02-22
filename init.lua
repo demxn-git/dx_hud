@@ -24,6 +24,6 @@ InitHUD = function()
     SendNUIMessage({ action = 'general', visible = not IsPauseMenuActive() })
     SetRadarZoom(1150)
     DisplayRadar(dx.persistentRadar or IsPedInAnyVehicle(ESX.PlayerData.ped, true))
-    Citizen.Wait(1000)
+    Citizen.Wait(dx.checksRefreshRate)
   end
 end

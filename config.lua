@@ -1,6 +1,7 @@
 dx = {
-  generalRefreshRate = 200,
+  baseRefreshRate = 200,
   statusRefreshRate = 2000,
+  checksRefreshRate = 1000,
   -- in milliseconds, make sure you know what you're doing
   -- higher: better performances, worse looking
   -- lower: better looking, worse performances

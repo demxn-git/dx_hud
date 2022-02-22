@@ -29,7 +29,7 @@ BaseLoop = function()
         }
       })
 
-      Wait(dx.generalRefreshRate)
+      Wait(dx.baseRefreshRate)
     end
   end)
 end
