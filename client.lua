@@ -15,9 +15,11 @@ Citizen.CreateThread(function ()
       end
 
       local inVehicle = IsPedInAnyVehicle(ped, false)
+      if inVehicle ~= curInVehicle then curInVehicle = inVehicle end
+
       if not cfg.persistentRadar then
         local isRadarHidden = IsRadarHidden()
-        if inVehicle == isRadarHidden then
+        if curInVehicle == isRadarHidden then
           DisplayRadar(inVehicle)
           SetRadarZoom(1150)
         end
@@ -100,8 +102,7 @@ CreateThread(function()
         end
       end
 
-      local inVehicle = IsPedInAnyVehicle(ped, false)
-      if inVehicle then
+      if curInVehicle then
         local curVehicle = GetVehiclePedIsUsing(ped, false)
         SendMessage('setVehicle', {
           speed = {
