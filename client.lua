@@ -43,11 +43,11 @@ end)
 
 local lastHealth
 local lastArmour
-local lastStamina
 local onSurface
 local offVehicle
 local voiceDisc
 local isSilent
+local isResting
 
 CreateThread(function()
   while true do
@@ -66,14 +66,18 @@ CreateThread(function()
         lastArmour = curArmour
       end
 
-      if cfg.stamina and offVehicle then  
+      if cfg.stamina then
         local curStamina = GetPlayerStamina(playerId)
-        if curStamina ~= lastStamina then
+        local maxStamina = GetPlayerMaxStamina(playerId)
+        if curStamina < maxStamina then
           SendMessage('setStamina', {
             current = curStamina,
-            max = GetPlayerMaxStamina(playerId)
+            max = maxStamina
           })
-          lastStamina = curStamina
+          isResting = false
+        elseif not isResting then
+          SendMessage('setStamina', false)
+          isResting = true
         end
       end
 
