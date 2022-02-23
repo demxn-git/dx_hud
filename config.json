@@ -5,8 +5,7 @@
   "stress": false,
   "fuel": false,
   "voice": false,
-  "seatbelt": true,
-  "speedlimiter": true,
+  "seatbelt": false,
   "circleMap": true,
   "logo": true,
   "refreshRates": {
