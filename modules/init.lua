@@ -1,9 +1,9 @@
 currentResourceName = GetCurrentResourceName()
 cfg = json.decode(LoadResourceFile(currentResourceName, 'config.json'))
 
-nuiIsReady = false
-RegisterNUICallback('nuiIsReady', function(_, cb) 
-  nuiIsReady = true
+nuiReady = false
+RegisterNUICallback('nuiReady', function(_, cb) 
+  nuiReady = true
   cb({})
 end)
 

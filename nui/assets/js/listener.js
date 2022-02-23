@@ -2,7 +2,7 @@
 import Circle from './modules/circles.js';
 
 window.onload = event => {
-  fetch(`https://${GetParentResourceName()}/nuiIsReady`);
+  fetch(`https://${GetParentResourceName()}/nuiReady`);
 
   const Container = document.querySelector('.Container');
   const Logo = document.querySelector('.Logo');
@@ -43,7 +43,7 @@ window.onload = event => {
     }
 
     if (action == 'setPlayerId') {
-      ID.textContent = data;
+      data && (ID.textContent = data);
     }
 
     if (action == 'setHealth') {

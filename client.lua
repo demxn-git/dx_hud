@@ -5,7 +5,7 @@ local curPed
 
 Citizen.CreateThread(function ()
   while true do
-    if nuiIsReady and ESX.PlayerLoaded then
+    if nuiReady and ESX.PlayerLoaded then
       local ped = PlayerPedId()
 
       local paused = IsPauseMenuActive()
@@ -51,7 +51,7 @@ local isResting
 
 CreateThread(function()
   while true do
-    if nuiIsReady and ESX.PlayerLoaded then
+    if nuiReady and ESX.PlayerLoaded then
       local ped = PlayerPedId()
 
       local curHealth = GetEntityHealth(ped)
@@ -87,10 +87,10 @@ CreateThread(function()
       end
 
       if maxUnderwaterTime then
-        local underWater = GetPlayerUnderwaterTimeRemaining(playerId) < maxUnderwaterTime
-        if underWater then
+        local curUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId)
+        if curUnderwaterTime < maxUnderwaterTime then
           SendMessage('setOxygen', {
-            current = GetPlayerUnderwaterTimeRemaining(playerId),
+            current = curUnderwaterTime,
             max = maxUnderwaterTime
           })
           onSurface = false
@@ -146,7 +146,7 @@ local stress
 
 CreateThread(function()
   while true do
-    if nuiIsReady and ESX.PlayerLoaded then
+    if nuiReady and ESX.PlayerLoaded then
       repeat
         TriggerEvent('esx_status:getStatus', 'hunger', function(status)
           if status then hunger = status.val / 10000 end
@@ -192,7 +192,7 @@ end)
 
 AddEventHandler('onResourceStart', function(resourceName)
   if (currentResourceName == resourceName) then
-    repeat Citizen.Wait(100) until nuiIsReady
+    repeat Citizen.Wait(100) until nuiReady
     SendMessage('setPlayerId', GetPlayerServerId(playerId))
     if cfg.logo then SendMessage('setLogo') end
   end
