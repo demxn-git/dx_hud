@@ -7,13 +7,17 @@ lua54 'yes'
 use_fxv2_oal 'yes'
 
 shared_scripts {
-    '@es_extended/imports.lua'
+  '@es_extended/imports.lua',
+  'modules/init.lua',
 }
 
 client_scripts {
-  'modules/init.lua',
-  'modules/**/*',
-  'client.lua',
+  'modules/**/client.lua',
+  'client.lua'
+}
+
+server_scripts {
+  'modules/**/server.lua'
 }
 
 files {

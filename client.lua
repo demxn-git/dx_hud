@@ -14,8 +14,8 @@ Citizen.CreateThread(function ()
         curPaused = paused
       end
 
+      local inVehicle = IsPedInAnyVehicle(ped, false)
       if not cfg.persistentRadar then
-        local inVehicle = IsPedInAnyVehicle(ped, true)
         local isRadarHidden = IsRadarHidden()
         if inVehicle == isRadarHidden then
           DisplayRadar(inVehicle)
@@ -100,7 +100,7 @@ CreateThread(function()
         end
       end
 
-      local inVehicle = IsPedInAnyVehicle(ped, true)
+      local inVehicle = IsPedInAnyVehicle(ped, false)
       if inVehicle then
         local curVehicle = GetVehiclePedIsUsing(ped, false)
         SendMessage('setVehicle', {
@@ -176,12 +176,16 @@ AddEventHandler('pma-voice:setTalkingMode', function(mode)
   SendMessage('setVoiceRange', mode)
 end)
 
+local InitializeHUD = function()
+  SendMessage('setPlayerId', GetPlayerServerId(playerId))
+  if cfg.logo then SendMessage('setLogo') end
+end
+
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function()
  	ESX.PlayerLoaded = true
-  SendMessage('setPlayerId', GetPlayerServerId(playerId))
   SendMessage('toggleHud', true)
-  if cfg.logo then SendMessage('setLogo') end
+  InitializeHUD()
 end)
 
 RegisterNetEvent('esx:onPlayerLogout')
@@ -193,7 +197,6 @@ end)
 AddEventHandler('onResourceStart', function(resourceName)
   if (currentResourceName == resourceName) then
     repeat Citizen.Wait(100) until nuiReady
-    SendMessage('setPlayerId', GetPlayerServerId(playerId))
-    if cfg.logo then SendMessage('setLogo') end
+    InitializeHUD()
   end
 end)

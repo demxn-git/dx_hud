@@ -10,6 +10,7 @@
 <body>
   <div class="Container">
     <div class="Icons">
+      <i id="SeatbeltIcon" class="fas fa-user-slash outerIcon"></i>
       <div id="VoiceIndicator" class="Icon">
         <i id="VoiceIcon" class="fas fa-times"></i>
       </div>
@@ -50,13 +51,15 @@
         <i id="SpeedIcon" class="fas fa-tachometer-alt"></i>
       </div>
 
-      <div id="ID"></div>
+      <div id="ID" class="outerIcon"></div>
     </div>
   </div>
   <div class="Logo" style="display:none;">
     <img src="assets/images/logo.png">
   </div>
   
+  <audio id="buckle" src="assets/sounds/buckle.ogg" preload></audio>
+  <audio id="unbuckle" src="assets/sounds/unbuckle.ogg" preload></audio>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/0.6.1/progressbar.min.js"
     integrity="sha512-7IoDEsIJGxz/gNyJY/0LRtS45wDSvPFXGPuC7Fo4YueWMNOmWKMAllEqo2Im3pgOjeEwsOoieyliRgdkZnY0ow=="
     crossorigin="anonymous"></script>

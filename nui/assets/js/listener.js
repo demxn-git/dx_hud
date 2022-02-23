@@ -28,6 +28,10 @@ window.onload = event => {
   const ThirstIcon = document.getElementById('ThirstIcon');
   const StressIcon = document.getElementById('StressIcon');
 
+  const Seatbelt = document.getElementById('SeatbeltIcon');
+  const Buckle = document.getElementById('buckle');
+  const Unbuckle = document.getElementById('unbuckle');
+
   Circle.VoiceIndicator.animate(0.66);
 
   window.addEventListener('message', function (event) {
@@ -43,7 +47,12 @@ window.onload = event => {
     }
 
     if (action == 'setPlayerId') {
-      data && (ID.textContent = data);
+      if (data) {
+        ID.style.display = 'block';
+        ID.textContent = data;
+      } else {
+        ID.style.display = 'none';
+      }
     }
 
     if (action == 'setHealth') {
@@ -185,6 +194,26 @@ window.onload = event => {
       Circle.StressIndicator.animate(data.stress / 100, function () {
         Stress.style.display = data.stress <= 5 && 'none';
       });
+    }
+
+    if (action == 'setSeatbelt') {
+      Seatbelt.style.display = data.toggled ? 'block' : 'none';
+      Seatbelt.style.color = data.buckled ? 'rgb(0, 255, 100)' : 'rgb(255, 100, 100)';
+    }
+
+    if (action == 'playSound') {
+      switch (data) {
+        case 'unbuckle':
+          Unbuckle.volume = 0.2;
+          Unbuckle.play();
+          break;
+        case 'buckle':
+          Buckle.volume = 0.2;
+          Buckle.play();
+          break;
+        default:
+          break;
+      }
     }
   });
 };
