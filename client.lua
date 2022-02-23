@@ -23,6 +23,10 @@ Citizen.CreateThread(function ()
         end
       end
 
+      if not cfg.showLogo then
+        SendMessage('disableLogo')
+      end
+
       if ped ~= curPed then
         if IsPedSwimming(ped) then
           local timer = 5000
@@ -67,9 +71,12 @@ CreateThread(function()
       end
 
       if cfg.stamina and offVehicle then  
-        local curStamina = GetPlayerSprintStaminaRemaining(playerId)
+        local curStamina = GetPlayerStamina(playerId)
         if curStamina ~= lastStamina then
-          SendMessage('setStamina', curStamina)
+          SendMessage('setStamina', {
+            current = curStamina,
+            max = GetPlayerMaxStamina(playerId)
+          })
           lastStamina = curStamina
         end
       end

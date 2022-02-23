@@ -36,6 +36,10 @@ window.addEventListener('message', function (event) {
     Container.style.display = data ? 'block' : 'none';
     Logo.style.display = data ? 'block' : 'none';
   }
+  
+  if (action == 'disableLogo') {
+    Logo.style.display = data ? 'block' : 'none';
+  }
 
   if (action == 'setPlayerId') {
     ID.textContent = data;
@@ -68,10 +72,20 @@ window.addEventListener('message', function (event) {
   }
 
   if (action == 'setStamina') {
-    Stamina.style.display = 'block';
-    Circle.StaminaIndicator.animate(data / 100, function () {
-      Stamina.style.display = data == 0 && 'none';
-    });
+    if (data) {
+      Stamina.style.display = 'block';
+
+      let stamina = data.current / data.max;
+      stamina < 0 && (stamina = 0);
+      stamina < 0.1 && StaminaIcon.classList.toggle('flash');
+
+      Circle.StaminaIndicator.path.setAttribute('stroke', stamina < 0.1 ? 'rgb(255, 0, 0)' : 'rgb(255, 255, 200)');
+      Circle.StaminaIndicator.animate(stamina);
+    } else {
+      Circle.StaminaIndicator.animate(1, function () {
+        Stamina.style.display = 'none';
+      });
+    }
   }
 
   if (action == 'setOxygen') {
