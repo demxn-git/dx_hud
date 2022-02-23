@@ -23,10 +23,6 @@ Citizen.CreateThread(function ()
         end
       end
 
-      if not cfg.showLogo then
-        SendMessage('disableLogo')
-      end
-
       if ped ~= curPed then
         if IsPedSwimming(ped) then
           local timer = 5000
@@ -181,10 +177,19 @@ AddEventHandler('esx:playerLoaded', function()
  	ESX.PlayerLoaded = true
   SendMessage('setPlayerId', GetPlayerServerId(playerId))
   SendMessage('toggleHud', true)
+  if cfg.logo then SendMessage('setLogo') end
 end)
 
 RegisterNetEvent('esx:onPlayerLogout')
 AddEventHandler('esx:onPlayerLogout', function()
 	ESX.PlayerLoaded = false
   SendMessage('toggleHud', false)
+end)
+
+AddEventHandler('onResourceStart', function(resourceName)
+  if (currentResourceName == resourceName) then
+    repeat Citizen.Wait(100) until nuiIsReady
+    SendMessage('setPlayerId', GetPlayerServerId(playerId))
+    if cfg.logo then SendMessage('setLogo') end
+  end
 end)

@@ -36,7 +36,10 @@ window.onload = event => {
 
     if (action == 'toggleHud') {
       Container.style.display = data ? 'block' : 'none';
-      Logo.style.display = data ? 'block' : 'none';
+    }
+
+    if (action == 'setLogo') {
+      Logo.style.display = 'block';
     }
 
     if (action == 'setPlayerId') {

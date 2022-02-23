@@ -60,6 +60,7 @@ body {
   right: 4rem;
   max-width: 130px;
   opacity: .7;
+  display: none;
 }
 
 .flash {

@@ -6,7 +6,7 @@
   "fuel": true,
   "voice": true,
   "circleMap": true,
-  "showLogo": true,
+  "logo": true,
   "refreshRates": {
     "base": 200,
     "status": 3000,
