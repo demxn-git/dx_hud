@@ -17,7 +17,7 @@ client_scripts {
 }
 
 files {
-  'nui/**/index.html',
+  'nui/index.html',
   'nui/**/*',
   'config.json'
 }
