@@ -1,1 +1,1 @@
-if cfg.seatbelt then SetConvarReplicated('game_enableFlyThroughWindscreen', 'true') end
+if cfg.seatbelt.enabled then SetConvarReplicated('game_enableFlyThroughWindscreen', 'true') end

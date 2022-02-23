@@ -5,7 +5,10 @@
   "stress": false,
   "fuel": false,
   "voice": false,
-  "seatbelt": false,
+  "seatbelt": {
+    "enabled": false,
+    "key": "B"
+  },
   "circleMap": true,
   "logo": true,
   "refreshRates": {
