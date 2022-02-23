@@ -47,6 +47,7 @@ local onSurface
 local offVehicle
 local voiceDisc
 local isSilent
+local isResting
 
 CreateThread(function()
   while true do
@@ -63,6 +64,21 @@ CreateThread(function()
       if curArmour ~= lastArmour then
         SendMessage('setArmour', curArmour)
         lastArmour = curArmour
+      end
+
+      if cfg.stamina then
+        local curStamina = GetPlayerStamina(playerId)
+        local maxStamina = GetPlayerMaxStamina(playerId)
+        if curStamina < maxStamina then
+          SendMessage('setStamina', {
+            current = curStamina,
+            max = maxStamina
+          })
+          isResting = false
+        elseif not isResting then
+          SendMessage('setStamina', false)
+          isResting = true
+        end
       end
 
       while not maxUnderwaterTime and IsPedSwimmingUnderWater(ped) do
@@ -119,7 +135,6 @@ CreateThread(function()
           isSilent = false
         end
       end
-
     end
     Citizen.Wait(cfg.refreshRates.base)
   end
@@ -166,10 +181,19 @@ AddEventHandler('esx:playerLoaded', function()
  	ESX.PlayerLoaded = true
   SendMessage('setPlayerId', GetPlayerServerId(playerId))
   SendMessage('toggleHud', true)
+  if cfg.logo then SendMessage('setLogo') end
 end)
 
 RegisterNetEvent('esx:onPlayerLogout')
 AddEventHandler('esx:onPlayerLogout', function()
 	ESX.PlayerLoaded = false
   SendMessage('toggleHud', false)
+end)
+
+AddEventHandler('onResourceStart', function(resourceName)
+  if (currentResourceName == resourceName) then
+    repeat Citizen.Wait(100) until nuiIsReady
+    SendMessage('setPlayerId', GetPlayerServerId(playerId))
+    if cfg.logo then SendMessage('setLogo') end
+  end
 end)

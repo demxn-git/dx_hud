@@ -12,6 +12,7 @@ window.onload = event => {
   const Fuel = document.getElementById('FuelIndicator');
   const Voice = document.getElementById('VoiceIndicator');
   const Armour = document.getElementById('ArmourIndicator');
+  const Stamina = document.getElementById('StaminaIndicator');
   const Oxygen = document.getElementById('OxygenIndicator');
   const Health = document.getElementById('HealthIndicator');
   const Hunger = document.getElementById('HungerIndicator');
@@ -35,7 +36,10 @@ window.onload = event => {
 
     if (action == 'toggleHud') {
       Container.style.display = data ? 'block' : 'none';
-      Logo.style.display = data ? 'block' : 'none';
+    }
+
+    if (action == 'setLogo') {
+      Logo.style.display = 'block';
     }
 
     if (action == 'setPlayerId') {
@@ -66,6 +70,23 @@ window.onload = event => {
       Circle.ArmourIndicator.animate(data / 100, function () {
         Armour.style.display = data == 0 && 'none';
       });
+    }
+
+    if (action == 'setStamina') {
+      if (data) {
+        Stamina.style.display = 'block';
+
+        let stamina = data.current / data.max;
+        stamina < 0 && (stamina = 0);
+        stamina < 0.1 && StaminaIcon.classList.toggle('flash');
+
+        Circle.StaminaIndicator.path.setAttribute('stroke', stamina < 0.1 ? 'rgb(255, 0, 0)' : 'rgb(255, 255, 200)');
+        Circle.StaminaIndicator.animate(stamina);
+      } else {
+        Circle.StaminaIndicator.animate(1, function () {
+          Stamina.style.display = 'none';
+        });
+      }
     }
 
     if (action == 'setOxygen') {
