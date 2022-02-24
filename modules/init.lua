@@ -15,4 +15,6 @@ if not IsDuplicityVersion() then
       message = message
     })
   end
+else
+  if cfg.seatbelt.enabled then SetConvarReplicated('game_enableFlyThroughWindscreen', 'true') end
 end
