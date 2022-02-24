@@ -1,6 +1,5 @@
 # dx_hud
 
-This started as a fork of Cosmo HUD but ended up being a complete rewrite.  
 dx_hud is an HUD for FiveM and ESX Legacy.
 
 ## Requirements
@@ -45,7 +44,8 @@ ensure dx_hud
 ![dx_hud screenshot](https://user-images.githubusercontent.com/15928886/154711951-584adcec-5369-477b-8a4a-f3c006182881.png)
 
 ## Thanks to
-[nojdh](https://github.com/nojdh/) for Cosmo HUD
+[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️  
+[nojdh](https://github.com/nojdh/) for Cosmo HUD, which initially this was a fork of
 
 <br>
 <table><tr><td><h3 align='center'>Legal Notices</h2></tr></td>
