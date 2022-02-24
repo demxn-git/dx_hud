@@ -1,4 +1,5 @@
 currentResourceName = GetCurrentResourceName()
+playerId = PlayerId()
 cfg = json.decode(LoadResourceFile(currentResourceName, 'config.json'))
 
 if not IsDuplicityVersion() then

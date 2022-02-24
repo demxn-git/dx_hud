@@ -1,5 +1,3 @@
-local playerId = PlayerId()
-
 local curPaused
 local curPed
 local curCinematic
@@ -122,9 +120,7 @@ CreateThread(function()
         offVehicle = true
       end
 
-      if cfg.voice then
-        local voiceCon = MumbleIsConnected()
-        local isTalking = NetworkIsPlayerTalking(playerId)
+      if cfg.voice.enabled then
         if voiceCon then
           if isTalking then
             SendMessage('setVoice', isTalking)
@@ -175,10 +171,6 @@ CreateThread(function()
     end
     Wait(cfg.refreshRates.status)
   end
-end)
-
-AddEventHandler('pma-voice:setTalkingMode', function(mode)
-  SendMessage('setVoiceRange', mode)
 end)
 
 local InitializeHUD = function()

@@ -4,7 +4,12 @@
   "stamina": false,
   "stress": false,
   "fuel": false,
-  "voice": false,
+  "circleMap": true,
+  "logo": true,
+  "voice": {
+    "enabled": false,
+    "service": "pma-voice"
+  },
   "seatbelt": {
     "enabled": false,
     "key": "B"
@@ -13,8 +18,6 @@
     "enabled": true,
     "key": "F10"
   },
-  "circleMap": true,
-  "logo": true,
   "refreshRates": {
     "base": 200,
     "status": 3000,
