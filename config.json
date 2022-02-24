@@ -9,6 +9,10 @@
     "enabled": false,
     "key": "B"
   },
+  "menu": {
+    "enabled": true,
+    "key": "F10"
+  },
   "circleMap": true,
   "logo": true,
   "refreshRates": {

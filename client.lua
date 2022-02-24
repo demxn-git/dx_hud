@@ -2,6 +2,7 @@ local playerId = PlayerId()
 
 local curPaused
 local curPed
+local curCinematic
 
 Citizen.CreateThread(function ()
   while true do
@@ -17,7 +18,10 @@ Citizen.CreateThread(function ()
       local inVehicle = IsPedInAnyVehicle(ped, false)
       if inVehicle ~= curInVehicle then curInVehicle = inVehicle end
 
-      if not cfg.persistentRadar then
+      if cinematic ~= curCinematic then
+        DisplayRadar(false)
+        curCinematic = cinematic
+      elseif not cfg.persistentRadar and not cinematic then
         local isRadarHidden = IsRadarHidden()
         if curInVehicle == isRadarHidden then
           DisplayRadar(inVehicle)

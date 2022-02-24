@@ -4,9 +4,12 @@ import Circle from './modules/circles.js';
 window.onload = event => {
   fetch(`https://${GetParentResourceName()}/nuiReady`);
 
-  const Container = document.querySelector('.Container');
-  const Logo = document.querySelector('.Logo');
+  const Container = document.getElementById('Container');
+  const Logo = document.getElementById('Logo');
+  const Icons = document.getElementById('Icons');
   const ID = document.getElementById('ID');
+
+  const CinematicBar = document.querySelectorAll('.CinematicBar');
 
   const Speed = document.getElementById('SpeedIndicator');
   const Fuel = document.getElementById('FuelIndicator');
@@ -39,7 +42,7 @@ window.onload = event => {
     let data = event.data.message;
 
     if (action == 'toggleHud') {
-      Container.style.display = data ? 'block' : 'none';
+      Container.style.display = data ? 'flex' : 'none';
     }
 
     if (action == 'setLogo') {
@@ -213,6 +216,18 @@ window.onload = event => {
           break;
         default:
           break;
+      }
+    }
+
+    if (action == 'setCinematic') {
+      if (data) {
+        Icons.classList.add('minified');
+        CinematicBar[0].style.display = 'block';
+        CinematicBar[1].style.display = 'block';
+      } else {
+        Icons.classList.remove('minified');
+        CinematicBar[0].style.display = 'none';
+        CinematicBar[1].style.display = 'none';
       }
     }
   });
