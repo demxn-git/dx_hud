@@ -9,9 +9,12 @@ dx_hud is an HUD for FiveM and ESX Legacy.
 - esx_status
 - esx_basicneeds
 
-## Optionals
+## Voice services configuration
 
+You can change the voice service the HUD will be using in the config file.  
+Currently supported options are:
 - pma-voice
+- saltychat
 
 ## Download & Installation
 
