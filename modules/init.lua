@@ -1,8 +1,8 @@
 currentResourceName = GetCurrentResourceName()
-playerId = PlayerId()
 cfg = json.decode(LoadResourceFile(currentResourceName, 'config.json'))
 
 if not IsDuplicityVersion() then
+  playerId = PlayerId()
   nuiReady = false
   RegisterNUICallback('nuiReady', function(_, cb) 
     nuiReady = true
