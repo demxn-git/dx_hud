@@ -25,15 +25,16 @@ if cfg.seatbelt.enabled then
     isBuckled = status
   end
 
-  local wasInVehicle
+  local curInVehicle
 
   Citizen.CreateThread(function()
     while true do
       if nuiReady then
-        if curInVehicle ~= wasInVehicle then
-          SendMessage('setSeatbelt', { toggled = curInVehicle })
-          if not curInVehicle and isBuckled then isBuckled = false end
-          wasInVehicle = curInVehicle
+        local inVehicle = IsPedInAnyVehicle(PlayerPedId(), false)
+        if inVehicle ~= curInVehicle then
+          SendMessage('setSeatbelt', { toggled = inVehicle })
+          if not inVehicle and isBuckled then isBuckled = false end
+          curInVehicle = inVehicle
         end
       end
       Citizen.Wait(cfg.refreshRates.checks)
