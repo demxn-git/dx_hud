@@ -20,10 +20,13 @@ if cfg.circleMap then
 
     local minimap = RequestScaleformMovie('minimap')
     repeat Citizen.Wait(100) until HasScaleformMovieLoaded(minimap)
-    BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
-    ScaleformMovieMethodAddParamInt(3)
-    EndScaleformMovieMethod()
 
     DisplayRadar(cfg.persistentRadar)
+    while true do
+      BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
+      ScaleformMovieMethodAddParamInt(3)
+      EndScaleformMovieMethod()
+      Citizen.Wait(cfg.refreshRates.base)
+    end
   end)
 end
