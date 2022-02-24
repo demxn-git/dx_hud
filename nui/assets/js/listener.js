@@ -166,6 +166,9 @@ window.onload = event => {
 
     if (action == 'setVoiceRange') {
       switch (data) {
+        case 0:
+          data = 15;
+          break;
         case 1:
           data = 33;
           break;

@@ -48,8 +48,6 @@ local lastHealth
 local lastArmour
 local onSurface
 local offVehicle
-local voiceDisc
-local isSilent
 local isResting
 
 CreateThread(function()
@@ -118,23 +116,6 @@ CreateThread(function()
       elseif not offVehicle then
         SendMessage('setVehicle', false)
         offVehicle = true
-      end
-
-      if cfg.voice.enabled then
-        if voiceCon then
-          if isTalking then
-            SendMessage('setVoice', isTalking)
-            isSilent = false
-          elseif not isSilent then
-            SendMessage('setVoice', isTalking)
-            isSilent = true
-          end
-          voiceDisc = false
-        elseif not voiceDisc then
-          SendMessage('setVoice', 'disconnected')
-          voiceDisc = true
-          isSilent = false
-        end
       end
     end
     Citizen.Wait(cfg.refreshRates.base)
