@@ -1,11 +1,15 @@
-
 if cfg.voice.enabled then
   voiceCon = false
   isTalking = false
   local service = cfg.voice.service
   if service == 'pma-voice' then
-    voiceCon = MumbleIsConnected()
-    isTalking = NetworkIsPlayerTalking(playerId)
+    CreateThread(function()
+      while true do
+        voiceCon = MumbleIsConnected()
+        isTalking = NetworkIsPlayerTalking(playerId)
+        Citizen.Wait(cfg.refreshRates.base)
+      end
+    end)
     AddEventHandler('pma-voice:setTalkingMode', function(mode)
       SendMessage('setVoiceRange', mode)
     end)
