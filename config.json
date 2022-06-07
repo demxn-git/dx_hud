@@ -5,7 +5,7 @@
   "stress": false,
   "fuel": false,
   "circleMap": true,
-  "logo": true,
+  "serverLogo": true,
   "voice": {
     "enabled": false,
     "service": "pma-voice"

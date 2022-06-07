@@ -156,7 +156,7 @@ end)
 
 local InitializeHUD = function()
   SendMessage('setPlayerId', GetPlayerServerId(playerId))
-  if cfg.logo then SendMessage('setLogo') end
+  if cfg.serverLogo then SendMessage('setLogo') end
 end
 
 RegisterNetEvent('esx:playerLoaded')
