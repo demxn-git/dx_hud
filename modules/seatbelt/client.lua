@@ -2,10 +2,10 @@ if cfg.seatbelt.enabled then
   local isBuckled = false
 
   local Buckled = function()
-    Citizen.CreateThread(function()
+    CreateThread(function()
       while isBuckled do
         DisableControlAction(0, 75, true)
-        Citizen.Wait(0)
+        Wait(0)
       end
     end)
   end
@@ -27,7 +27,7 @@ if cfg.seatbelt.enabled then
 
   local curInVehicle
 
-  Citizen.CreateThread(function()
+  CreateThread(function()
     while true do
       if nuiReady then
         local inVehicle = IsPedInAnyVehicle(PlayerPedId(), false)
@@ -37,7 +37,7 @@ if cfg.seatbelt.enabled then
           curInVehicle = inVehicle
         end
       end
-      Citizen.Wait(cfg.refreshRates.checks)
+      Wait(cfg.refreshRates.checks)
     end
   end)
 

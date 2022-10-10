@@ -2,7 +2,7 @@ local curPaused
 local curPed
 local curCinematic
 
-Citizen.CreateThread(function ()
+CreateThread(function ()
   while true do
     if nuiReady and ESX.PlayerLoaded then
       local ped = PlayerPedId()
@@ -30,7 +30,7 @@ Citizen.CreateThread(function ()
         if IsPedSwimming(ped) then
           local timer = 5000
           while not maxUnderwaterTime do
-            Citizen.Wait(1000)
+            Wait(1000)
             timer -= 1000
             if not IsPedSwimmingUnderWater(ped) then
               if timer == 0 then maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) end
@@ -40,7 +40,7 @@ Citizen.CreateThread(function ()
         curPed = ped
       end
     end
-    Citizen.Wait(cfg.refreshRates.checks)
+    Wait(cfg.refreshRates.checks)
   end
 end)
 
@@ -84,7 +84,7 @@ CreateThread(function()
 
       while not maxUnderwaterTime and IsPedSwimmingUnderWater(ped) do
         ESX.ShowHelpNotification('Initializating HUD... please stay on surface at least 5 seconds!', true)
-        Citizen.Wait(0)
+        Wait(0)
       end
 
       if maxUnderwaterTime then
@@ -118,7 +118,7 @@ CreateThread(function()
         offVehicle = true
       end
     end
-    Citizen.Wait(cfg.refreshRates.base)
+    Wait(cfg.refreshRates.base)
   end
 end)
 
@@ -141,7 +141,7 @@ CreateThread(function()
             if status then stress = status.val / 10000 end
           end)
         end
-        Citizen.Wait(100)
+        Wait(100)
       until cfg.stress and hunger and thirst and stress or hunger and thirst
 
       SendMessage('status', {
@@ -174,7 +174,7 @@ end)
 
 AddEventHandler('onResourceStart', function(resourceName)
   if (currentResourceName == resourceName) then
-    repeat Citizen.Wait(100) until nuiReady
+    repeat Wait(100) until nuiReady
     InitializeHUD()
   end
 end)

@@ -3,7 +3,7 @@ if cfg.circleMap then
     DisplayRadar(false)
 
     RequestStreamedTextureDict('circlemap', false)
-    repeat Citizen.Wait(100) until HasStreamedTextureDictLoaded('circlemap')
+    repeat Wait(100) until HasStreamedTextureDictLoaded('circlemap')
     AddReplaceTexture('platform:/textures/graphics', 'radarmasksm', 'circlemap', 'radarmasksm')
 
     SetMinimapClipType(1)
@@ -11,22 +11,22 @@ if cfg.circleMap then
     SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
     SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
 
-    repeat Citizen.Wait(100) until ESX.PlayerLoaded
+    repeat Wait(100) until ESX.PlayerLoaded
 
-    Citizen.Wait(500)
+    Wait(500)
     SetRadarBigmapEnabled(true, false)
-    Citizen.Wait(500)
+    Wait(500)
     SetRadarBigmapEnabled(false, false)
 
     local minimap = RequestScaleformMovie('minimap')
-    repeat Citizen.Wait(100) until HasScaleformMovieLoaded(minimap)
+    repeat Wait(100) until HasScaleformMovieLoaded(minimap)
 
     DisplayRadar(cfg.persistentRadar)
     while true do
       BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
       ScaleformMovieMethodAddParamInt(3)
       EndScaleformMovieMethod()
-      Citizen.Wait(cfg.refreshRates.base)
+      Wait(cfg.refreshRates.base)
     end
   end)
 end
