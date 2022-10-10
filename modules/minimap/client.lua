@@ -11,7 +11,7 @@ if cfg.circleMap then
         SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
         SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
 
-        repeat Wait(100) until ESX.PlayerLoaded
+        repeat Wait(100) until player
 
         Wait(500)
         SetRadarBigmapEnabled(true, false)

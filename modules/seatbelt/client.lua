@@ -30,7 +30,7 @@ if cfg.seatbelt.enabled then
     CreateThread(function()
         while true do
             if nuiReady then
-                local inVehicle = IsPedInAnyVehicle(PlayerPedId(), false)
+			    local inVehicle = cache.vehicle ~= 0
                 if inVehicle ~= curInVehicle then
                     SendMessage('setSeatbelt', { toggled = inVehicle })
                     if not inVehicle and isBuckled then isBuckled = false end
@@ -42,15 +42,14 @@ if cfg.seatbelt.enabled then
     end)
 
     RegisterCommand('seatbelt', function()
-            local ped = PlayerPedId()
-            if IsPedInAnyVehicle(ped, false) then
-                    local curVehicleClass = GetVehicleClass(GetVehiclePedIsIn(ped))
+        if cache.vehicle ~= 0 then
+            local curVehicleClass = GetVehicleClass(cache.vehicle)
 
-                    if curVehicleClass ~= 8
-                    and curVehicleClass ~= 13
-                    and curVehicleClass ~= 14
-                    then Seatbelt(not isBuckled) end
-            end
+            if curVehicleClass ~= 8
+            and curVehicleClass ~= 13
+            and curVehicleClass ~= 14
+            then Seatbelt(not isBuckled) end
+        end
     end, false)
 
     RegisterKeyMapping('seatbelt', 'Toggle Seatbelt', 'keyboard', cfg.seatbelt.key)

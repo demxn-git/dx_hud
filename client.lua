@@ -1,43 +1,41 @@
 local curPaused
-local curPed
-local curCinematic
+local maxUnderwaterTime
+
+if player then
+    PlayerLoaded = true
+end
+
+RegisterNetEvent('ox:playerLoaded', function()
+	PlayerLoaded = true
+end)
+
+RegisterNetEvent('ox:playerLogout', function()
+	PlayerLoaded = false
+	SendMessage('toggleHud', false)
+end)
 
 CreateThread(function()
 	while true do
-		if nuiReady and ESX.PlayerLoaded then
-			local ped = PlayerPedId()
-
+		if nuiReady and PlayerLoaded then
 			local paused = IsPauseMenuActive()
 			if paused ~= curPaused then
 				SendMessage('toggleHud', not paused)
 				curPaused = paused
 			end
 
-			local inVehicle = IsPedInAnyVehicle(ped, false)
-
-			if cinematic ~= curCinematic then
-				DisplayRadar(false)
-				curCinematic = cinematic
-			elseif not cfg.persistentRadar and not cinematic then
-				local isRadarHidden = IsRadarHidden()
-				if inVehicle == isRadarHidden then
-					DisplayRadar(inVehicle)
-					SetRadarZoom(1150)
-				end
-			end
-
-			if ped ~= curPed then
-				if IsPedSwimming(ped) then
+			if not maxUnderwaterTime then
+				if IsPedSwimming(cache.ped) then
 					local timer = 5000
 					while not maxUnderwaterTime do
 						Wait(1000)
 						timer -= 1000
-						if not IsPedSwimmingUnderWater(ped) then
-							if timer == 0 then maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) end
+						if not IsPedSwimmingUnderWater(cache.ped) then
+							if timer == 0 then maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId) end
 						else timer = 5000 end
 					end
-				else maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) end
-				curPed = ped
+				else
+					maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId)
+				end
 			end
 		end
 		Wait(cfg.refreshRates.checks)
@@ -52,24 +50,22 @@ local isResting
 
 CreateThread(function()
 	while true do
-		if nuiReady and ESX.PlayerLoaded then
-			local ped = PlayerPedId()
-
-			local curHealth = GetEntityHealth(ped)
+		if nuiReady and PlayerLoaded then
+			local curHealth = GetEntityHealth(cache.ped)
 			if curHealth ~= lastHealth then
-				SendMessage('setHealth', { current = curHealth, max = GetEntityMaxHealth(ped) })
+				SendMessage('setHealth', { current = curHealth, max = GetEntityMaxHealth(cache.ped) })
 				lastHealth = curHealth
 			end
 
-			local curArmour = GetPedArmour(ped)
+			local curArmour = GetPedArmour(cache.ped)
 			if curArmour ~= lastArmour then
 				SendMessage('setArmour', curArmour)
 				lastArmour = curArmour
 			end
 
 			if cfg.stamina then
-				local curStamina = GetPlayerStamina(playerId)
-				local maxStamina = GetPlayerMaxStamina(playerId)
+				local curStamina = GetPlayerStamina(cache.playerId)
+				local maxStamina = GetPlayerMaxStamina(cache.playerId)
 				if curStamina < maxStamina then
 					SendMessage('setStamina', {
 						current = curStamina,
@@ -82,13 +78,8 @@ CreateThread(function()
 				end
 			end
 
-			while not maxUnderwaterTime and IsPedSwimmingUnderWater(ped) do
-				ESX.ShowHelpNotification('Initializating HUD... please stay on surface at least 5 seconds!', true)
-				Wait(0)
-			end
-
 			if maxUnderwaterTime then
-				local curUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId)
+				local curUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId)
 				if curUnderwaterTime < maxUnderwaterTime then
 					SendMessage('setOxygen', {
 						current = curUnderwaterTime,
@@ -101,16 +92,14 @@ CreateThread(function()
 				end
 			end
 
-			local inVehicle = IsPedInAnyVehicle(ped, false)
-			if inVehicle then
-				local curVehicle = GetVehiclePedIsUsing(ped, false)
+			if cache.vehicle and cache.vehicle ~= 0 then
 				SendMessage('setVehicle', {
 					speed = {
-						current = GetEntitySpeed(curVehicle),
-						max = GetVehicleModelMaxSpeed(GetEntityModel(curVehicle))
+						current = GetEntitySpeed(cache.vehicle),
+						max = GetVehicleModelMaxSpeed(GetEntityModel(cache.vehicle))
 					},
 					unitsMultiplier = cfg.metricSystem and 3.6 or 2.236936,
-					fuel = cfg.fuel and GetVehicleFuelLevel(curVehicle),
+					fuel = cfg.fuel and GetVehicleFuelLevel(cache.vehicle),
 				})
 				offVehicle = false
 			elseif not offVehicle then
@@ -122,59 +111,13 @@ CreateThread(function()
 	end
 end)
 
-local hunger
-local thirst
-local stress
-
-CreateThread(function()
-	while true do
-		if nuiReady and ESX.PlayerLoaded then
-			repeat
-				TriggerEvent('esx_status:getStatus', 'hunger', function(status)
-					if status then hunger = status.val / 10000 end
-				end)
-				TriggerEvent('esx_status:getStatus', 'thirst', function(status)
-					if status then thirst = status.val / 10000 end
-				end)
-				if cfg.stress then
-					TriggerEvent('esx_status:getStatus', 'stress', function(status)
-						if status then stress = status.val / 10000 end
-					end)
-				end
-				Wait(100)
-			until cfg.stress and hunger and thirst and stress or hunger and thirst
-
-			SendMessage('status', {
-				hunger = hunger,
-				thirst = thirst,
-				stress = cfg.stress and stress,
-			})
-		end
-		Wait(cfg.refreshRates.status)
-	end
-end)
-
 local InitializeHUD = function()
-	SendMessage('setPlayerId', GetPlayerServerId(playerId))
+	SendMessage('setPlayerId', cache.serverId)
 	if cfg.serverLogo then SendMessage('setLogo') end
 end
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function()
-	 ESX.PlayerLoaded = true
-	SendMessage('toggleHud', true)
-	InitializeHUD()
-end)
-
-RegisterNetEvent('esx:onPlayerLogout')
-AddEventHandler('esx:onPlayerLogout', function()
-	ESX.PlayerLoaded = false
-	SendMessage('toggleHud', false)
-end)
-
 AddEventHandler('onResourceStart', function(resourceName)
-	if (currentResourceName == resourceName) then
-		repeat Wait(100) until nuiReady
-		InitializeHUD()
-	end
+	if cache.resource ~= resourceName then return end
+	repeat Wait(100) until nuiReady
+	InitializeHUD()
 end)

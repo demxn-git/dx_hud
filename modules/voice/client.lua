@@ -11,7 +11,7 @@ if cfg.voice.enabled then
             if nuiReady then
                 if service == 'pma-voice' then
                     voiceCon = MumbleIsConnected()
-                    isTalking = NetworkIsPlayerTalking(playerId)
+                    isTalking = NetworkIsPlayerTalking(cache.playerId)
                 end
 
                 if service == 'pma-voice' and voiceCon
@@ -26,7 +26,6 @@ if cfg.voice.enabled then
                     end
                     voiceDisc = false
                 elseif not voiceDisc then
-
                     SendMessage('setVoice', 'disconnected')
                     voiceDisc = true
                     isSilent = false
