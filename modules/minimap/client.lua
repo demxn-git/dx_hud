@@ -1,4 +1,9 @@
+local mapState = 1
+local mapLimit = 3
+
 if cfg.circleMap then
+    mapLimit = 1
+
     CreateThread(function()
         DisplayRadar(false)
 
@@ -29,4 +34,38 @@ if cfg.circleMap then
             Wait(cfg.refreshRates.base)
         end
     end)
+end
+
+
+if cfg.persistentRadar then
+
+    local function setRadarState()
+        if mapState == 0 then
+            DisplayRadar(false)
+        elseif mapState == 1 then
+            DisplayRadar(true)
+            SetBigmapActive(false, false)
+        elseif mapState == 2 then
+            DisplayRadar(true)
+            SetBigmapActive(true, false)
+        elseif mapState == 3 then
+            DisplayRadar(true)
+            SetBigmapActive(true, true)
+        end
+    end
+
+    setRadarState()
+
+    RegisterCommand('cyclemap', function()
+        if mapState == mapLimit then
+            mapState = 0
+        else
+            mapState += 1
+        end
+
+        setRadarState()
+    end)
+
+    RegisterKeyMapping('cyclemap', 'Cycle Map', 'keyboard', 'z')
+    TriggerEvent('chat:removeSuggestion', '/cyclemap')
 end
