@@ -4,7 +4,7 @@ author '0xDEMXN'
 version '1.2.7'
 
 lua54 'yes'
-use_fxv2_oal 'yes'
+use_experimental_fxv2_oal 'yes'
 
 shared_scripts {
   '@es_extended/imports.lua',
