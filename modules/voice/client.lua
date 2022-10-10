@@ -5,7 +5,7 @@ if cfg.voice.enabled then
   local isTalking
   local voiceDisc
   local isSilent
-  
+
   CreateThread(function()
     while true do
       if nuiReady then
@@ -14,8 +14,8 @@ if cfg.voice.enabled then
           isTalking = NetworkIsPlayerTalking(playerId)
         end
 
-        if service == 'pma-voice' and voiceCon 
-        or service == 'saltychat' and voiceCon and voiceCon > 0 
+        if service == 'pma-voice' and voiceCon
+        or service == 'saltychat' and voiceCon and voiceCon > 0
         then
           if isTalking then
             SendMessage('setVoice', isTalking)
@@ -32,10 +32,10 @@ if cfg.voice.enabled then
           isSilent = false
         end
       end
-      Citizen.Wait(cfg.refreshRates.base)
+      Wait(cfg.refreshRates.base)
     end
   end)
-  
+
   if service == 'pma-voice' then
     AddEventHandler('pma-voice:setTalkingMode', function(mode)
       SendMessage('setVoiceRange', mode)
