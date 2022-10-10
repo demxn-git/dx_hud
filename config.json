@@ -14,9 +14,9 @@
     "enabled": false,
     "key": "B"
   },
-  "menu": {
+  "mapCycle": {
     "enabled": true,
-    "key": "F10"
+    "key": "Z"
   },
   "refreshRates": {
     "base": 200,
