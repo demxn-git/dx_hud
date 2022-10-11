@@ -96,7 +96,7 @@ CreateThread(function()
 				SendMessage('setVehicle', {
 					speed = {
 						current = GetEntitySpeed(cache.vehicle),
-						max = GetVehicleModelMaxSpeed(GetEntityModel(cache.vehicle))
+						max = GetVehicleModelEstimatedMaxSpeed(GetEntityModel(cache.vehicle))
 					},
 					unitsMultiplier = cfg.metricSystem and 3.6 or 2.236936,
 					fuel = cfg.fuel and GetVehicleFuelLevel(cache.vehicle),

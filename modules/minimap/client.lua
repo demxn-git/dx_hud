@@ -19,9 +19,9 @@ if cfg.circleMap then
         repeat Wait(100) until player
 
         Wait(500)
-        SetRadarBigmapEnabled(true, false)
+        SetBigmapActive(true, false)
         Wait(500)
-        SetRadarBigmapEnabled(false, false)
+        SetBigmapActive(false, false)
 
         local minimap = RequestScaleformMovie('minimap')
         repeat Wait(100) until HasScaleformMovieLoaded(minimap)
