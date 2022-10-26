@@ -30,7 +30,7 @@ if cfg.seatbelt.enabled then
     CreateThread(function()
         while true do
             if nuiReady then
-			    local inVehicle = cache.vehicle ~= 0
+			    local inVehicle = cache.vehicle and cache.vehicle ~= 0
                 if inVehicle ~= curInVehicle then
                     SendMessage('setSeatbelt', { toggled = inVehicle })
                     if not inVehicle and isBuckled then isBuckled = false end
