@@ -93,7 +93,7 @@ CreateThread(function()
                 end
             end
 
-            if cache.vehicle and cache.vehicle ~= 0 then
+            if cache.vehicle and cache.vehicle ~= 0 and DoesEntityExist(cache.vehicle) then
                 SendMessage('setVehicle', {
                     speed = {
                         current = GetEntitySpeed(cache.vehicle),
