@@ -15,6 +15,10 @@ RegisterNetEvent('ox:playerLogout', function()
     SendMessage('toggleHud', false)
 end)
 
+AddEventHandler('ox:statusTick', function(values)
+  SendMessage('status', values)
+end)
+
 CreateThread(function()
     while true do
         if nuiReady and PlayerLoaded then
