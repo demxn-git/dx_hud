@@ -5,7 +5,7 @@
   "stress": false,
   "fuel": false,
   "circleMap": true,
-  "serverLogo": true,
+  "serverLogo": false,
   "voice": {
     "enabled": false,
     "service": "pma-voice"
@@ -20,7 +20,6 @@
   },
   "refreshRates": {
     "base": 200,
-    "status": 3000,
     "checks": 1000
   }
 }
