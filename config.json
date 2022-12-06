@@ -5,7 +5,7 @@
   "stress": false,
   "fuel": false,
   "circleMap": true,
-  "serverLogo": true,
+  "serverLogo": false,
   "voice": {
     "enabled": false,
     "service": "pma-voice"
@@ -14,13 +14,12 @@
     "enabled": false,
     "key": "B"
   },
-  "menu": {
+  "mapCycle": {
     "enabled": true,
-    "key": "F10"
+    "key": "Z"
   },
   "refreshRates": {
     "base": 200,
-    "status": 3000,
     "checks": 1000
   }
 }
