@@ -7,29 +7,25 @@ lua54 'yes'
 use_experimental_fxv2_oal 'yes'
 
 shared_scripts {
-  '@es_extended/imports.lua',
-  'modules/init.lua',
+    '@ox_lib/init.lua',
+    'modules/init.lua',
 }
 
 client_scripts {
-  'modules/**/client.lua',
-  'client.lua'
+    '@ox_core/imports/client.lua',
+    'modules/**/client.lua',
+    'client.lua'
 }
 
 server_scripts {
-  'modules/**/server.lua'
+    '@ox_core/imports/server.lua',
+    'modules/**/server.lua'
 }
 
 files {
-  'nui/index.html',
-  'nui/**/*',
-  'config.json'
+    'nui/index.html',
+    'nui/**/*',
+    'config.json'
 }
 
 ui_page 'nui/index.html'
-
-dependencies {
-  'es_extended',
-  'esx_status',
-  'esx_basicneeds'
-}
