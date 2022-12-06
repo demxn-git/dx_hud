@@ -36,9 +36,7 @@ if cfg.circleMap then
     end)
 end
 
-
 if cfg.persistentRadar then
-
     local function setRadarState()
         if mapState == 0 then
             DisplayRadar(false)
@@ -67,5 +65,8 @@ if cfg.persistentRadar then
     end)
 
     RegisterKeyMapping('cyclemap', 'Cycle Map', 'keyboard', 'z')
-    TriggerEvent('chat:removeSuggestion', '/cyclemap')
+    CreateThread(function()
+        Wait(1000)
+        TriggerEvent('chat:removeSuggestion', '/cyclemap')
+    end)
 end
