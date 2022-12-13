@@ -187,16 +187,20 @@ window.onload = event => {
     }
 
     if (action == 'status') {
-      Hunger.style.display = 'block';
-      Thirst.style.display = 'block';
+      Hunger.style.display = data.hunger > 30 && 'block';
+      Thirst.style.display = data.thirst > 30 && 'block';
       Stress.style.display = data.stress > 0 && 'block';
 
-      data.hunger > 15 && HungerIcon.classList.toggle('flash');
-      data.thirst > 15 && ThirstIcon.classList.toggle('flash');
+      data.hunger > 85 && HungerIcon.classList.toggle('flash');
+      data.thirst > 85 && ThirstIcon.classList.toggle('flash');
       data.stress > 50 && StressIcon.classList.toggle('flash');
 
-      Circle.HungerIndicator.animate(1 - data.hunger / 100);
-      Circle.ThirstIndicator.animate(1 - data.thirst / 100);
+      Circle.HungerIndicator.animate(data.hunger / 100, function () {
+        Hunger.style.display = data.hunger > 30 ? 'block' : 'none';
+      });
+      Circle.ThirstIndicator.animate(data.thirst / 100, function () {
+        Thirst.style.display = data.thirst > 30 ? 'block' : 'none';
+      });
       Circle.StressIndicator.animate(data.stress / 100, function () {
         Stress.style.display = data.stress > 0 ? 'block' : 'none';
       });

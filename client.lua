@@ -16,7 +16,7 @@ RegisterNetEvent('ox:playerLogout', function()
 end)
 
 AddEventHandler('ox:statusTick', function(values)
-  SendMessage('status', values)
+    SendMessage('status', values)
 end)
 
 CreateThread(function()

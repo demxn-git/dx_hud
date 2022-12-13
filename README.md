@@ -9,7 +9,7 @@ dx_hud is an HUD for FiveM and ox_core.
 
 ## Voice services configuration
 
-You can change the voice service the HUD will be using in the config file.
+You can change the voice service the HUD will be using in the config file.  
 Currently supported options are:
 - pma-voice
 - saltychat
@@ -19,7 +19,7 @@ Currently supported options are:
 ![dx_hud screenshot](https://user-images.githubusercontent.com/15928886/154711951-584adcec-5369-477b-8a4a-f3c006182881.png)
 
 ## Thanks to
-[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️
+[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️  
 [nojdh](https://github.com/nojdh/) for Cosmo HUD, which initially this was a fork of
 
 <br>
