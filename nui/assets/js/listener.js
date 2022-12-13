@@ -191,8 +191,8 @@ window.onload = event => {
       Thirst.style.display = 'block';
       Stress.style.display = data.stress > 0 && 'block';
 
-      data.hunger > 15 && HungerIcon.classList.toggle('flash');
-      data.thirst > 15 && ThirstIcon.classList.toggle('flash');
+      data.hunger > 85 && HungerIcon.classList.toggle('flash');
+      data.thirst > 85 && ThirstIcon.classList.toggle('flash');
       data.stress > 50 && StressIcon.classList.toggle('flash');
 
       Circle.HungerIndicator.animate(1 - data.hunger / 100);
