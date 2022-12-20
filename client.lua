@@ -52,6 +52,23 @@ local lastArmour
 local onSurface
 local offVehicle
 local isResting
+local electricModels = {
+    [`airtug`] = true,
+    [`caddy`] = true,
+    [`caddy2`] = true,
+    [`caddy3`] = true,
+    [`cyclone`] = true,
+    [`dilettante`] = true,
+    [`dilettante2`] = true,
+    [`imorgon`] = true,
+    [`iwagen`] = true,
+    [`khamelion`] = true,
+    [`neon`] = true,
+    [`raiden`] = true,
+    [`surge`] = true,
+    [`tezeract`] = true,
+    [`voltic`] = true,
+}
 
 CreateThread(function()
     while true do
@@ -98,13 +115,16 @@ CreateThread(function()
             end
 
             if cache.vehicle and cache.vehicle ~= 0 and DoesEntityExist(cache.vehicle) then
+                local model = GetEntityModel(cache.vehicle)
+
                 SendMessage('setVehicle', {
                     speed = {
                         current = GetEntitySpeed(cache.vehicle),
-                        max = GetVehicleModelEstimatedMaxSpeed(GetEntityModel(cache.vehicle))
+                        max = GetVehicleModelEstimatedMaxSpeed(model)
                     },
                     unitsMultiplier = cfg.metricSystem and 3.6 or 2.236936,
                     fuel = cfg.fuel and GetVehicleFuelLevel(cache.vehicle),
+                    electric = electricModels[model]
                 })
                 offVehicle = false
             elseif not offVehicle then

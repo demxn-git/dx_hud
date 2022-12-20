@@ -133,6 +133,14 @@ window.onload = event => {
         percSpeed < 0.01 && SpeedIcon.classList.add('fa-tachometer-alt');
         percSpeed < 0.01 && (SpeedIcon.textContent = '');
 
+        if (data.electric == true) {
+          FuelIcon.classList.remove('fa-gas-pump');
+          FuelIcon.classList.add('fa-bolt');
+        } else {
+          FuelIcon.classList.remove('fa-bolt');
+          FuelIcon.classList.add('fa-gas-pump');
+        }
+
         Fuel.style.display = fuel !== false ? 'block' : 'none';
         fuel <= 0.15 && FuelIcon.classList.toggle('flash');
         Circle.FuelIndicator.path.setAttribute('stroke', fuel > 0.15 ? 'rgb(255, 255, 255)' : 'rgb(255, 0, 0)');
