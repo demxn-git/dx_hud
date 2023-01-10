@@ -8,6 +8,7 @@ end
 RegisterNetEvent('ox:playerLoaded', function()
     PlayerLoaded = true
     SendMessage('toggleHud', true)
+    InitializeHUD()
 end)
 
 RegisterNetEvent('ox:playerLogout', function()
