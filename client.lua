@@ -5,6 +5,11 @@ if player then
     PlayerLoaded = true
 end
 
+local InitializeHUD = function()
+    SendMessage('setPlayerId', cache.serverId)
+    if cfg.serverLogo then SendMessage('setLogo') end
+end
+
 RegisterNetEvent('ox:playerLoaded', function()
     PlayerLoaded = true
     SendMessage('toggleHud', true)
@@ -136,11 +141,6 @@ CreateThread(function()
         Wait(cfg.refreshRates.base)
     end
 end)
-
-local InitializeHUD = function()
-    SendMessage('setPlayerId', cache.serverId)
-    if cfg.serverLogo then SendMessage('setLogo') end
-end
 
 AddEventHandler('onResourceStart', function(resourceName)
     if cache.resource ~= resourceName then return end
