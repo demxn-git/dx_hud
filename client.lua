@@ -64,16 +64,22 @@ local electricModels = {
     [`caddy2`] = true,
     [`caddy3`] = true,
     [`cyclone`] = true,
+    [`cyclone2`] = true,
     [`dilettante`] = true,
     [`dilettante2`] = true,
     [`imorgon`] = true,
     [`iwagen`] = true,
     [`khamelion`] = true,
     [`neon`] = true,
+    [`omnisegt`] = true,
+    [`powersurge`] = true,
     [`raiden`] = true,
+    [`rcbandito`] = true,
     [`surge`] = true,
     [`tezeract`] = true,
+    [`virtue`] = true,
     [`voltic`] = true,
+    [`voltic2`] = true,
 }
 
 CreateThread(function()
