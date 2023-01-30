@@ -135,7 +135,7 @@ CreateThread(function()
                         max = GetVehicleModelEstimatedMaxSpeed(model)
                     },
                     unitsMultiplier = cfg.metricSystem and 3.6 or 2.236936,
-                    fuel = cfg.fuel and GetVehicleFuelLevel(cache.vehicle),
+                    fuel = cfg.fuel and not IsThisModelABicycle(model) and GetVehicleFuelLevel(cache.vehicle),
                     electric = electricModels[model]
                 })
                 offVehicle = false
