@@ -99,7 +99,7 @@ CreateThread(function()
 
 			local inVehicle = IsPedInAnyVehicle(ped, false)
 			if inVehicle then
-				local curVehicle = GetVehiclePedIsUsing(ped, false)
+				local curVehicle = GetVehiclePedIsUsing(ped)
 				SendMessage('setVehicle', {
 					speed = {
 						current = GetEntitySpeed(curVehicle),
