@@ -12,9 +12,9 @@ if config.circleMap then
         AddReplaceTexture('platform:/textures/graphics', 'radarmasksm', 'circlemap', 'radarmasksm')
 
         SetMinimapClipType(1)
-        SetMinimapComponentPosition('minimap', 'L', 'B', -0.017, 0.021, 0.207, 0.32)
-        SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.05, 0.132, 0.260)
-        SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.01, 0.166, 0.257)
+        SetMinimapComponentPosition('minimap', 'L', 'B', -0.017, -0.02, 0.207, 0.32)
+        SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, -0.00, 0.132, 0.260)
+        SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.05, 0.166, 0.257)
 
         repeat Wait(100) until ESX.PlayerLoaded
 
