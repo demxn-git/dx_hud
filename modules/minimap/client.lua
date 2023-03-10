@@ -62,7 +62,7 @@ if config.persistentRadar then
         end
 
         setRadarState()
-    end)
+    end, false)
 
     RegisterKeyMapping('cyclemap', 'Cycle Map', 'keyboard', 'z')
     CreateThread(function()

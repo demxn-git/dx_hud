@@ -44,7 +44,7 @@ if config.seatbelt.enabled then
     RegisterCommand('seatbelt', function()
             local ped = PlayerPedId()
             if IsPedInAnyVehicle(ped, false) then
-                    local curVehicleClass = GetVehicleClass(GetVehiclePedIsIn(ped))
+                    local curVehicleClass = GetVehicleClass(GetVehiclePedIsIn(ped, false))
 
                     if curVehicleClass ~= 8
                     and curVehicleClass ~= 13
