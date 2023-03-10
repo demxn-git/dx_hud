@@ -37,7 +37,7 @@ if cfg.seatbelt.enabled then
                     curInVehicle = inVehicle
                 end
             end
-            Wait(cfg.refreshRates.checks)
+            Wait(1000)
         end
     end)
 

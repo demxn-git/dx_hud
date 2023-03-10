@@ -32,7 +32,7 @@ if cfg.voice.enabled then
                     isSilent = false
                 end
             end
-            Wait(cfg.refreshRates.base)
+            Wait(200)
         end
     end)
 

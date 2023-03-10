@@ -17,10 +17,5 @@
   "mapCycle": {
     "enabled": true,
     "key": "Z"
-  },
-  "refreshRates": {
-    "base": 200,
-    "status": 3000,
-    "checks": 1000
   }
 }

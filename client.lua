@@ -36,7 +36,7 @@ CreateThread(function()
 				curPed = ped
 			end
 		end
-		Wait(cfg.refreshRates.checks)
+		Wait(1000)
 	end
 end)
 
@@ -114,7 +114,7 @@ CreateThread(function()
 				offVehicle = true
 			end
 		end
-		Wait(cfg.refreshRates.base)
+		Wait(200)
 	end
 end)
 
@@ -146,7 +146,7 @@ CreateThread(function()
 				stress = cfg.stress and stress,
 			})
 		end
-		Wait(cfg.refreshRates.status)
+		Wait(3000)
 	end
 end)
 

@@ -31,7 +31,7 @@ if cfg.circleMap then
             BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
             ScaleformMovieMethodAddParamInt(3)
             EndScaleformMovieMethod()
-            Wait(cfg.refreshRates.base)
+            Wait(200)
         end
     end)
 end
