@@ -32,7 +32,7 @@ img { width: 100%; }
 .Icon i {
   color: white;
   position: absolute;
-  font-size: 18px;
+  font-size: 16px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
