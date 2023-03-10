@@ -1,5 +1,5 @@
-if config.voice.enabled then
-    local service = config.voice.service
+if GetConvar('hud:voice', 'false') == 'true' then
+    local service = GetConvar('hud:voiceService', 'pma-voice')
 
     local voiceCon
     local isTalking
@@ -41,8 +41,8 @@ if config.voice.enabled then
             SendMessage('setVoiceRange', mode)
         end)
     elseif service == 'saltychat' then
-        AddEventHandler('SaltyChat_PluginStateChanged', function(_voicecon)
-            voiceCon = _voicecon
+        AddEventHandler('SaltyChat_PluginStateChanged', function(_voiceCon)
+            voiceCon = _voiceCon
         end)
 
         AddEventHandler('SaltyChat_TalkStateChanged', function(_isTalking)

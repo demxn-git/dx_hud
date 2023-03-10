@@ -16,14 +16,9 @@ client_scripts {
     'client.lua'
 }
 
-server_scripts {
-    'modules/**/server.lua'
-}
-
 files {
     'nui/index.html',
-    'nui/**/*',
-    'config.json'
+    'nui/**/*'
 }
 
 ui_page 'nui/index.html'

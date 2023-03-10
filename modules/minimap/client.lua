@@ -1,7 +1,7 @@
 local mapState = 1
 local mapLimit = 3
 
-if config.circleMap then
+if GetConvar('hud:circleMap', 'true') == 'true' then
     mapLimit = 1
 
     CreateThread(function()
@@ -26,7 +26,7 @@ if config.circleMap then
         local minimap = RequestScaleformMovie('minimap')
         repeat Wait(100) until HasScaleformMovieLoaded(minimap)
 
-        DisplayRadar(config.persistentRadar)
+        DisplayRadar(GetConvar('hud:persistentRadar', 'false') == 'true')
         while true do
             BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
             ScaleformMovieMethodAddParamInt(3)
@@ -36,7 +36,7 @@ if config.circleMap then
     end)
 end
 
-if config.persistentRadar then
+if GetConvar('hud:persistentRadar', 'false') == 'true' then
     local function setRadarState()
         if mapState == 0 then
             DisplayRadar(false)

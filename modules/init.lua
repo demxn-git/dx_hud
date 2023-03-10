@@ -1,7 +1,8 @@
-currentResourceName = GetCurrentResourceName()
-config = json.decode(LoadResourceFile(currentResourceName, 'config.json'))
-
 if not IsDuplicityVersion() then
+
+    ---Easier NUI Messages
+    ---@param action string
+    ---@param message any
     function SendMessage(action, message)
         SendNUIMessage({
             action = action,
@@ -17,5 +18,7 @@ if not IsDuplicityVersion() then
 
     playerId = PlayerId()
 else
-    if config.seatbelt.enabled then SetConvarReplicated('game_enableFlyThroughWindscreen', 'true') end
+    if GetConvar('hud:seatbelt', 'false') == 'true' then
+        SetConvarReplicated('game_enableFlyThroughWindscreen', 'true')
+    end
 end

@@ -1,4 +1,4 @@
-if config.seatbelt.enabled then
+if GetConvar('hud:seatbelt', 'false') == 'true' then
     local isBuckled = false
 
     local Buckled = function()
@@ -53,6 +53,6 @@ if config.seatbelt.enabled then
             end
     end, false)
 
-    RegisterKeyMapping('seatbelt', 'Toggle Seatbelt', 'keyboard', config.seatbelt.key)
+    RegisterKeyMapping('seatbelt', 'Toggle Seatbelt', 'keyboard', GetConvar('hud:seatbeltKey', 'B'))
     TriggerEvent('chat:removeSuggestion', '/seatbelt')
 end

@@ -14,7 +14,7 @@ CreateThread(function()
 
 			local inVehicle = IsPedInAnyVehicle(ped, false)
 
-			if not config.persistentRadar then
+			if GetConvar('hud:persistentRadar', 'false') == 'false' then
 				local isRadarHidden = IsRadarHidden()
 				if inVehicle == isRadarHidden then
 					DisplayRadar(inVehicle)
@@ -63,7 +63,7 @@ CreateThread(function()
 				lastArmour = curArmour
 			end
 
-			if config.stamina then
+			if GetConvar('hud:stamina', 'false') == 'true' then
 				local curStamina = GetPlayerStamina(playerId)
 				local maxStamina = GetPlayerMaxStamina(playerId)
 				if curStamina < maxStamina then
@@ -105,8 +105,8 @@ CreateThread(function()
 						current = GetEntitySpeed(curVehicle),
 						max = GetVehicleModelMaxSpeed(GetEntityModel(curVehicle))
 					},
-					unitsMultiplier = config.metricSystem and 3.6 or 2.236936,
-					fuel = config.fuel and GetVehicleFuelLevel(curVehicle),
+					unitsMultiplier = GetConvar('hud:unitsystem', 'imperial') == 'metric' and 3.6 or 2.236936,
+					fuel = GetConvar('hud:fuel', 'false') and GetVehicleFuelLevel(curVehicle),
 				})
 				offVehicle = false
 			elseif not offVehicle then
@@ -132,18 +132,18 @@ CreateThread(function()
 				TriggerEvent('esx_status:getStatus', 'thirst', function(status)
 					if status then thirst = status.val / 10000 end
 				end)
-				if config.stress then
+				if GetConvar('hud:stress', 'false') == 'true' then
 					TriggerEvent('esx_status:getStatus', 'stress', function(status)
 						if status then stress = status.val / 10000 end
 					end)
 				end
 				Wait(100)
-			until config.stress and hunger and thirst and stress or hunger and thirst
+			until GetConvar('hud:stress', 'false') and hunger and thirst and stress or hunger and thirst
 
 			SendMessage('status', {
 				hunger = hunger,
 				thirst = thirst,
-				stress = config.stress and stress,
+				stress = GetConvar('hud:stress', 'false') and stress,
 			})
 		end
 		Wait(3000)
@@ -152,7 +152,7 @@ end)
 
 local InitializeHUD = function()
 	SendMessage('setPlayerId', GetPlayerServerId(playerId))
-	if config.serverLogo then SendMessage('setLogo') end
+	if GetConvar('hud:logo', 'false') == 'true' then SendMessage('setLogo') end
 end
 
 RegisterNetEvent('esx:playerLoaded')
@@ -169,7 +169,7 @@ AddEventHandler('esx:onPlayerLogout', function()
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
-	if (currentResourceName == resourceName) then
+	if (GetCurrentResourceName() == resourceName) then
 		repeat Wait(100) until nuiReady
 		InitializeHUD()
 	end
