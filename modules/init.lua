@@ -1,5 +1,5 @@
 currentResourceName = GetCurrentResourceName()
-cfg = json.decode(LoadResourceFile(currentResourceName, 'config.json'))
+config = json.decode(LoadResourceFile(currentResourceName, 'config.json'))
 
 if not IsDuplicityVersion() then
     playerId = PlayerId()
@@ -16,5 +16,5 @@ if not IsDuplicityVersion() then
         })
     end
 else
-    if cfg.seatbelt.enabled then SetConvarReplicated('game_enableFlyThroughWindscreen', 'true') end
+    if config.seatbelt.enabled then SetConvarReplicated('game_enableFlyThroughWindscreen', 'true') end
 end

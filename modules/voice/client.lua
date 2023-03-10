@@ -1,5 +1,5 @@
-if cfg.voice.enabled then
-    local service = cfg.voice.service
+if config.voice.enabled then
+    local service = config.voice.service
 
     local voiceCon
     local isTalking

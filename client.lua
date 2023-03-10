@@ -14,7 +14,7 @@ CreateThread(function()
 
 			local inVehicle = IsPedInAnyVehicle(ped, false)
 
-			if not cfg.persistentRadar then
+			if not config.persistentRadar then
 				local isRadarHidden = IsRadarHidden()
 				if inVehicle == isRadarHidden then
 					DisplayRadar(inVehicle)
@@ -63,7 +63,7 @@ CreateThread(function()
 				lastArmour = curArmour
 			end
 
-			if cfg.stamina then
+			if config.stamina then
 				local curStamina = GetPlayerStamina(playerId)
 				local maxStamina = GetPlayerMaxStamina(playerId)
 				if curStamina < maxStamina then
@@ -105,8 +105,8 @@ CreateThread(function()
 						current = GetEntitySpeed(curVehicle),
 						max = GetVehicleModelMaxSpeed(GetEntityModel(curVehicle))
 					},
-					unitsMultiplier = cfg.metricSystem and 3.6 or 2.236936,
-					fuel = cfg.fuel and GetVehicleFuelLevel(curVehicle),
+					unitsMultiplier = config.metricSystem and 3.6 or 2.236936,
+					fuel = config.fuel and GetVehicleFuelLevel(curVehicle),
 				})
 				offVehicle = false
 			elseif not offVehicle then
@@ -132,18 +132,18 @@ CreateThread(function()
 				TriggerEvent('esx_status:getStatus', 'thirst', function(status)
 					if status then thirst = status.val / 10000 end
 				end)
-				if cfg.stress then
+				if config.stress then
 					TriggerEvent('esx_status:getStatus', 'stress', function(status)
 						if status then stress = status.val / 10000 end
 					end)
 				end
 				Wait(100)
-			until cfg.stress and hunger and thirst and stress or hunger and thirst
+			until config.stress and hunger and thirst and stress or hunger and thirst
 
 			SendMessage('status', {
 				hunger = hunger,
 				thirst = thirst,
-				stress = cfg.stress and stress,
+				stress = config.stress and stress,
 			})
 		end
 		Wait(3000)
@@ -152,7 +152,7 @@ end)
 
 local InitializeHUD = function()
 	SendMessage('setPlayerId', GetPlayerServerId(playerId))
-	if cfg.serverLogo then SendMessage('setLogo') end
+	if config.serverLogo then SendMessage('setLogo') end
 end
 
 RegisterNetEvent('esx:playerLoaded')

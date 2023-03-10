@@ -1,4 +1,4 @@
-if cfg.seatbelt.enabled then
+if config.seatbelt.enabled then
     local isBuckled = false
 
     local Buckled = function()
@@ -53,6 +53,6 @@ if cfg.seatbelt.enabled then
             end
     end, false)
 
-    RegisterKeyMapping('seatbelt', 'Toggle Seatbelt', 'keyboard', cfg.seatbelt.key)
+    RegisterKeyMapping('seatbelt', 'Toggle Seatbelt', 'keyboard', config.seatbelt.key)
     TriggerEvent('chat:removeSuggestion', '/seatbelt')
 end

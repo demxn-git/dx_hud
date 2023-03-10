@@ -33,7 +33,7 @@ git clone https://github.com/0xDEMXN/dx_hud.git
 ### Installation
 
 - Edit `config.lua` to fit your needs
-- Add the resource to your `server.cfg` after dependencies to make sure it's started correctly at server startup:
+- Add the resource to your `server.config` after dependencies to make sure it's started correctly at server startup:
 
 ```
 ensure dx_hud

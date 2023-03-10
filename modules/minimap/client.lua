@@ -1,7 +1,7 @@
 local mapState = 1
 local mapLimit = 3
 
-if cfg.circleMap then
+if config.circleMap then
     mapLimit = 1
 
     CreateThread(function()
@@ -26,7 +26,7 @@ if cfg.circleMap then
         local minimap = RequestScaleformMovie('minimap')
         repeat Wait(100) until HasScaleformMovieLoaded(minimap)
 
-        DisplayRadar(cfg.persistentRadar)
+        DisplayRadar(config.persistentRadar)
         while true do
             BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
             ScaleformMovieMethodAddParamInt(3)
@@ -36,7 +36,7 @@ if cfg.circleMap then
     end)
 end
 
-if cfg.persistentRadar then
+if config.persistentRadar then
     local function setRadarState()
         if mapState == 0 then
             DisplayRadar(false)
