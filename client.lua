@@ -1,6 +1,5 @@
 local curPaused
 local curPed
-local curCinematic
 
 CreateThread(function()
 	while true do
@@ -15,10 +14,7 @@ CreateThread(function()
 
 			local inVehicle = IsPedInAnyVehicle(ped, false)
 
-			if cinematic ~= curCinematic then
-				DisplayRadar(false)
-				curCinematic = cinematic
-			elseif not cfg.persistentRadar and not cinematic then
+			if not cfg.persistentRadar then
 				local isRadarHidden = IsRadarHidden()
 				if inVehicle == isRadarHidden then
 					DisplayRadar(inVehicle)
