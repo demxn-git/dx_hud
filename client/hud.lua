@@ -78,6 +78,15 @@ CreateThread(function()
 			end
 
 			local inVehicle = IsPedInAnyVehicle(ped, false)
+			
+			if GetConvar('hud:persistentRadar', 'false') == 'false' then
+				local isRadarHidden = IsRadarHidden()
+				if inVehicle == isRadarHidden then
+					DisplayRadar(inVehicle)
+					SetRadarZoom(1150)
+				end
+			end
+
 			if inVehicle then
 				local curVehicle = GetVehiclePedIsUsing(ped)
 				SendMessage('setVehicle', {
