@@ -1,4 +1,5 @@
 if not IsDuplicityVersion() then
+    playerId = PlayerId()
 
     ---Easier NUI Messages
     ---@param action string
@@ -10,13 +11,17 @@ if not IsDuplicityVersion() then
         })
     end
 
+    ---Initialize HUD
+    function InitializeHUD()
+        SendMessage('setPlayerId', GetPlayerServerId(playerId))
+        if GetConvar('hud:logo', 'false') == 'true' then SendMessage('setLogo') end
+    end
+
     nuiReady = false
     RegisterNUICallback('nuiReady', function(_, cb)
         nuiReady = true
         cb({})
     end)
-
-    playerId = PlayerId()
 else
     if GetConvar('hud:seatbelt', 'false') == 'true' then
         SetConvarReplicated('game_enableFlyThroughWindscreen', 'true')

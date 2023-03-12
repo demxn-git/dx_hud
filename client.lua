@@ -98,14 +98,9 @@ CreateThread(function()
 	end
 end)
 
-local InitializeHUD = function()
-	SendMessage('setPlayerId', GetPlayerServerId(playerId))
-	if GetConvar('hud:logo', 'false') == 'true' then SendMessage('setLogo') end
-end
-
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function()
-	 ESX.PlayerLoaded = true
+	ESX.PlayerLoaded = true
 	SendMessage('toggleHud', true)
 	InitializeHUD()
 end)
