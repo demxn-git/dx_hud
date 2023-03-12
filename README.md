@@ -2,46 +2,21 @@
 
 dx_hud is an HUD for FiveM and ESX Legacy.
 
-## Requirements
+## Dependencies
 
 - es_extended (Legacy)
 - esx_status
 - esx_basicneeds
 
-## Voice services configuration
-
-You can change the voice service the HUD will be using in the config file.  
-Currently supported options are:
-- pma-voice
-- saltychat
-
 ## Download & Installation
-
-
-### Using Git
-
-```
-cd resources
-git clone https://github.com/0xDEMXN/dx_hud.git
-```
-
-### Manually
 
 - Go to the [releases page](https://github.com/0xDEMXN/dx_hud/releases "Releases page") and download the latest release
 - Place it inside the `resources` directory
-
-### Installation
-
-- Edit `config.lua` to fit your needs
-- Add the resource to your `server.config` after dependencies to make sure it's started correctly at server startup:
+- Add the resource to your `server.cfg` after dependencies to make sure it's started correctly at server startup:
 
 ```
 ensure dx_hud
 ```
-
-## Screenshot(s)
-
-![dx_hud screenshot](https://user-images.githubusercontent.com/15928886/154711951-584adcec-5369-477b-8a4a-f3c006182881.png)
 
 ## Thanks to
 [Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️  
