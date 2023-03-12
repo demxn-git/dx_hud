@@ -1,4 +1,9 @@
 if GetResourceState('ox_core'):find('start') then
+  local file = ('imports/%s.lua'):format(IsDuplicityVersion() and 'server' or 'client')
+  local import = LoadResourceFile('ox_core', file)
+  local chunk = assert(load(import, ('@@ox_core/%s'):format(file)))
+  chunk()
+
   if player then
     PlayerLoaded = true
   end
@@ -20,6 +25,11 @@ if GetResourceState('ox_core'):find('start') then
 end
 
 if GetResourceState('es_extended'):find('start') then
+  local ESX = exports['es_extended']:getSharedObject()
+  if ESX.PlayerLoaded then
+    PlayerLoaded = true
+  end
+
   RegisterNetEvent('esx:playerLoaded')
   AddEventHandler('esx:playerLoaded', function()
     PlayerLoaded = true
