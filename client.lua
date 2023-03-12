@@ -118,38 +118,6 @@ CreateThread(function()
 	end
 end)
 
-local hunger
-local thirst
-local stress
-
-CreateThread(function()
-	while true do
-		if nuiReady and ESX.PlayerLoaded then
-			repeat
-				TriggerEvent('esx_status:getStatus', 'hunger', function(status)
-					if status then hunger = status.val / 10000 end
-				end)
-				TriggerEvent('esx_status:getStatus', 'thirst', function(status)
-					if status then thirst = status.val / 10000 end
-				end)
-				if GetConvar('hud:stress', 'false') == 'true' then
-					TriggerEvent('esx_status:getStatus', 'stress', function(status)
-						if status then stress = status.val / 10000 end
-					end)
-				end
-				Wait(100)
-			until GetConvar('hud:stress', 'false') and hunger and thirst and stress or hunger and thirst
-
-			SendMessage('status', {
-				hunger = hunger,
-				thirst = thirst,
-				stress = GetConvar('hud:stress', 'false') and stress,
-			})
-		end
-		Wait(3000)
-	end
-end)
-
 local InitializeHUD = function()
 	SendMessage('setPlayerId', GetPlayerServerId(playerId))
 	if GetConvar('hud:logo', 'false') == 'true' then SendMessage('setLogo') end
@@ -166,6 +134,21 @@ RegisterNetEvent('esx:onPlayerLogout')
 AddEventHandler('esx:onPlayerLogout', function()
 	ESX.PlayerLoaded = false
 	SendMessage('toggleHud', false)
+end)
+
+AddEventHandler('esx_status:onTick', function(data)
+	local hunger, thirst, stress
+	for i = 1, #data do
+			if data[i].name == 'thirst' then thirst = math.floor(data[i].percent) end
+			if data[i].name == 'hunger' then hunger = math.floor(data[i].percent) end
+			if data[i].name == 'stress' then stress = math.floor(data[i].percent) end
+	end
+
+	SendMessage('status', {
+		hunger = hunger,
+		thirst = thirst,
+		stress = GetConvar('hud:stress', 'false') and stress,
+	})
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
