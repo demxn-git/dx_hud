@@ -8,7 +8,7 @@ local isResting
 
 CreateThread(function()
 	while true do
-		if nuiReady and ESX.PlayerLoaded then
+		if nuiReady and PlayerLoaded then
 			local ped = PlayerPedId()
 
 			local paused = IsPauseMenuActive()
@@ -58,9 +58,12 @@ CreateThread(function()
 				end
 			end
 
-			while not maxUnderwaterTime and IsPedSwimmingUnderWater(ped) do
-				ESX.ShowHelpNotification('Initializating HUD... please stay on surface at least 5 seconds!', true)
-				Wait(0)
+			if not maxUnderwaterTime and IsPedSwimmingUnderWater(ped) then
+				lib.notify({
+					title = 'Initializating HUD...',
+					description = 'Please stay on the surface for at least 5 seconds!',
+					type = 'inform'
+				})
 			end
 
 			if maxUnderwaterTime then
@@ -105,34 +108,6 @@ CreateThread(function()
 		end
 		Wait(200)
 	end
-end)
-
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function()
-	ESX.PlayerLoaded = true
-	SendMessage('toggleHud', true)
-	InitializeHUD()
-end)
-
-RegisterNetEvent('esx:onPlayerLogout')
-AddEventHandler('esx:onPlayerLogout', function()
-	ESX.PlayerLoaded = false
-	SendMessage('toggleHud', false)
-end)
-
-AddEventHandler('esx_status:onTick', function(data)
-	local hunger, thirst, stress
-	for i = 1, #data do
-			if data[i].name == 'thirst' then thirst = math.floor(data[i].percent) end
-			if data[i].name == 'hunger' then hunger = math.floor(data[i].percent) end
-			if data[i].name == 'stress' then stress = math.floor(data[i].percent) end
-	end
-
-	SendMessage('status', {
-		hunger = hunger,
-		thirst = thirst,
-		stress = GetConvar('hud:stress', 'false') and stress,
-	})
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)

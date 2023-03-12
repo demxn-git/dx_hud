@@ -7,24 +7,23 @@ game         'gta5'
 --[[ Resource Information ]]--
 name         'dx_hud'
 version      '1.3'
-description  'An HUD for FiveM and ESX Legacy.'
+description  'A FiveM HUD for ox_core or ESX Legacy.'
 license      'GNU General Public License v3.0'
 author       '0xDEMXN'
 repository   'https://github.com/0xDEMXN/dx_hud'
 
 --[[ Manifest ]]--
 dependencies {
-    'es_extended',
-    'esx_status',
-    'esx_basicneeds'
+    'ox_lib'
 }
 
 shared_scripts {
-    '@es_extended/imports.lua',
-    'shared/init.lua',
+    '@ox_lib/init.lua',
+    'shared/init.lua'
 }
 
 client_scripts {
+    'client/frameworks.lua',
     'client/hud.lua',
     'client/minimap.lua',
     'client/seatbelt.lua',

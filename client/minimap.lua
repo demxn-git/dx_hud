@@ -16,7 +16,7 @@ if GetConvar('hud:circleMap', 'true') == 'true' then
         SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.00, 0.132, 0.260)
         SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.05, 0.166, 0.257)
 
-        repeat Wait(100) until ESX.PlayerLoaded
+        repeat Wait(100) until PlayerLoaded
 
         Wait(500)
         SetRadarBigmapEnabled(true, false)

@@ -1,12 +1,10 @@
 # dx_hud
 
-dx_hud is an HUD for FiveM and ESX Legacy.
+dx_hud is a FiveM HUD for ox_core or ESX Legacy.
 
 ## Dependencies
 
-- es_extended (Legacy)
-- esx_status
-- esx_basicneeds
+- ox_lib
 
 ## Download & Installation
 
