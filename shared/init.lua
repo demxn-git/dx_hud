@@ -13,7 +13,7 @@ if not IsDuplicityVersion() then
 
     ---Initialize HUD
     function InitializeHUD()
-        SendMessage('setPlayerId', GetPlayerServerId(playerId))
+        SendMessage('setPlayerId', cache.serverId)
         if GetConvar('hud:logo', 'false') == 'true' then SendMessage('setLogo') end
     end
 

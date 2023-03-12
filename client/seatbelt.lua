@@ -30,11 +30,10 @@ if GetConvar('hud:seatbelt', 'false') == 'true' then
     CreateThread(function()
         while true do
             if nuiReady then
-                local inVehicle = IsPedInAnyVehicle(PlayerPedId(), false)
-                if inVehicle ~= curInVehicle then
-                    SendMessage('setSeatbelt', { toggled = inVehicle })
-                    if not inVehicle and isBuckled then isBuckled = false end
-                    curInVehicle = inVehicle
+                if cache.vehicle ~= curInVehicle then
+                    SendMessage('setSeatbelt', { toggled = cache.vehicle })
+                    if not cache.vehicle and isBuckled then isBuckled = false end
+                    curInVehicle = cache.vehicle
                 end
             end
             Wait(1000)
@@ -42,15 +41,14 @@ if GetConvar('hud:seatbelt', 'false') == 'true' then
     end)
 
     RegisterCommand('seatbelt', function()
-            local ped = PlayerPedId()
-            if IsPedInAnyVehicle(ped, false) then
-                    local curVehicleClass = GetVehicleClass(GetVehiclePedIsIn(ped, false))
+        if cache.vehicle then
+            local curVehicleClass = GetVehicleClass(cache.vehicle)
 
-                    if curVehicleClass ~= 8
-                    and curVehicleClass ~= 13
-                    and curVehicleClass ~= 14
-                    then Seatbelt(not isBuckled) end
-            end
+            if curVehicleClass ~= 8
+            and curVehicleClass ~= 13
+            and curVehicleClass ~= 14
+            then Seatbelt(not isBuckled) end
+        end
     end, false)
 
     RegisterKeyMapping('seatbelt', 'Toggle Seatbelt', 'keyboard', GetConvar('hud:seatbeltKey', 'B'))
