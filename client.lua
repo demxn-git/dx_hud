@@ -1,5 +1,10 @@
 local curPaused
 local curPed
+local lastHealth
+local lastArmour
+local onSurface
+local offVehicle
+local isResting
 
 CreateThread(function()
 	while true do
@@ -10,16 +15,6 @@ CreateThread(function()
 			if paused ~= curPaused then
 				SendMessage('toggleHud', not paused)
 				curPaused = paused
-			end
-
-			local inVehicle = IsPedInAnyVehicle(ped, false)
-
-			if GetConvar('hud:persistentRadar', 'false') == 'false' then
-				local isRadarHidden = IsRadarHidden()
-				if inVehicle == isRadarHidden then
-					DisplayRadar(inVehicle)
-					SetRadarZoom(1150)
-				end
 			end
 
 			if ped ~= curPed then
@@ -35,21 +30,6 @@ CreateThread(function()
 				else maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(playerId) end
 				curPed = ped
 			end
-		end
-		Wait(1000)
-	end
-end)
-
-local lastHealth
-local lastArmour
-local onSurface
-local offVehicle
-local isResting
-
-CreateThread(function()
-	while true do
-		if nuiReady and ESX.PlayerLoaded then
-			local ped = PlayerPedId()
 
 			local curHealth = GetEntityHealth(ped)
 			if curHealth ~= lastHealth then
