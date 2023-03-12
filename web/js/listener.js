@@ -1,5 +1,5 @@
 "use strict";
-import Circle from "./modules/circles.js";
+import Circle from "./circles.js";
 
 window.onload = (event) => {
   fetch(`https://${GetParentResourceName()}/nuiReady`);
