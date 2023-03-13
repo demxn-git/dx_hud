@@ -1,7 +1,11 @@
-HUD = false
-
 if not IsDuplicityVersion() then
-    playerId = PlayerId()
+    HUD = false
+
+    local NuiReady = false
+    RegisterNUICallback('nuiReady', function(_, cb)
+        NuiReady = true
+        cb({})
+    end)
 
     ---Easier NUI Messages
     ---@param action string
@@ -15,6 +19,24 @@ if not IsDuplicityVersion() then
 
     ---Initialize HUD
     function InitializeHUD()
+        DisplayRadar(false)
+
+        if GetConvar('hud:circleMap', 'true') == 'true' then
+            RequestStreamedTextureDict('circlemap', false)
+            repeat Wait(100) until HasStreamedTextureDictLoaded('circlemap')
+            AddReplaceTexture('platform:/textures/graphics', 'radarmasksm', 'circlemap', 'radarmasksm')
+
+            SetMinimapClipType(1)
+            SetMinimapComponentPosition('minimap', 'L', 'B', -0.017, -0.02, 0.207, 0.32)
+            SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.00, 0.132, 0.260)
+            SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.05, 0.166, 0.257)
+
+            repeat Wait(100) until PlayerLoaded
+
+            SetRadarBigmapEnabled(true, false)
+            SetRadarBigmapEnabled(false, false)
+        end
+
         if IsPedSwimming(cache.ped) then
             lib.notify({
                 id = 'dx_hud:swimming',
@@ -41,26 +63,27 @@ if not IsDuplicityVersion() then
                 end
             end
         else
-                maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId)
+            maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId)
         end
+
+        repeat Wait(100) until NuiReady
 
         SendMessage('setPlayerId', cache.serverId)
 
-        if GetConvar('hud:logo', 'false') == 'true' then
+        if GetConvar('hud:logo', 'true') == 'true' then
             SendMessage('setLogo')
         end
 
         HUD = true
-        SendMessage('toggleHud', true)
+        SendMessage('toggleHud', HUD)
     end
 
-    nuiReady = false
-    RegisterNUICallback('nuiReady', function(_, cb)
-        nuiReady = true
-        cb({})
+    AddEventHandler('onResourceStart', function(resourceName)
+        if cache.resource ~= resourceName then return end
+        InitializeHUD()
     end)
 else
-    if GetConvar('hud:seatbelt', 'false') == 'true' then
-        SetConvarReplicated('game_enableFlyThroughWindscreen', 'true')
+    if GetConvar('hud:versioncheck', 'true') == 'true' then
+        lib.versionCheck('0xDEMXN/dx_hud')
     end
 end

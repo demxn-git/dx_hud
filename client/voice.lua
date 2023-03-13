@@ -1,21 +1,19 @@
 if GetConvar('hud:voice', 'false') == 'true' then
     local service = GetConvar('hud:voiceService', 'pma-voice')
 
-    local voiceCon
-    local isTalking
-    local voiceDisc
-    local isSilent
+    local voiceCon, voiceDisc
+    local isTalking, isSilent
 
     CreateThread(function()
         while true do
-            if nuiReady then
+            if HUD then
                 if service == 'pma-voice' then
                     voiceCon = MumbleIsConnected()
                     isTalking = NetworkIsPlayerTalking(cache.playerId)
                 end
 
                 if service == 'pma-voice' and voiceCon
-                or service == 'saltychat' and voiceCon and voiceCon > 0
+                or service == 'saltychat' and voiceCon > 0
                 then
                     if isTalking then
                         SendMessage('setVoice', isTalking)
@@ -26,10 +24,9 @@ if GetConvar('hud:voice', 'false') == 'true' then
                     end
                     voiceDisc = false
                 elseif not voiceDisc then
-
                     SendMessage('setVoice', 'disconnected')
                     voiceDisc = true
-                    isSilent = false
+                    isSilent = nil
                 end
             end
             Wait(200)

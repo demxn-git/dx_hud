@@ -21,7 +21,7 @@ ensure dx_hud
 [nojdh](https://github.com/nojdh/) for Cosmo HUD, which initially this was a fork of
 
 <br>
-<table><tr><td><h3 align='center'>Legal Notices</h2></tr></td>
+<table><tr><td><h4 align='center'>Legal Notices</h4></tr></td>
 <tr><td>
 dx_hud for ESX Legacy  
 

@@ -1,4 +1,6 @@
-local curPaused, lastHealth, lastArmour, onSurface, offVehicle, isResting
+local curPaused
+local lastHealth, lastArmour
+local onSurface, offVehicle, isResting
 
 local electricModels = {
   [`airtug`] = true,
@@ -26,7 +28,7 @@ local electricModels = {
 
 CreateThread(function()
 	while true do
-		if HUD and nuiReady and PlayerLoaded then
+		if HUD and PlayerLoaded then
 			local paused = IsPauseMenuActive()
 			if paused ~= curPaused then
 				SendMessage('toggleHud', not paused)
@@ -35,7 +37,10 @@ CreateThread(function()
 
 			local curHealth = GetEntityHealth(cache.ped)
 			if curHealth ~= lastHealth then
-				SendMessage('setHealth', { current = curHealth, max = GetEntityMaxHealth(cache.ped) })
+				SendMessage('setHealth', { 
+					current = curHealth, 
+					max = GetEntityMaxHealth(cache.ped) 
+				})
 				lastHealth = curHealth
 			end
 
@@ -60,29 +65,19 @@ CreateThread(function()
 				end
 			end
 
-			if maxUnderwaterTime then
-				local curUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId)
-				if curUnderwaterTime < maxUnderwaterTime then
-					SendMessage('setOxygen', {
-						current = curUnderwaterTime,
-						max = maxUnderwaterTime
-					})
-					onSurface = false
-				elseif not onSurface then
-					SendMessage('setOxygen', false)
-					onSurface = true
-				end
+			local curUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId)
+			if curUnderwaterTime < maxUnderwaterTime then
+				SendMessage('setOxygen', {
+					current = curUnderwaterTime,
+					max = maxUnderwaterTime
+				})
+				onSurface = false
+			elseif not onSurface then
+				SendMessage('setOxygen', false)
+				onSurface = true
 			end
 
-			if GetConvar('hud:persistentRadar', 'false') == 'false' then
-				local isRadarHidden = IsRadarHidden()
-				if cache.vehicle and true or false == isRadarHidden then
-					DisplayRadar(cache.vehicle and true or false)
-					SetRadarZoom(1150)
-				end
-			end
-
-			if cache.vehicle and cache.vehicle ~= 0 and DoesEntityExist(cache.vehicle) then
+			if cache.vehicle then
         local model = GetEntityModel(cache.vehicle)
 
 				SendMessage('setVehicle', {
@@ -102,10 +97,4 @@ CreateThread(function()
 		end
 		Wait(200)
 	end
-end)
-
-AddEventHandler('onResourceStart', function(resourceName)
-	if cache.resource ~= resourceName then return end
-	repeat Wait(100) until nuiReady
-	InitializeHUD()
 end)

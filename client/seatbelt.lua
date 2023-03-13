@@ -1,59 +1,60 @@
 if GetConvar('hud:seatbelt', 'false') == 'true' then
     local isBuckled = false
+    SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, 2000.0)
 
-    local Buckled = function()
+    local function Buckled()
         CreateThread(function()
             while isBuckled do
-                DisableControlAction(0, 75, true)
+                lib.disableControls()
                 Wait(0)
             end
         end)
     end
 
-    SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, 2000.0)
-    local Seatbelt = function(status)
+    local function Seatbelt(status)
         if status then
             SendMessage('playSound', 'buckle')
             SendMessage('setSeatbelt', { toggled = true, buckled = true })
             SetFlyThroughWindscreenParams(1000.0, 1000.0, 0.0, 0.0)
+            lib.disableControls:Add(75)
             Buckled()
         else
             SendMessage('playSound', 'unbuckle')
             SendMessage('setSeatbelt', { toggled = true, buckled = false })
             SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, 2000.0)
+            lib.disableControls:Remove(75)
         end
         isBuckled = status
     end
 
-    local curInVehicle
-
+    local inVehicle
     CreateThread(function()
         while true do
-            if nuiReady then
-                if cache.vehicle ~= curInVehicle then
-                    SendMessage('setSeatbelt', { toggled = cache.vehicle })
-                    if not cache.vehicle and isBuckled then isBuckled = false end
-                    curInVehicle = cache.vehicle
+            if HUD then
+				local isPedUsingAnyVehicle = cache.vehicle and true or false
+                if isPedUsingAnyVehicle ~= inVehicle then
+                    SendMessage('setSeatbelt', { toggled = isPedUsingAnyVehicle })
+                    if not isPedUsingAnyVehicle and isBuckled then isBuckled = false end
+                    inVehicle = isPedUsingAnyVehicle
                 end
             end
             Wait(1000)
         end
     end)
 
-    RegisterCommand('seatbelt', function()
-        if cache.vehicle then
-            local curVehicleClass = GetVehicleClass(cache.vehicle)
+    lib.addKeybind({
+        name = 'seatbelt',
+        description = 'Toggle Seatbelt',
+        defaultKey = GetConvar('hud:seatbeltKey', 'B'),
+        onPressed = function()
+            if cache.vehicle then
+                local curVehicleClass = GetVehicleClass(cache.vehicle)
 
-            if curVehicleClass ~= 8
-            and curVehicleClass ~= 13
-            and curVehicleClass ~= 14
-            then Seatbelt(not isBuckled) end
-        end
-    end, false)
-
-    RegisterKeyMapping('seatbelt', 'Toggle Seatbelt', 'keyboard', GetConvar('hud:seatbeltKey', 'B'))
-    CreateThread(function()
-        Wait(1000)
-        TriggerEvent('chat:removeSuggestion', '/seatbelt')
-    end)
+                if curVehicleClass ~= 8
+                and curVehicleClass ~= 13
+                and curVehicleClass ~= 14
+                then Seatbelt(not isBuckled) end
+            end
+        end,
+    })
 end

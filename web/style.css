@@ -53,11 +53,11 @@ img { width: 100%; }
 .outerIcon {
   color: #fff;
   font-size: 1.2rem;
-  height: 2.5rem;
+  height: 50px;
   margin: 0 .5rem;
   text-shadow: 1px 1px 10px #000;
   text-align: center;
-  line-height: 2.5rem;
+  line-height: 50px;
   display: none;
 }
 
@@ -67,7 +67,7 @@ img { width: 100%; }
   position: absolute;
   top: 20px;
   right: 40px;
-  max-width: 130px;
+  max-width: 128px;
   opacity: .8;
   display: none;
 }
