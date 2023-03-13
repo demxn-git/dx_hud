@@ -49,7 +49,7 @@ window.onload = (event) => {
     if (action == "setPlayerId") {
       if (data) {
         ID.style.display = "block";
-        ID.textContent = data;
+        ID.textContent = "#" + data;
       } else {
         ID.style.display = "none";
       }

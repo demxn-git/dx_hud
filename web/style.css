@@ -16,7 +16,7 @@ img { width: 100%; }
 
 #Icons {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   margin: 20px 50px;
 }
 
@@ -48,13 +48,13 @@ img { width: 100%; }
 #ID {
   font-family: sans-serif;
   font-weight: 700;
+  font-size: 16px;
 }
 
 .outerIcon {
   color: #fff;
   font-size: 1.2rem;
   height: 50px;
-  margin: 0 .5rem;
   text-shadow: 1px 1px 10px #000;
   text-align: center;
   line-height: 50px;
