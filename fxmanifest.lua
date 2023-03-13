@@ -25,6 +25,7 @@ shared_scripts {
 client_scripts {
     'client/frameworks.lua',
     'client/hud.lua',
+    'client/vehicle.lua',
     'client/minimap.lua',
     'client/seatbelt.lua',
     'client/voice.lua'

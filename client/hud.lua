@@ -76,24 +76,6 @@ CreateThread(function()
 				SendMessage('setOxygen', false)
 				onSurface = true
 			end
-
-			if cache.vehicle then
-        local model = GetEntityModel(cache.vehicle)
-
-				SendMessage('setVehicle', {
-					speed = {
-						current = GetEntitySpeed(cache.vehicle),
-						max = GetVehicleModelMaxSpeed(model)
-					},
-					unitsMultiplier = GetConvar('hud:unitsystem', 'imperial') == 'metric' and 3.6 or 2.236936,
-					fuel = GetConvar('hud:fuel', 'false') and not IsThisModelABicycle(model) and GetVehicleFuelLevel(cache.vehicle),
-          electric = electricModels[model]
-				})
-				offVehicle = false
-			elseif not offVehicle then
-				SendMessage('setVehicle', false)
-				offVehicle = true
-			end
 		end
 		Wait(200)
 	end
