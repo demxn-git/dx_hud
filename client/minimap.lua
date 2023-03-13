@@ -63,6 +63,6 @@ CreateThread(function()
                 end
             end
         end
-        Wait(200)
+        Wait(500)
     end
 end)

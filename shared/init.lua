@@ -20,6 +20,7 @@ if not IsDuplicityVersion() then
     ---Initialize HUD
     function InitializeHUD()
         DisplayRadar(false)
+        repeat Wait(100) until PlayerLoaded and NuiReady
 
         if GetConvar('hud:circleMap', 'true') == 'true' then
             RequestStreamedTextureDict('circlemap', false)
@@ -30,12 +31,16 @@ if not IsDuplicityVersion() then
             SetMinimapComponentPosition('minimap', 'L', 'B', -0.017, -0.02, 0.207, 0.32)
             SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.06, 0.00, 0.132, 0.260)
             SetMinimapComponentPosition('minimap_blur', 'L', 'B', 0.005, -0.05, 0.166, 0.257)
-
-            repeat Wait(100) until PlayerLoaded
-
-            SetRadarBigmapEnabled(true, false)
-            SetRadarBigmapEnabled(false, false)
+        else
+            SetMinimapComponentPosition('minimap', 'L', 'B', 0.0, -0.035, 0.18, 0.21)
+            SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.0, -0.05, 0.132, 0.19)
+            SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.025, -0.015, 0.3, 0.25)
         end
+
+
+        SetRadarBigmapEnabled(true, false)
+        SetRadarBigmapEnabled(false, false)
+        Wait(500)
 
         if IsPedSwimming(cache.ped) then
             lib.notify({
@@ -66,8 +71,6 @@ if not IsDuplicityVersion() then
             maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId)
         end
 
-        repeat Wait(100) until NuiReady
-
         SendMessage('setPlayerId', cache.serverId)
 
         if GetConvar('hud:logo', 'true') == 'true' then
@@ -75,7 +78,6 @@ if not IsDuplicityVersion() then
         end
 
         HUD = true
-        SendMessage('toggleHud', HUD)
     end
 
     AddEventHandler('onResourceStart', function(resourceName)

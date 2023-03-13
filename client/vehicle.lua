@@ -24,7 +24,7 @@ local electricModels = {
 
 CreateThread(function()
 	while true do
-		if HUD and PlayerLoaded then
+		if HUD then
 			if cache.vehicle then
         local model = GetEntityModel(cache.vehicle)
 

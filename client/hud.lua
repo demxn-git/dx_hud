@@ -28,7 +28,7 @@ local electricModels = {
 
 CreateThread(function()
 	while true do
-		if HUD and PlayerLoaded then
+		if HUD then
 			local paused = IsPauseMenuActive()
 			if paused ~= curPaused then
 				SendMessage('toggleHud', not paused)
