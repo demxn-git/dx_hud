@@ -6,7 +6,6 @@ window.onload = (event) => {
 
   const Container = document.getElementById("Container");
   const Logo = document.getElementById("Logo");
-  const Icons = document.getElementById("Icons");
   const ID = document.getElementById("ID");
 
   const Speed = document.getElementById("SpeedIndicator");
@@ -142,6 +141,15 @@ window.onload = (event) => {
         percSpeed >= 0.01 && (SpeedIcon.textContent = Math.floor(speed));
         percSpeed < 0.01 && SpeedIcon.classList.add("fa-tachometer-alt");
         percSpeed < 0.01 && (SpeedIcon.textContent = "");
+
+        if (data.electric == true) {
+          FuelIcon.classList.remove("fa-gas-pump");
+          FuelIcon.classList.add("fa-bolt");
+          fuel = 1;
+        } else {
+          FuelIcon.classList.remove("fa-bolt");
+          FuelIcon.classList.add("fa-gas-pump");
+        }
 
         Fuel.style.display = fuel !== false ? "block" : "none";
         fuel <= 0.15 && FuelIcon.classList.toggle("flash");

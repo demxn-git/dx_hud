@@ -10,7 +10,6 @@ if GetResourceState('ox_core'):find('start') then
 
   RegisterNetEvent('ox:playerLoaded', function()
     PlayerLoaded = true
-    SendMessage('toggleHud', true)
     InitializeHUD()
   end)
 
@@ -33,7 +32,6 @@ if GetResourceState('es_extended'):find('start') then
   RegisterNetEvent('esx:playerLoaded')
   AddEventHandler('esx:playerLoaded', function()
     PlayerLoaded = true
-    SendMessage('toggleHud', true)
     InitializeHUD()
   end)
 

@@ -52,5 +52,8 @@ if GetConvar('hud:seatbelt', 'false') == 'true' then
     end, false)
 
     RegisterKeyMapping('seatbelt', 'Toggle Seatbelt', 'keyboard', GetConvar('hud:seatbeltKey', 'B'))
-    TriggerEvent('chat:removeSuggestion', '/seatbelt')
+    CreateThread(function()
+        Wait(1000)
+        TriggerEvent('chat:removeSuggestion', '/seatbelt')
+    end)
 end

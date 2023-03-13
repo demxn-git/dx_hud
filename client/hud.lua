@@ -1,32 +1,36 @@
-local curPaused
-local curPed
-local lastHealth
-local lastArmour
-local onSurface
-local offVehicle
-local isResting
+local curPaused, lastHealth, lastArmour, onSurface, offVehicle, isResting
+
+local electricModels = {
+  [`airtug`] = true,
+  [`caddy`] = true,
+  [`caddy2`] = true,
+  [`caddy3`] = true,
+  [`cyclone`] = true,
+  [`cyclone2`] = true,
+  [`dilettante`] = true,
+  [`dilettante2`] = true,
+  [`imorgon`] = true,
+  [`iwagen`] = true,
+  [`khamelion`] = true,
+  [`neon`] = true,
+  [`omnisegt`] = true,
+  [`powersurge`] = true,
+  [`raiden`] = true,
+  [`rcbandito`] = true,
+  [`surge`] = true,
+  [`tezeract`] = true,
+  [`virtue`] = true,
+  [`voltic`] = true,
+  [`voltic2`] = true,
+}
 
 CreateThread(function()
 	while true do
-		if nuiReady and PlayerLoaded then
+		if HUD and nuiReady and PlayerLoaded then
 			local paused = IsPauseMenuActive()
 			if paused ~= curPaused then
 				SendMessage('toggleHud', not paused)
 				curPaused = paused
-			end
-
-			if cache.ped ~= curPed then
-				if IsPedSwimming(cache.ped) then
-					local timer = 5000
-					while not maxUnderwaterTime do
-						Wait(1000)
-						timer -= 1000
-						if not IsPedSwimmingUnderWater(cache.ped) then
-							if timer == 0 then maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId) end
-						else timer = 5000 end
-					end
-				else maxUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId) end
-				curPed = cache.ped
 			end
 
 			local curHealth = GetEntityHealth(cache.ped)
@@ -56,14 +60,6 @@ CreateThread(function()
 				end
 			end
 
-			if not maxUnderwaterTime and IsPedSwimmingUnderWater(cache.ped) then
-				lib.notify({
-					title = 'Initializating HUD...',
-					description = 'Please stay on the surface for at least 5 seconds!',
-					type = 'inform'
-				})
-			end
-
 			if maxUnderwaterTime then
 				local curUnderwaterTime = GetPlayerUnderwaterTimeRemaining(cache.playerId)
 				if curUnderwaterTime < maxUnderwaterTime then
@@ -78,24 +74,25 @@ CreateThread(function()
 				end
 			end
 
-			local inVehicle = IsPedInAnyVehicle(cache.ped, false)
-			
 			if GetConvar('hud:persistentRadar', 'false') == 'false' then
 				local isRadarHidden = IsRadarHidden()
-				if inVehicle == isRadarHidden then
-					DisplayRadar(inVehicle)
+				if cache.vehicle and true or false == isRadarHidden then
+					DisplayRadar(cache.vehicle and true or false)
 					SetRadarZoom(1150)
 				end
 			end
 
-			if inVehicle then
+			if cache.vehicle and cache.vehicle ~= 0 and DoesEntityExist(cache.vehicle) then
+        local model = GetEntityModel(cache.vehicle)
+
 				SendMessage('setVehicle', {
 					speed = {
 						current = GetEntitySpeed(cache.vehicle),
-						max = GetVehicleModelMaxSpeed(GetEntityModel(cache.vehicle))
+						max = GetVehicleModelMaxSpeed(model)
 					},
 					unitsMultiplier = GetConvar('hud:unitsystem', 'imperial') == 'metric' and 3.6 or 2.236936,
-					fuel = GetConvar('hud:fuel', 'false') and GetVehicleFuelLevel(cache.vehicle),
+					fuel = GetConvar('hud:fuel', 'false') and not IsThisModelABicycle(model) and GetVehicleFuelLevel(cache.vehicle),
+          electric = electricModels[model]
 				})
 				offVehicle = false
 			elseif not offVehicle then
