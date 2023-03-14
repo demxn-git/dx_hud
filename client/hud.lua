@@ -3,27 +3,27 @@ local lastHealth, lastArmour
 local onSurface, offVehicle, isResting
 
 local electricModels = {
-  [`airtug`] = true,
-  [`caddy`] = true,
-  [`caddy2`] = true,
-  [`caddy3`] = true,
-  [`cyclone`] = true,
-  [`cyclone2`] = true,
-  [`dilettante`] = true,
-  [`dilettante2`] = true,
-  [`imorgon`] = true,
-  [`iwagen`] = true,
-  [`khamelion`] = true,
-  [`neon`] = true,
-  [`omnisegt`] = true,
-  [`powersurge`] = true,
-  [`raiden`] = true,
-  [`rcbandito`] = true,
-  [`surge`] = true,
-  [`tezeract`] = true,
-  [`virtue`] = true,
-  [`voltic`] = true,
-  [`voltic2`] = true,
+	[`airtug`] = true,
+	[`caddy`] = true,
+	[`caddy2`] = true,
+	[`caddy3`] = true,
+	[`cyclone`] = true,
+	[`cyclone2`] = true,
+	[`dilettante`] = true,
+	[`dilettante2`] = true,
+	[`imorgon`] = true,
+	[`iwagen`] = true,
+	[`khamelion`] = true,
+	[`neon`] = true,
+	[`omnisegt`] = true,
+	[`powersurge`] = true,
+	[`raiden`] = true,
+	[`rcbandito`] = true,
+	[`surge`] = true,
+	[`tezeract`] = true,
+	[`virtue`] = true,
+	[`voltic`] = true,
+	[`voltic2`] = true,
 }
 
 CreateThread(function()
@@ -37,9 +37,9 @@ CreateThread(function()
 
 			local curHealth = GetEntityHealth(cache.ped)
 			if curHealth ~= lastHealth then
-				SendMessage('setHealth', { 
-					current = curHealth, 
-					max = GetEntityMaxHealth(cache.ped) 
+				SendMessage('setHealth', {
+					current = curHealth,
+					max = GetEntityMaxHealth(cache.ped)
 				})
 				lastHealth = curHealth
 			end

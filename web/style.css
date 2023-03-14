@@ -1,5 +1,10 @@
-body { margin: 0; }
-img { width: 100%; }
+body {
+  margin: 0;
+}
+
+img {
+  width: 100%;
+}
 
 #Container {
   width: 100%;
@@ -68,7 +73,7 @@ img { width: 100%; }
   top: 20px;
   right: 40px;
   max-width: 128px;
-  opacity: .8;
+  opacity: 0.8;
   display: none;
 }
 
