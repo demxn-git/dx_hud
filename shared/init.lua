@@ -78,6 +78,7 @@ if not IsDuplicityVersion() then
         end
 
         HUD = true
+        SendMessage('toggleHud', HUD)
     end
 
     AddEventHandler('onResourceStart', function(resourceName)

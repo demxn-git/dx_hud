@@ -15,7 +15,8 @@ if GetResourceState('ox_core'):find('start') then
 
 	RegisterNetEvent('ox:playerLogout', function()
 		PlayerLoaded = false
-		SendMessage('toggleHud', false)
+		HUD = false
+		SendMessage('toggleHud', HUD)
 	end)
 
 	AddEventHandler('ox:statusTick', function(values)
@@ -38,7 +39,8 @@ if GetResourceState('es_extended'):find('start') then
 	RegisterNetEvent('esx:onPlayerLogout')
 	AddEventHandler('esx:onPlayerLogout', function()
 		PlayerLoaded = false
-		SendMessage('toggleHud', false)
+		HUD = false
+		SendMessage('toggleHud', HUD)
 	end)
 
 	AddEventHandler('esx_status:onTick', function(data)
