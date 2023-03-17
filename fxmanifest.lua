@@ -6,7 +6,7 @@ game 'gta5'
 
 --[[ Resource Information ]]--
 name 'dx_hud'
-version '1.3.0'
+version '1.3.1'
 description 'A FiveM HUD for ox_core or ESX Legacy.'
 license 'GNU General Public License v3.0'
 author '0xDEMXN'
