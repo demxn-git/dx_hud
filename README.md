@@ -4,9 +4,9 @@ dx_hud is a FiveM HUD for ox_core or ESX Legacy.
 
 ## Dependencies
 
-- ox_lib
+- [ox_lib](https://github.com/overextended/ox_lib)
 
-This also requires a framework of your choice between ox_core and es_extended.  
+This also requires a framework of your choice between ox_core and es_extended.
 Note that if you are using ESX, you will also need esx_status and esx_basicneeds.
 
 ## Download & Installation
@@ -70,7 +70,7 @@ setr hud:versioncheck true
 ```
 
 ## Thanks to
-[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️  
+[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️
 [nojdh](https://github.com/nojdh/) for Cosmo HUD, which initially this was a fork of
 
 <br>
