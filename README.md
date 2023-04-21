@@ -70,15 +70,15 @@ setr hud:versioncheck true
 ```
 
 ## Thanks to
-[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️
+[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️  \n
 [nojdh](https://github.com/nojdh/) for Cosmo HUD, which initially this was a fork of
 
 <br>
 <table><tr><td><h4 align='center'>Legal Notices</h4></tr></td>
 <tr><td>
-dx_hud for ESX Legacy
+dx_hud
 
-Copyright © 2022  [Demxn](https://github.com/0xDEMXN)
+Copyright © 2023  [Demxn](https://github.com/0xDEMXN)
 
 
 This program is free software: you can redistribute it and/or modify
