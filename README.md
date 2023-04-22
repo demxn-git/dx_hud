@@ -70,7 +70,7 @@ setr hud:versioncheck true
 ```
 
 ## Thanks to
-[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️  \n
+[Overextended Community](https://discord.gg/overextended) for always being supportive 🐂❤️  
 [nojdh](https://github.com/nojdh/) for Cosmo HUD, which initially this was a fork of
 
 <br>
