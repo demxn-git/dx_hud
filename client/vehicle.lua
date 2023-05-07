@@ -25,23 +25,27 @@ local electricModels = {
 CreateThread(function()
 	while true do
 		if HUD then
-			if cache.vehicle then
-				local model = GetEntityModel(cache.vehicle)
+			if GetConvar('hud:carhud', 'true') == 'true' then
+				if cache.vehicle then
+					local model = GetEntityModel(cache.vehicle)
 
-				SendMessage('setVehicle', {
-					speed = {
-						current = GetEntitySpeed(cache.vehicle),
-						max = GetVehicleModelMaxSpeed(model)
-					},
-					unitsMultiplier = GetConvar('hud:unitsystem', 'imperial') == 'metric' and 3.6 or 2.236936,
-					fuel = GetConvar('hud:fuel', 'false') and not IsThisModelABicycle(model) and
-						GetVehicleFuelLevel(cache.vehicle),
-					electric = electricModels[model]
-				})
-				offVehicle = false
-			elseif not offVehicle then
-				SendMessage('setVehicle', false)
-				offVehicle = true
+					SendMessage('setVehicle', {
+						speed = {
+							current = GetEntitySpeed(cache.vehicle),
+							max = GetVehicleModelMaxSpeed(model)
+						},
+						unitsMultiplier = GetConvar('hud:unitsystem', 'imperial') == 'metric' and 3.6 or 2.236936,
+						fuel = GetConvar('hud:fuel', 'false') == 'true' and not IsThisModelABicycle(model) and
+							GetVehicleFuelLevel(cache.vehicle),
+						electric = electricModels[model]
+					})
+					offVehicle = false
+				elseif not offVehicle then
+					SendMessage('setVehicle', false)
+					offVehicle = true
+				end
+			else
+				break
 			end
 		end
 		Wait(200)
