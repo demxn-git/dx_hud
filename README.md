@@ -39,6 +39,9 @@ setr hud:stress false
 # Stamina Indicator
 setr hud:stamina false
 
+# Vehicle HUD
+setr hud:carhud true
+
 # Fuel Indicator
 setr hud:fuel false
 
