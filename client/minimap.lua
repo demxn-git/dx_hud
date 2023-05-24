@@ -1,14 +1,9 @@
-local mapLimit
 local mapState = 1
-local persistentRadar = GetConvar('hud:persistentRadar', 'false')
+local persistentRadar = GetConvarInt('hud:persistentRadar', false) == 1
+local circlemap = GetConvarInt('hud:circleMap', true) == 1
+local mapLimit = circlemap == 1 and circlemap or 3
 
-if GetConvar('hud:circleMap', 'true') == 'true' then
-    mapLimit = 1
-else
-    mapLimit = 3
-end
-
-if persistentRadar == 'true' then
+if persistentRadar then
     local function setRadarState()
         if mapState == 0 then
             DisplayRadar(false)
@@ -54,7 +49,7 @@ CreateThread(function()
             ScaleformMovieMethodAddParamInt(3)
             EndScaleformMovieMethod()
 
-            if persistentRadar == 'false' then
+            if not persistentRadar then
                 local isRadarHidden = IsRadarHidden()
                 local isPedUsingAnyVehicle = cache.vehicle and true or false
                 if isPedUsingAnyVehicle == isRadarHidden then
