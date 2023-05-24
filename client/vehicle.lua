@@ -34,7 +34,7 @@ CreateThread(function()
 						max = GetVehicleModelMaxSpeed(model)
 					},
 					unitsMultiplier = GetConvar('hud:unitsystem', 'imperial') == 'metric' and 3.6 or 2.236936,
-					fuel = GetConvar('hud:fuel', 'false') and not IsThisModelABicycle(model) and
+					fuel = GetConvar('hud:fuel', 'false') == 'true' and not IsThisModelABicycle(model) and
 						GetVehicleFuelLevel(cache.vehicle),
 					electric = electricModels[model]
 				})
