@@ -1,4 +1,4 @@
-if GetConvarInt('hud:seatbelt', false) == 0 then return end
+if not lib or not shared.seatbelt then return end
 
 local isBuckled = false
 SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, 2000.0)
@@ -14,14 +14,30 @@ end
 
 local function Seatbelt(status)
 	if status then
-		SendMessage('playSound', 'buckle')
-		SendMessage('setSeatbelt', { toggled = true, buckled = true })
+		SendNUIMessage({
+			action = 'playSound',
+			data = 'buckle'
+		})
+
+		SendNUIMessage({
+			action = 'setSeatbelt',
+			data = { toggled = true, buckled = true }
+		})
+
 		SetFlyThroughWindscreenParams(1000.0, 1000.0, 0.0, 0.0)
 		lib.disableControls:Add(75)
 		Buckled()
 	else
-		SendMessage('playSound', 'unbuckle')
-		SendMessage('setSeatbelt', { toggled = true, buckled = false })
+		SendNUIMessage({
+			action = 'playSound',
+			data = 'unbuckle'
+		})
+
+		SendNUIMessage({
+			action = 'setSeatbelt',
+			data = { toggled = true, buckled = false }
+		})
+
 		SetFlyThroughWindscreenParams(15.0, 20.0, 17.0, 2000.0)
 		lib.disableControls:Remove(75)
 	end
@@ -34,7 +50,12 @@ CreateThread(function()
 		if HUD then
 			local isPedUsingAnyVehicle = cache.vehicle and true or false
 			if isPedUsingAnyVehicle ~= inVehicle then
-				SendMessage('setSeatbelt', { toggled = isPedUsingAnyVehicle })
+
+				SendNUIMessage({
+					action = 'setSeatbelt',
+					data = { toggled = isPedUsingAnyVehicle }
+				})
+
 				if not isPedUsingAnyVehicle and isBuckled then isBuckled = false end
 				inVehicle = isPedUsingAnyVehicle
 			end
@@ -46,7 +67,7 @@ end)
 lib.addKeybind({
 	name = 'seatbelt',
 	description = 'Toggle Seatbelt',
-	defaultKey = GetConvar('hud:seatbeltKey', 'B'),
+	defaultKey = client.seatbeltkey,
 	onPressed = function()
 		if cache.vehicle then
 			local curVehicleClass = GetVehicleClass(cache.vehicle)

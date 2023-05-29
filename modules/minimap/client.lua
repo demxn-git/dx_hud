@@ -1,9 +1,9 @@
-local mapState = 1
-local persistentRadar = GetConvarInt('hud:persistentRadar', false) == 1
-local circlemap = GetConvarInt('hud:circleMap', true) == 1
-local mapLimit = circlemap == 1 and circlemap or 3
+if not lib then return end
 
-if persistentRadar then
+local mapState = 1
+local mapLimit = client.circlemap and 1 or 3
+
+if client.persistentradar then
     local function setRadarState()
         if mapState == 0 then
             DisplayRadar(false)
@@ -27,7 +27,7 @@ if persistentRadar then
     lib.addKeybind({
         name = 'cyclemap',
         description = 'Cycle Map',
-        defaultKey = GetConvar('hud:cyclemapKey', 'Z'),
+        defaultKey = client.circlemapkey,
         onPressed = function()
             if mapState == mapLimit then
                 mapState = 0
@@ -49,7 +49,7 @@ CreateThread(function()
             ScaleformMovieMethodAddParamInt(3)
             EndScaleformMovieMethod()
 
-            if not persistentRadar then
+            if not client.persistentradar then
                 local isRadarHidden = IsRadarHidden()
                 local isPedUsingAnyVehicle = cache.vehicle and true or false
                 if isPedUsingAnyVehicle == isRadarHidden then

@@ -1,5 +1,4 @@
-if GetConvarInt('hud:voice', false) == 0 then return end
-local service = GetConvar('hud:voiceService', 'pma-voice')
+if not lib or not client.voice then return end
 
 local voiceCon, voiceDisc
 local isTalking, isSilent
@@ -7,24 +6,35 @@ local isTalking, isSilent
 CreateThread(function()
 	while true do
 		if HUD then
-			if service == 'pma-voice' then
+			if client.voiceservice == 'pma-voice' then
 				voiceCon = MumbleIsConnected()
 				isTalking = NetworkIsPlayerTalking(cache.playerId)
 			end
 
-			if service == 'pma-voice' and voiceCon
-				or service == 'saltychat' and voiceCon > 0
-			then
+			if client.voiceservice == 'pma-voice' and voiceCon or client.voiceservice == 'saltychat' and voiceCon > 0 then
+				voiceDisc = false
+
 				if isTalking then
-					SendMessage('setVoice', isTalking)
+					SendNUIMessage({
+						action = 'setVoice',
+						data = isTalking
+					})
+
 					isSilent = false
 				elseif not isSilent then
-					SendMessage('setVoice', isTalking)
+					SendNUIMessage({
+						action = 'setVoice',
+						data = isTalking
+					})
+
 					isSilent = true
 				end
-				voiceDisc = false
 			elseif not voiceDisc then
-				SendMessage('setVoice', 'disconnected')
+				SendNUIMessage({
+					action = 'setvoice',
+					data = 'disconnected'
+				})
+
 				voiceDisc = true
 				isSilent = nil
 			end
@@ -33,11 +43,14 @@ CreateThread(function()
 	end
 end)
 
-if service == 'pma-voice' then
+if client.voiceservice == 'pma-voice' then
 	AddEventHandler('pma-voice:setTalkingMode', function(mode)
-		SendMessage('setVoiceRange', mode)
+		SendNUIMessage({
+			action = 'setVoiceRange',
+			data = mode
+		})
 	end)
-elseif service == 'saltychat' then
+elseif client.voiceservice == 'saltychat' then
 	AddEventHandler('SaltyChat_PluginStateChanged', function(_voiceCon)
 		voiceCon = _voiceCon
 	end)
@@ -47,6 +60,9 @@ elseif service == 'saltychat' then
 	end)
 
 	AddEventHandler('SaltyChat_VoiceRangeChanged', function(range, index, count)
-		SendMessage('setVoiceRange', index)
+		SendNUIMessage({
+			action = 'setVoiceRange',
+			data = index
+		})
 	end)
 end

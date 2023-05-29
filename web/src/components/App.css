@@ -70,11 +70,10 @@ img {
 
 #Logo {
   position: absolute;
-  top: 20px;
+  top: 40px;
   right: 40px;
-  max-width: 128px;
+  max-width: 100px;
   opacity: 0.8;
-  display: none;
 }
 
 /* Animations */

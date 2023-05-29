@@ -1,75 +1,15 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <title>dx_hud</title>
   </head>
-
   <body>
-    <div id="Container">
-      <div id="IconsContainer">
-        <div id="Icons">
-          <div id="VoiceIndicator" class="Icon">
-            <i id="VoiceIcon" class="fas fa-times"></i>
-          </div>
-
-          <div id="HealthIndicator" class="Icon">
-            <i id="HealthIcon" class="fas fa-heart"></i>
-          </div>
-
-          <div id="ArmourIndicator" class="Icon">
-            <i id="ArmourIcon" class="fas fa-shield-alt"></i>
-          </div>
-
-          <div id="StaminaIndicator" class="Icon">
-            <i id="StaminaIcon" class="fas fa-running"></i>
-          </div>
-
-          <div id="HungerIndicator" class="Icon">
-            <i id="HungerIcon" class="fas fa-hamburger"></i>
-          </div>
-
-          <div id="ThirstIndicator" class="Icon">
-            <i id="ThirstIcon" class="fas fa-tint"></i>
-          </div>
-
-          <div id="StressIndicator" class="Icon">
-            <i id="StressIcon" class="fas fa-brain"></i>
-          </div>
-
-          <div id="OxygenIndicator" class="Icon">
-            <i id="OxygenIcon" class="fas fa-lungs"></i>
-          </div>
-
-          <div id="FuelIndicator" class="Icon">
-            <i id="FuelIcon" class="fas fa-gas-pump"></i>
-          </div>
-
-          <div id="SpeedIndicator" class="Icon">
-            <i id="SpeedIcon" class="fas fa-tachometer-alt"></i>
-          </div>
-
-          <i id="SeatbeltIcon" class="fas fa-user-slash outerIcon"></i>
-
-          <div id="ID" class="outerIcon"></div>
-        </div>
-      </div>
-    </div>
-    <div id="Logo">
-      <img src="assets/images/logo.png" />
-    </div>
-
-    <audio id="buckle" src="assets/sounds/buckle.ogg" preload></audio>
-    <audio id="unbuckle" src="assets/sounds/unbuckle.ogg" preload></audio>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/0.6.1/progressbar.min.js"
-      integrity="sha512-7IoDEsIJGxz/gNyJY/0LRtS45wDSvPFXGPuC7Fo4YueWMNOmWKMAllEqo2Im3pgOjeEwsOoieyliRgdkZnY0ow=="
-      crossorigin="anonymous"
-    ></script>
-    <script type="module" src="js/listener.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
