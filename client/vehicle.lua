@@ -22,28 +22,30 @@ local electricModels = {
 	[`voltic2`] = true,
 }
 
-CreateThread(function()
-	while true do
-		if HUD then
-			if cache.vehicle then
-				local model = GetEntityModel(cache.vehicle)
-
+lib.onCache('vehicle', function(value)
+	if not HUD then return end
+	if value then
+		CreateThread(function()
+			while value do
+				if not HUD then break end
+				local vehicle = cache.vehicle
+				local model = GetEntityModel(vehicle)
+						
 				SendMessage('setVehicle', {
 					speed = {
 						current = GetEntitySpeed(cache.vehicle),
 						max = GetVehicleModelMaxSpeed(model)
 					},
 					unitsMultiplier = GetConvar('hud:unitsystem', 'imperial') == 'metric' and 3.6 or 2.236936,
-					fuel = GetConvarInt('hud:fuel', false) == 1 and not IsThisModelABicycle(model) and
-						GetVehicleFuelLevel(cache.vehicle),
+					fuel = GetConvarInt('hud:fuel', false) == 1 and not IsThisModelABicycle(model) and GetVehicleFuelLevel(cache.vehicle),
+					maxFuel = GetConvarInt('hud:fuel', false) == 1 and not IsThisModelABicycle(model) and GetVehicleHandlingFloat(vehicle, 'CHandlingData', 'fPetrolTankVolume'),
 					electric = electricModels[model]
 				})
-				offVehicle = false
-			elseif not offVehicle then
-				SendMessage('setVehicle', false)
-				offVehicle = true
+						
+				Wait(1)
 			end
-		end
-		Wait(200)
+		end)
+	else
+		SendMessage('setVehicle', false)
 	end
 end)
