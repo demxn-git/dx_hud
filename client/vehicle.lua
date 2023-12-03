@@ -29,6 +29,7 @@ lib.onCache('vehicle', function(value)
 			while value do
 				if not HUD then break end
 				local vehicle = cache.vehicle
+				if not vehicle then break end
 				local model = GetEntityModel(vehicle)
 						
 				SendMessage('setVehicle', {
