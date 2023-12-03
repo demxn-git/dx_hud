@@ -44,6 +44,7 @@ lib.onCache('vehicle', function(value)
 						
 				Wait(1)
 			end
+				SendMessage('setVehicle', false)
 		end)
 	else
 		SendMessage('setVehicle', false)
