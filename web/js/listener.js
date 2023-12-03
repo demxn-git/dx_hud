@@ -134,7 +134,7 @@ window.onload = (event) => {
         let speed = data.speed.current * data.unitsMultiplier;
         let maxSpeed = data.speed.max * data.unitsMultiplier;
         let percSpeed = (speed / maxSpeed) * 0.7;
-        let fuel = data.fuel && data.fuel / 100;
+        let fuel = data.fuel && data.fuel / data.maxFuel;
 
         percSpeed > 1 && (percSpeed = 1);
         percSpeed >= 0.01 && SpeedIcon.classList.remove("fa-tachometer-alt");
