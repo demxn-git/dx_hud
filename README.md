@@ -1,3 +1,9 @@
+# ** DISCONTINUED / WON'T FIX **
+
+I want to express my gratitude for the support during the development of dx_hud. However, I've decided to discontinue its development as my interests have shifted. I'm now focusing on my real job and life goals. Thank you all for the great journey.
+
+Moving forward, I will consider merging only very small fixes directly into the repository as long as it exists. For any other substantial changes, I encourage you to fork the repository and proceed with the necessary modifications.
+
 # dx_hud
 
 dx_hud is a FiveM HUD for ox_core or ESX Legacy.

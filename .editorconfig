@@ -14,3 +14,6 @@ indent_style = space
 [*.lua]
 indent_size = 4
 indent_style = tab
+
+[*.{md,markdown}]
+trim_trailing_whitespace = unset
